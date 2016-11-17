@@ -19,7 +19,7 @@ public class Login extends AppCompatActivity {
                 WindowManager.LayoutParams.FLAG_FULLSCREEN);
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_login);
-        Button register = (Button) findViewById(R.id.btn_register);
+        Button register = (Button) findViewById(R.id.btn_registerL);
 
         register.setOnClickListener(new View.OnClickListener() {
             public void onClick(View v) {
