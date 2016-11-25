@@ -1,4 +1,4 @@
-package com.example.emile1.findaparty;
+package com.example.emile1.findaparty.Activity;
 
 import android.content.pm.ActivityInfo;
 import android.support.v7.app.AppCompatActivity;
@@ -7,6 +7,8 @@ import android.view.View;
 import android.view.Window;
 import android.view.WindowManager;
 import android.widget.Button;
+
+import com.example.emile1.findaparty.R;
 
 public class Register extends AppCompatActivity {
 

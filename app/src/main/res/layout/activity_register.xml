@@ -2,6 +2,7 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     xmlns:app="http://schemas.android.com/apk/res-auto"
+
     android:id="@+id/activity_register"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
@@ -10,7 +11,9 @@
     android:paddingRight="@dimen/activity_horizontal_margin"
     android:paddingTop="40dp"
     android:orientation="vertical"
-    tools:context="com.example.emile1.findaparty.Register">
+
+    tools:context="com.example.emile1.findaparty.Activity.Register">
+
 
     <TextView
         android:id="@+id/firstName_label"
@@ -84,6 +87,7 @@
         android:textColor="@color/textViews"/>
     <EditText
         android:id="@+id/email_hint_register"
+        android:theme="@style/Theme.App.Base"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginLeft="15dp"
