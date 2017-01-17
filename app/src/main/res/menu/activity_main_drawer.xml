@@ -8,7 +8,7 @@
             android:title="My LANS" />
         <item
             android:id="@+id/nav_gallery"
-            android:icon="@drawable/ic_menu_gallery"
+            android:icon="@drawable/ic_search_black"
             android:title="Search" />
 
         <item

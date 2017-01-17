@@ -16,6 +16,7 @@
     <string name="btn_registerR">Register</string>
     <string name="btn_back_login">Already have an account ?</string>
     <string name="title_activity_login">Sign in</string>
+    <string name="passwordAgain_label">Confirm Password</string>
 
     <!-- Navigation Drawer menu labels -->
     <string name="nav_home">Home</string>

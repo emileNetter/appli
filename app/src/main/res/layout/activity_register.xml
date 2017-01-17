@@ -128,6 +128,37 @@
             android:textSize="@dimen/font_size_edittext"/>
     </android.support.design.widget.TextInputLayout>
 
+    <TextView
+        android:id="@+id/passwordAgain_label_register"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="15dp"
+        android:layout_marginRight="15dp"
+        android:paddingTop="15dp"
+        android:text="@string/passwordAgain_label"
+        android:textSize="@dimen/font_size_textview"
+        android:textColor="@color/textViews"/>
+
+    <android.support.design.widget.TextInputLayout
+        android:id="@+id/etPasswordAgainLayout"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:theme="@style/Theme.App.Base"
+        android:layout_marginLeft="15dp"
+        android:layout_marginRight="15dp"
+        app:passwordToggleEnabled="true"
+        app:hintEnabled="false">
+
+        <android.support.design.widget.TextInputEditText
+            android:id="@+id/etPasswordAgain"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:hint="@string/password_hint"
+            android:textColorHint="@color/editTexts"
+            android:inputType="textPassword"
+            android:textSize="@dimen/font_size_edittext"/>
+    </android.support.design.widget.TextInputLayout>
+
     <Button
         android:id="@+id/btn_registerR"
         android:layout_width="match_parent"
