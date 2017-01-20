@@ -18,6 +18,9 @@
     <string name="title_activity_login">Sign in</string>
     <string name="passwordAgain_label">Confirm Password</string>
 
+    <!-- Register page -->
+    <string name="date_picker_label">Select date</string>
+
     <!-- Navigation Drawer menu labels -->
     <string name="nav_home">Home</string>
     <string name="nav_photos">Photos</string>

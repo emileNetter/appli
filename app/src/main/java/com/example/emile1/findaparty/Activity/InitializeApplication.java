@@ -15,8 +15,5 @@ public class InitializeApplication extends Application {
                 .clientKey("&emilenetter33!")
                 .server("https://find-a-lan.herokuapp.com/parse") // The trailing slash is important.
                 .build());
-        ParseObject testObject = new ParseObject("TestObject");
-        testObject.put("foo", "bar");
-        testObject.saveInBackground();
     }
 }
