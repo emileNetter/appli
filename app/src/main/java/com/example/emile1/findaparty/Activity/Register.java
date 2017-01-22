@@ -68,6 +68,7 @@ public class Register extends AppCompatActivity  {
 
         showDatePicker();
         setTextChangedEvents();
+
         register.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -83,6 +84,7 @@ public class Register extends AppCompatActivity  {
 
     }
 
+    //set all textlistener for the Edit Texts
     public void setTextChangedEvents(){
         firstNameEditText.addTextChangedListener(new CustomTextWatcher(firstNameEditText,firstNameLayout));
         lastNameEditText.addTextChangedListener(new CustomTextWatcher(lastNameEditText,lastNameLayout));
@@ -119,6 +121,7 @@ public class Register extends AppCompatActivity  {
         });
 
     }
+
     // do all the verification before registering a new user
     public void register(){
         String email = emailEditText.getText().toString().trim();
@@ -152,7 +155,7 @@ public class Register extends AppCompatActivity  {
 
     }
 
-    public final static boolean isValidEmail(CharSequence target) {
+    public static boolean isValidEmail(CharSequence target) {
         return !TextUtils.isEmpty(target) && android.util.Patterns.EMAIL_ADDRESS.matcher(target).matches();
     }
 

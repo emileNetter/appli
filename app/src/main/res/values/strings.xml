@@ -12,13 +12,13 @@
     <string name="firstName_hint"><font size="12">First Name</font></string>
     <string name="last_name_label">Last Name</string>
     <string name="last_name_hint"><font size="12">Last Name</font></string>
-    <string name="yearOfBirth">Year Of Birth</string>
-    <string name="yearOfBirth_hint"><font size="12">Year Of Birth</font></string>
+    <string name="yearOfBirth">Birth Date</string>
+    <string name="yearOfBirth_hint"><font size="12">Birth Date</font></string>
     <string name="btn_registerR">Register</string>
     <string name="btn_back_login">Already have an account ?</string>
     <string name="title_activity_login">Sign in</string>
     <string name="passwordAgain_label">Confirm Password</string>
-
+    <string name="password_hint_login">Password</string>
     <!-- Register page -->
     <string name="date_picker_label">Select date</string>
     <string name="error_intro">Please enter all the required information</string>

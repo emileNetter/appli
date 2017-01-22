@@ -159,6 +159,7 @@
                 android:layout_marginLeft="15dp"
                 android:layout_marginRight="15dp"
                 app:passwordToggleEnabled="true"
+                app:passwordToggleTint="@color/colorPrimary"
                 app:hintEnabled="false">
 
                 <android.support.design.widget.TextInputEditText
@@ -189,6 +190,7 @@
                 android:theme="@style/Theme.App.Base"
                 android:layout_marginLeft="15dp"
                 android:layout_marginRight="15dp"
+                app:passwordToggleEnabled="false"
                 app:hintEnabled="false">
 
                 <android.support.design.widget.TextInputEditText

@@ -61,7 +61,7 @@
             android:id="@+id/etPassword"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:hint="@string/password_hint"
+            android:hint="@string/password_hint_login"
             android:textSize="@dimen/font_size_edittext"
             android:textColorHint="@color/editTexts"
             android:inputType="textPassword"/>
