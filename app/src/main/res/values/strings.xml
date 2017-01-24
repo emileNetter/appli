@@ -1,25 +1,25 @@
 <resources>
     <string name="app_name">FindAParty</string>
+
+    <string name="password_label">Password</string>
+
+
+
+    <string name="title_activity_login">Sign in</string>
+    <string name="passwordAgain_label">Confirm Password</string>
+    <string name="password_hint_login">Password</string>
+
+    <!-- Register page -->
     <string name="password_hint"><font size="12">Password (6 characters min)</font></string>
     <string name="password_confirm"><font size="12">Confirm Password</font></string>
-    <string name="password_label">Password</string>
-    <string name="email_hint"><font size="12">Email</font></string>
-    <string name="email_label">Email</string>
-    <string name="btn_login">Log In</string>
-    <string name="btn_registerL"><font size="11">No account ? Register here</font></string>
-    <string name="btn_retrieve_password"><font size="11">Forgot your password ?</font></string>
+    <string name="btn_registerR">Register</string>
+    <string name="btn_back_login">Already have an account ?</string>
     <string name="firstName_label">First Name</string>
     <string name="firstName_hint"><font size="12">First Name</font></string>
     <string name="last_name_label">Last Name</string>
     <string name="last_name_hint"><font size="12">Last Name</font></string>
     <string name="yearOfBirth">Birth Date</string>
     <string name="yearOfBirth_hint"><font size="12">Birth Date</font></string>
-    <string name="btn_registerR">Register</string>
-    <string name="btn_back_login">Already have an account ?</string>
-    <string name="title_activity_login">Sign in</string>
-    <string name="passwordAgain_label">Confirm Password</string>
-    <string name="password_hint_login">Password</string>
-    <!-- Register page -->
     <string name="date_picker_label">Select date</string>
     <string name="error_intro">Please enter all the required information</string>
     <string name="error_join">Oops, can\'t register you ! Verify your information</string>
@@ -29,7 +29,15 @@
     <string name="error_email">Please verify you email address</string>
     <string name="progress_signup">Signing Up...</string>
 
+    <!-- Login Page -->
+    <string name="progress_login">Loging In...</string>
+
     <!-- Navigation Drawer menu labels -->
+    <string name="email_hint"><font size="12">Email</font></string>
+    <string name="email_label">Email</string>
+    <string name="btn_login">Log In</string>
+    <string name="btn_registerL"><font size="11">No account ? Register here</font></string>
+    <string name="btn_retrieve_password"><font size="11">Forgot your password ?</font></string>
     <string name="nav_home">Home</string>
     <string name="nav_photos">Photos</string>
     <string name="nav_movies">Movies</string>

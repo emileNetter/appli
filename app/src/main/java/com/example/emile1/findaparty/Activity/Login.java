@@ -1,5 +1,6 @@
 package com.example.emile1.findaparty.Activity;
 
+import android.app.ProgressDialog;
 import android.content.Intent;
 import android.content.pm.ActivityInfo;
 import android.support.design.widget.TextInputLayout;
@@ -80,6 +81,13 @@ public class Login extends AppCompatActivity {
             passwordLayout.setErrorEnabled(true);
             passwordLayout.setError("You must enter a password");
         }
+
+        // Set up a progress dialog
+        final ProgressDialog dialog = new ProgressDialog(Login.this);
+        dialog.setMessage(getString(R.string.progress_login));
+        dialog.show();
+
+        
 
     }
 
