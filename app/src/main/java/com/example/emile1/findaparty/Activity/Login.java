@@ -32,6 +32,7 @@ public class Login extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_login);
 
+        //set edit text and buttons
         emailEditText = (EditText) findViewById(R.id.etEmailLogin);
         passwordEditText = (EditText) findViewById(R.id.etPasswordLogin);
         emailLayout = (TextInputLayout) findViewById(R.id.emailLoginLayout);
@@ -41,7 +42,7 @@ public class Login extends AppCompatActivity {
         Button login = (Button) findViewById(R.id.btn_login);
 
         setTextChanged();
-        
+
         login.setOnClickListener(new View.OnClickListener(){
             public void onClick(View v){
                 login();
@@ -56,10 +57,12 @@ public class Login extends AppCompatActivity {
             }
         });
         }
+
     public void setTextChanged(){
-        passwordEditText.addTextChangedListener(new CustomTextWatcher(passwordEditText,passwordLayout));
-        emailEditText.addTextChangedListener(new CustomTextWatcher(emailEditText,emailLayout));
+        passwordEditText.addTextChangedListener(new CustomTextWatcher(passwordLayout));
+        emailEditText.addTextChangedListener(new CustomTextWatcher(emailLayout));
     }
+
     public void login(){
         String email = emailEditText.getText().toString().trim();
         String password = passwordEditText.getText().toString().trim();

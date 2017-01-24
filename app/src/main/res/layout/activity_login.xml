@@ -26,7 +26,10 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_below="@id/email_label_login"
-        android:id="@+id/emailLoginLayout">
+        android:layout_marginLeft="15dp"
+        android:layout_marginRight="15dp"
+        android:id="@+id/emailLoginLayout"
+        app:hintEnabled="false">
 
         <EditText
             android:layout_width="match_parent"
@@ -36,9 +39,7 @@
             android:inputType="textEmailAddress"
             android:hint="@string/email_hint"
             android:textSize="@dimen/font_size_edittext"
-            android:textColorHint="@color/editTexts"
-            android:layout_marginLeft="15dp"
-            android:layout_marginRight="15dp"/>
+            android:textColorHint="@color/editTexts" />
     </android.support.design.widget.TextInputLayout>
 
 

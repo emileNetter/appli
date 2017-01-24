@@ -106,11 +106,11 @@ public class Register extends AppCompatActivity  {
 
     //set all textlistener for the Edit Texts
     public void setTextChangedEvents(){
-        firstNameEditText.addTextChangedListener(new CustomTextWatcher(firstNameEditText,firstNameLayout));
-        lastNameEditText.addTextChangedListener(new CustomTextWatcher(lastNameEditText,lastNameLayout));
-        emailEditText.addTextChangedListener(new CustomTextWatcher(emailEditText,emailLayout));
-        passwordEditText.addTextChangedListener(new CustomTextWatcher(passwordEditText,passwordLayout));
-        passwordAgainEditText.addTextChangedListener(new CustomTextWatcher(passwordAgainEditText,passwordAgainLayout));
+        firstNameEditText.addTextChangedListener(new CustomTextWatcher(firstNameLayout));
+        lastNameEditText.addTextChangedListener(new CustomTextWatcher(lastNameLayout));
+        emailEditText.addTextChangedListener(new CustomTextWatcher(emailLayout));
+        passwordEditText.addTextChangedListener(new CustomTextWatcher(passwordLayout));
+        passwordAgainEditText.addTextChangedListener(new CustomTextWatcher(passwordAgainLayout));
 
     }
 
