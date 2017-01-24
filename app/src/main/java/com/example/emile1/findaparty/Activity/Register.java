@@ -1,6 +1,8 @@
 package com.example.emile1.findaparty.Activity;
 
 import android.app.DatePickerDialog;
+import android.app.ProgressDialog;
+import android.content.Intent;
 import android.content.pm.ActivityInfo;
 import android.support.design.widget.TextInputLayout;
 import android.support.v7.app.AppCompatActivity;
@@ -8,26 +10,34 @@ import android.os.Bundle;
 import android.text.Editable;
 import android.text.TextUtils;
 import android.text.TextWatcher;
+import android.view.KeyEvent;
 import android.view.View;
 import android.view.Window;
 import android.view.WindowManager;
+import android.view.inputmethod.EditorInfo;
 import android.widget.Button;
 import android.widget.DatePicker;
 import android.widget.EditText;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.example.emile1.findaparty.R;
+import com.parse.ParseException;
+import com.parse.ParseUser;
+import com.parse.SignUpCallback;
 
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.Locale;
+
+import static com.parse.ParseException.USERNAME_TAKEN;
 
 public class Register extends AppCompatActivity  {
 
     private EditText passwordEditText;
     private EditText passwordAgainEditText;
     private EditText emailEditText;
-    private EditText dateBirth;
+    private EditText birthDateEditText;
     private EditText firstNameEditText;
     private EditText lastNameEditText;
     private Button register;
@@ -81,6 +91,16 @@ public class Register extends AppCompatActivity  {
                 finish();
             }
         });
+        passwordAgainEditText.setOnEditorActionListener(new TextView.OnEditorActionListener() {
+            @Override
+            public boolean onEditorAction(TextView v, int actionId, KeyEvent event) {
+                if(actionId == EditorInfo.IME_ACTION_DONE){
+                    register();
+                    return true;
+                }
+                return false;
+            }
+        });
 
     }
 
@@ -96,24 +116,26 @@ public class Register extends AppCompatActivity  {
 
     // display a date picker when the edittext is clicked on
     public void showDatePicker() {
-        dateBirth = (EditText)findViewById(R.id.etDate_of_birth);
-        dateBirth.setOnClickListener(new View.OnClickListener() {
+        birthDateEditText = (EditText)findViewById(R.id.etDate_of_birth);
+        birthDateEditText.setOnClickListener(new View.OnClickListener() {
 
             @Override
             public void onClick(View v) {
                 // TODO Auto-generated method stub
                 //To show current date in the datepicker
                 final Calendar c = Calendar.getInstance();
-                int mYear = c.get(Calendar.YEAR);
-                int mMonth = c.get(Calendar.MONTH);
-                int mDay = c.get(Calendar.DAY_OF_MONTH);
+                final int mYear = c.get(Calendar.YEAR);
+                final int mMonth = c.get(Calendar.MONTH);
+                final int mDay = c.get(Calendar.DAY_OF_MONTH);
 
                 DatePickerDialog mDatePicker=new DatePickerDialog(Register.this, new DatePickerDialog.OnDateSetListener() {
-                    public void onDateSet(DatePicker datepicker, int selectedyear, int selectedmonth, int selectedday) {
+                    public void onDateSet(DatePicker datepicker, int selectedyear, int selectedmonth, int selectedDay) {
                         String myFormat = "dd/MM/yy"; //In which you need put here
+                        int mmonth = selectedmonth+1;
+                        String mdate = selectedDay+"/"+mmonth+"/"+selectedyear;
                         SimpleDateFormat sdf = new SimpleDateFormat(myFormat, Locale.ENGLISH);
 
-                        dateBirth.setText(sdf.format(c.getTime()));
+                        birthDateEditText.setText(mdate);
                     }
                 },mYear, mMonth, mDay);
                 mDatePicker.setTitle("Select Date");
@@ -129,6 +151,7 @@ public class Register extends AppCompatActivity  {
         String lastName = lastNameEditText.getText().toString().trim();
         String password = passwordEditText.getText().toString().trim();
         String passwordAgain = passwordAgainEditText.getText().toString().trim();
+        String birthDate = birthDateEditText.getText().toString().trim();
 
         // Validate the sign up data
         if (firstName.length()==0){
@@ -152,6 +175,38 @@ public class Register extends AppCompatActivity  {
             passwordAgainLayout.setError("Your passwords don\'t match");
 
         }
+
+        // Set up a progress dialog
+        final ProgressDialog dialog = new ProgressDialog(Register.this);
+        dialog.setMessage(getString(R.string.progress_signup));
+        dialog.show();
+
+        // Set up a new Parse user
+        ParseUser user = new ParseUser();
+        user.setUsername(email);
+        user.setPassword(password);
+        user.setEmail(email);
+        user.put("dateOfBirth",birthDate);
+        user.put("firstName",firstName);
+        user.put("lastName",lastName);
+
+        // Call the Parse signup method
+        user.signUpInBackground(new SignUpCallback() {
+            @Override
+            public void done(ParseException e) {
+                dialog.dismiss();
+                if (e != null) {
+                    // Show the error message
+                    Toast.makeText(Register.this, e.getMessage(), Toast.LENGTH_LONG).show();
+                } else {
+                    // Start an intent for the dispatch activity
+                    Intent intent = new Intent(Register.this, DispatchActivity.class);
+                    intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK | Intent.FLAG_ACTIVITY_NEW_TASK);
+                    startActivity(intent);
+                }
+            }
+        });
+
 
     }
 

@@ -159,7 +159,7 @@
                 android:layout_marginLeft="15dp"
                 android:layout_marginRight="15dp"
                 app:passwordToggleEnabled="true"
-                app:passwordToggleTint="@color/colorPrimary"
+                app:passwordToggleTint="@color/password_toggle"
                 app:hintEnabled="false">
 
                 <android.support.design.widget.TextInputEditText

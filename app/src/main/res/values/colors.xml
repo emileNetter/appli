@@ -8,4 +8,5 @@
     <color name="accent">#55C5C5C5</color>
     <color name="textViews">#f5f7f7f7</color>
     <color name="editTexts">#2adadada</color>
+    <color name="password_toggle">#b1aeae</color>
 </resources>

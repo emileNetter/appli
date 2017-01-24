@@ -27,6 +27,7 @@
     <string name="error_mismatched_passwords">Your passwords doesn\'t match !</string>
     <string name="error_end">An error has occurred, verify your information</string>
     <string name="error_email">Please verify you email address</string>
+    <string name="progress_signup">Signing Up...</string>
 
     <!-- Navigation Drawer menu labels -->
     <string name="nav_home">Home</string>
