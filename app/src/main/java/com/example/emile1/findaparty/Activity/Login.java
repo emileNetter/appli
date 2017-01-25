@@ -4,6 +4,7 @@ import android.app.ProgressDialog;
 import android.content.Intent;
 import android.content.pm.ActivityInfo;
 import android.support.design.widget.TextInputLayout;
+import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
@@ -12,8 +13,12 @@ import android.view.WindowManager;
 import android.widget.Button;
 import android.widget.EditText;
 import android.text.TextUtils;
+import android.widget.Toast;
 
 import com.example.emile1.findaparty.R;
+import com.parse.LogInCallback;
+import com.parse.ParseException;
+import com.parse.ParseUser;
 
 import org.w3c.dom.Text;
 
@@ -67,33 +72,59 @@ public class Login extends AppCompatActivity {
     public void login(){
         String email = emailEditText.getText().toString().trim();
         String password = passwordEditText.getText().toString().trim();
+        Boolean error = false;
 
         //Validate login data
-        if(email.length()==0){
+        if(TextUtils.isEmpty(email)){
+            error=true;
             emailLayout.setErrorEnabled(true);
             emailLayout.setError("You must enter an email");
         }
         if(!isValidEmail(email)){
+            error = true;
             emailLayout.setErrorEnabled(true);
             emailLayout.setError("Wrong email format");
         }
-        if(password.length()==0){
+        if(TextUtils.isEmpty(password)){
+            error = true;
             passwordLayout.setErrorEnabled(true);
             passwordLayout.setError("You must enter a password");
         }
+        if (!error){
+            // Set up a progress dialog
+            final ProgressDialog dialog = new ProgressDialog(Login.this);
+            dialog.setMessage(getString(R.string.progress_login));
+            dialog.show();
 
-        // Set up a progress dialog
-        final ProgressDialog dialog = new ProgressDialog(Login.this);
-        dialog.setMessage(getString(R.string.progress_login));
-        dialog.show();
+            ParseUser.logInInBackground(email, password, new LogInCallback() {
+                @Override
+                public void done(ParseUser user, ParseException e) {
+                    dialog.dismiss();
+                    if (e != null) {
+                        loginUnSuccessful();
+                    } else {
+                        // Start an intent for the dispatch activity
+                        Intent intent = new Intent(Login.this, DispatchActivity.class);
+                        intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK | Intent.FLAG_ACTIVITY_NEW_TASK);
+                        startActivity(intent);
+                    }
+                }
+            });
+        }
 
-        
+
 
     }
 
     public static boolean isValidEmail(CharSequence target) {
         return !TextUtils.isEmpty(target) && android.util.Patterns.EMAIL_ADDRESS.matcher(target).matches();
     }
+
+    public void loginUnSuccessful() {
+        // TODO Auto-generated method stub
+        Toast.makeText(getApplicationContext(), "Email or Password is invalid", Toast.LENGTH_SHORT).show();
+
     }
+}
 
 
