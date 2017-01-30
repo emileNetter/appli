@@ -5,6 +5,7 @@ import android.os.Bundle;
 
 import com.parse.Parse;
 import com.parse.ParseObject;
+import com.parse.ParseUser;
 
 public class InitializeApplication extends Application {
 
@@ -15,5 +16,6 @@ public class InitializeApplication extends Application {
                 .clientKey("&emilenetter33!")
                 .server("https://find-a-lan.herokuapp.com/parse") // The trailing slash is important.
                 .build());
+        ParseUser.enableRevocableSessionInBackground();
     }
 }

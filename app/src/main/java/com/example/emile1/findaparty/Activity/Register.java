@@ -128,7 +128,7 @@ public class Register extends AppCompatActivity  {
                 final int mMonth = c.get(Calendar.MONTH);
                 final int mDay = c.get(Calendar.DAY_OF_MONTH);
 
-                DatePickerDialog mDatePicker=new DatePickerDialog(Register.this, new DatePickerDialog.OnDateSetListener() {
+                DatePickerDialog mDatePicker=new DatePickerDialog(Register.this,R.style.MyDatepicker, new DatePickerDialog.OnDateSetListener() {
                     public void onDateSet(DatePicker datepicker, int selectedyear, int selectedmonth, int selectedDay) {
                         String myFormat = "dd/MM/yy"; //In which you need put here
                         int mmonth = selectedmonth+1;
@@ -138,7 +138,6 @@ public class Register extends AppCompatActivity  {
                         birthDateEditText.setText(mdate);
                     }
                 },mYear, mMonth, mDay);
-                mDatePicker.setTitle("Select Date");
                 mDatePicker.show();  }
         });
 
@@ -189,6 +188,7 @@ public class Register extends AppCompatActivity  {
         user.put("dateOfBirth",birthDate);
         user.put("firstName",firstName);
         user.put("lastName",lastName);
+        final String mail = user.getEmail().toString();
 
         // Call the Parse signup method
         user.signUpInBackground(new SignUpCallback() {
@@ -197,7 +197,7 @@ public class Register extends AppCompatActivity  {
                 dialog.dismiss();
                 if (e != null) {
                     // Show the error message
-                    Toast.makeText(Register.this, e.getMessage(), Toast.LENGTH_LONG).show();
+                    Toast.makeText(Register.this, mail, Toast.LENGTH_LONG).show();
                 } else {
                     // Start an intent for the dispatch activity
                     Intent intent = new Intent(Register.this, DispatchActivity.class);

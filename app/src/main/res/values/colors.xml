@@ -6,7 +6,8 @@
     <color name="buttonLoginColor">#7986cb</color>
     <color name="textButtonLoginColor">#FFFFFF</color>
     <color name="accent">#55C5C5C5</color>
-    <color name="textViews">#f5f7f7f7</color>
-    <color name="editTexts">#2adadada</color>
+    <color name="textViews">#383a3b</color>
+    <color name="editTexts">#9d9f9f</color>
     <color name="password_toggle">#b1aeae</color>
+    <color name="datepicker">#7986cb</color>
 </resources>

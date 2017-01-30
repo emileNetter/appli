@@ -9,7 +9,9 @@
     android:paddingLeft="@dimen/activity_horizontal_margin"
     android:paddingRight="@dimen/activity_horizontal_margin"
     android:paddingTop="@dimen/activity_vertical_margin"
-    tools:context="com.example.emile1.findaparty.Activity.Login">
+    tools:context="com.example.emile1.findaparty.Activity.Login"
+    android:elevation="1dp"
+    android:theme="@style/Theme.App.Base">
 
     <TextView
         android:id="@+id/email_label_login"
@@ -73,7 +75,8 @@
             android:hint="@string/password_hint_login"
             android:textSize="@dimen/font_size_edittext"
             android:textColorHint="@color/editTexts"
-            android:inputType="textPassword"/>
+            android:inputType="textPassword"
+            android:elevation="1dp" />
     </android.support.design.widget.TextInputLayout>
 
     <Button
@@ -84,13 +87,12 @@
         android:layout_marginTop="25dp"
         android:background="@drawable/btn_login"
         android:padding="15dp"
-        android:textColor="@color/textButtonLoginColor"
         android:layout_marginLeft="15dp"
         android:layout_marginRight="15dp"
+        android:textSize="18dp"
         android:text="@string/btn_login"
-        android:textSize="@dimen/btn_login"
-        android:onClick="login"
-        android:textAllCaps="false" />
+        android:textAppearance="@style/TextAppearance.AppCompat.Button"
+        android:textColor="@android:color/white" />
 
     <Button
         android:id="@+id/btn_registerL"
@@ -102,7 +104,8 @@
         android:layout_below="@id/btn_login"
         android:text="@string/btn_registerL"
         android:textSize="@dimen/btn_small"
-        android:textAllCaps="false" />
+        android:textAllCaps="false"
+        android:maxLines="2"/>
     <Button
         android:id="@+id/btn_retrieve_password"
         android:layout_width="120dp"
@@ -113,6 +116,7 @@
         android:layout_below="@id/btn_login"
         android:text="@string/btn_retrieve_password"
         android:textSize="@dimen/btn_small"
-        android:textAllCaps="false"/>
+        android:textAllCaps="false"
+        android:maxLines="2"/>
 
 </RelativeLayout>

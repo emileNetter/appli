@@ -3,11 +3,9 @@
 
     <string name="password_label">Password</string>
 
-
-
     <string name="title_activity_login">Sign in</string>
     <string name="passwordAgain_label">Confirm Password</string>
-    <string name="password_hint_login">Password</string>
+    <string name="password_hint_login"><font size="12">Password</font></string>
 
     <!-- Register page -->
     <string name="password_hint"><font size="12">Password (6 characters min)</font></string>
@@ -27,17 +25,17 @@
     <string name="error_mismatched_passwords">Your passwords doesn\'t match !</string>
     <string name="error_end">An error has occurred, verify your information</string>
     <string name="error_email">Please verify you email address</string>
-    <string name="progress_signup">Signing Up...</string>
+    <string name="progress_signup">Signing Up&#8230;</string>
 
     <!-- Login Page -->
-    <string name="progress_login">Loging In...</string>
+    <string name="progress_login">Loging In&#8230;</string>
 
     <!-- Navigation Drawer menu labels -->
     <string name="email_hint"><font size="12">Email</font></string>
     <string name="email_label">Email</string>
     <string name="btn_login">Log In</string>
-    <string name="btn_registerL"><font size="11">No account ? Register here</font></string>
-    <string name="btn_retrieve_password"><font size="11">Forgot your password ?</font></string>
+    <string name="btn_registerL"><font size="10">No account ? Register here</font></string>
+    <string name="btn_retrieve_password"><font size="10">Forgot your password ?</font></string>
     <string name="nav_home">Home</string>
     <string name="nav_photos">Photos</string>
     <string name="nav_movies">Movies</string>

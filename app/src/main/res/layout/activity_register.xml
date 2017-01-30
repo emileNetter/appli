@@ -4,7 +4,8 @@
     android:layout_width="fill_parent"
     android:layout_height="fill_parent"
     android:descendantFocusability="beforeDescendants"
-    android:focusableInTouchMode="true" >
+    android:theme="@style/Theme.App.Base"
+    android:focusableInTouchMode="true">
 
     <ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
         android:id="@+id/scrollViewRegister"
@@ -46,11 +47,11 @@
 
                 <android.support.design.widget.TextInputEditText
                     android:id="@+id/etFirst_name"
-                    android:theme="@style/Theme.App.Base"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:hint="@string/firstName_hint"
                     android:textColorHint="@color/editTexts"
+                    android:maxLines="1"
                     android:textSize="@dimen/font_size_edittext"/>
             </android.support.design.widget.TextInputLayout>
 
@@ -76,7 +77,6 @@
 
                 <android.support.design.widget.TextInputEditText
                     android:id="@+id/etLast_name"
-                    android:theme="@style/Theme.App.Base"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:hint="@string/last_name_hint"
@@ -97,14 +97,14 @@
 
             <EditText
                 android:id="@+id/etDate_of_birth"
-                android:theme="@style/Theme.App.Base"
                 android:layout_width="match_parent"
                 android:inputType="date"
                 android:layout_height="wrap_content"
                 android:layout_marginLeft="15dp"
                 android:layout_marginRight="15dp"
-                android:hint="@string/yearOfBirth"
+                android:hint="@string/yearOfBirth_hint"
                 android:textColorHint="@color/editTexts"
+                android:theme="@style/Theme.App.Base"
                 android:focusable="false"
                 android:textSize="@dimen/font_size_edittext" />
 
@@ -187,9 +187,9 @@
                 android:id="@+id/etPasswordAgainLayout"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:theme="@style/Theme.App.Base"
                 android:layout_marginLeft="15dp"
                 android:layout_marginRight="15dp"
+                android:theme="@style/Theme.App.Base"
                 app:passwordToggleEnabled="false"
                 app:hintEnabled="false">
 
@@ -226,10 +226,7 @@
                 android:layout_marginTop="10dp"
                 android:text="@string/btn_back_login"
                 android:textAllCaps="false"
-                android:textColor="@color/textButtonLoginColor"
                 android:textSize="@dimen/btn_small" />
-
-
 
         </LinearLayout>
     </ScrollView>
