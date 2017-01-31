@@ -102,7 +102,8 @@
                 android:layout_marginLeft="15dp"
                 android:layout_marginRight="15dp"
                 android:theme="@style/Theme.App.Base"
-                android:textColorHint="@color/editTexts">
+                android:textColorHint="@color/editTexts"
+                app:hintEnabled="false">
 
                 <android.support.design.widget.TextInputEditText
                     android:id="@+id/etDate_of_birth"
