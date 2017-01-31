@@ -104,7 +104,7 @@ public class Register extends AppCompatActivity  {
 
     }
 
-    //set all textlistener for the Edit Texts
+    //set all text listeners for the Edit Texts
     public void setTextChangedEvents(){
         firstNameEditText.addTextChangedListener(new CustomTextWatcher(firstNameLayout));
         lastNameEditText.addTextChangedListener(new CustomTextWatcher(lastNameLayout));
@@ -151,34 +151,35 @@ public class Register extends AppCompatActivity  {
         String password = passwordEditText.getText().toString().trim();
         String passwordAgain = passwordAgainEditText.getText().toString().trim();
         String birthDate = birthDateEditText.getText().toString().trim();
+        Boolean error = false;
 
         // Validate the sign up data
         if (firstName.length()==0){
+            error=true;
             firstNameLayout.setErrorEnabled(true);
             firstNameLayout.setError("Enter a first name");
         }
         if (lastName.length()==0){
+            error=true;
             lastNameLayout.setErrorEnabled(true);
             lastNameLayout.setError("Enter a last name");
         }
         if (!isValidEmail(email)) {
+            error=true;
             emailLayout.setErrorEnabled(true);
             emailLayout.setError("Wrong email format");
         }
         if (TextUtils.isEmpty(password) || password.length() < 5) {
+            error=true;
             passwordLayout.setErrorEnabled(true);
             passwordLayout.setError("Password is too small");
         }
         if (!password.equals(passwordAgain)) {
+            error=true;
             passwordAgainLayout.setErrorEnabled(true);
             passwordAgainLayout.setError("Your passwords don\'t match");
 
         }
-
-        // Set up a progress dialog
-        final ProgressDialog dialog = new ProgressDialog(Register.this);
-        dialog.setMessage(getString(R.string.progress_signup));
-        dialog.show();
 
         // Set up a new Parse user
         ParseUser user = new ParseUser();
@@ -188,32 +189,37 @@ public class Register extends AppCompatActivity  {
         user.put("dateOfBirth",birthDate);
         user.put("firstName",firstName);
         user.put("lastName",lastName);
-        final String mail = user.getEmail().toString();
 
         // Call the Parse signup method
-        user.signUpInBackground(new SignUpCallback() {
-            @Override
-            public void done(ParseException e) {
-                dialog.dismiss();
-                if (e != null) {
-                    // Show the error message
-                    Toast.makeText(Register.this, mail, Toast.LENGTH_LONG).show();
-                } else {
-                    // Start an intent for the dispatch activity
-                    Intent intent = new Intent(Register.this, DispatchActivity.class);
-                    intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK | Intent.FLAG_ACTIVITY_NEW_TASK);
-                    startActivity(intent);
-                }
-            }
-        });
+        if(!error){
 
+            // Set up a progress dialog
+            final ProgressDialog dialog = new ProgressDialog(Register.this);
+            dialog.setMessage(getString(R.string.progress_signup));
+            dialog.show();
+
+            user.signUpInBackground(new SignUpCallback() {
+                @Override
+                public void done(ParseException e) {
+                    dialog.dismiss();
+                    if (e != null) {
+                        // Show the error message
+                        Toast.makeText(Register.this, e.getMessage(), Toast.LENGTH_LONG).show();
+                    } else {
+                        // Start an intent for the dispatch activity
+                        Intent intent = new Intent(Register.this, DispatchActivity.class);
+                        intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK | Intent.FLAG_ACTIVITY_NEW_TASK);
+                        startActivity(intent);
+                    }
+                }
+            });
+        }
 
     }
 
     public static boolean isValidEmail(CharSequence target) {
         return !TextUtils.isEmpty(target) && android.util.Patterns.EMAIL_ADDRESS.matcher(target).matches();
     }
-
 }
 
 
