@@ -194,7 +194,9 @@ public class Register extends AppCompatActivity  {
             error=true;
             passwordAgainLayout.setErrorEnabled(true);
             passwordAgainLayout.setError("Your passwords don\'t match");
-
+        }
+        if(TextUtils.isEmpty(birthDate)){
+            error =true;
         }
 
         // Set up a new Parse user
