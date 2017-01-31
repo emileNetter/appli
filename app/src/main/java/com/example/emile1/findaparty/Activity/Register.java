@@ -28,6 +28,8 @@ import com.parse.SignUpCallback;
 
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
+import java.util.Date;
+import java.util.GregorianCalendar;
 import java.util.Locale;
 
 import static com.parse.ParseException.USERNAME_TAKEN;
@@ -117,6 +119,26 @@ public class Register extends AppCompatActivity  {
     // display a date picker when the edittext is clicked on
     public void showDatePicker() {
         birthDateEditText = (EditText)findViewById(R.id.etDate_of_birth);
+        final DatePickerDialog.OnDateSetListener listener = new DatePickerDialog.OnDateSetListener() {
+            @Override
+            public void onDateSet(DatePicker view, int selectedyear, int selectedmonth, int selectedDay) {
+                Calendar userAge = new GregorianCalendar(selectedyear,selectedmonth,selectedDay);
+                Calendar minAdultAge = new GregorianCalendar();
+                minAdultAge.add(Calendar.YEAR, -18);
+                if (minAdultAge.before(userAge)) {
+                    Toast.makeText(Register.this,"You must be at least 18 years old !",Toast.LENGTH_LONG).show();
+                } else {
+                    //String myFormat = "dd/MM/yy"; //In which you need put here
+                    int mmonth = selectedmonth+1;
+                    String mdate = selectedDay+"/"+mmonth+"/"+selectedyear;
+                    //SimpleDateFormat sdf = new SimpleDateFormat(myFormat, Locale.ENGLISH);
+
+                    birthDateEditText.setText(mdate);
+                }
+
+            }
+
+        };
         birthDateEditText.setOnClickListener(new View.OnClickListener() {
 
             @Override
@@ -127,18 +149,12 @@ public class Register extends AppCompatActivity  {
                 final int mYear = c.get(Calendar.YEAR);
                 final int mMonth = c.get(Calendar.MONTH);
                 final int mDay = c.get(Calendar.DAY_OF_MONTH);
+                c.add(Calendar.YEAR,-18);
+                final DatePickerDialog mDatePicker=new DatePickerDialog(Register.this,R.style.MyDatepicker, listener,mYear, mMonth, mDay);
+                mDatePicker.getDatePicker().setMaxDate(new Date().getTime());
+                mDatePicker.show();
 
-                DatePickerDialog mDatePicker=new DatePickerDialog(Register.this,R.style.MyDatepicker, new DatePickerDialog.OnDateSetListener() {
-                    public void onDateSet(DatePicker datepicker, int selectedyear, int selectedmonth, int selectedDay) {
-                        String myFormat = "dd/MM/yy"; //In which you need put here
-                        int mmonth = selectedmonth+1;
-                        String mdate = selectedDay+"/"+mmonth+"/"+selectedyear;
-                        SimpleDateFormat sdf = new SimpleDateFormat(myFormat, Locale.ENGLISH);
-
-                        birthDateEditText.setText(mdate);
-                    }
-                },mYear, mMonth, mDay);
-                mDatePicker.show();  }
+            }
         });
 
     }
