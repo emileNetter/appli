@@ -2,10 +2,13 @@ package com.example.emile1.findaparty.Activity;
 
 import android.app.DatePickerDialog;
 import android.app.ProgressDialog;
+import android.content.Context;
 import android.content.Intent;
 import android.content.pm.ActivityInfo;
 import android.graphics.Color;
 import android.graphics.drawable.ColorDrawable;
+import android.net.ConnectivityManager;
+import android.net.NetworkInfo;
 import android.support.design.widget.TextInputLayout;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
@@ -213,32 +216,45 @@ public class Register extends AppCompatActivity  {
         // Call the Parse signup method
         if(!error){
 
-            // Set up a progress dialog
-            final ProgressDialog dialog = new ProgressDialog(Register.this);
-            dialog.setMessage(getString(R.string.progress_signup));
-            dialog.show();
+            if (!isOnline()){
+                Toast.makeText(Register.this, "Check your internet connection and try again", Toast.LENGTH_SHORT).show();
+            } else {
+                // Set up a progress dialog
+                final ProgressDialog dialog = new ProgressDialog(Register.this);
+                dialog.setMessage(getString(R.string.progress_signup));
+                dialog.show();
 
-            user.signUpInBackground(new SignUpCallback() {
-                @Override
-                public void done(ParseException e) {
-                    dialog.dismiss();
-                    if (e != null) {
-                        // Show the error message
-                        Toast.makeText(Register.this, e.getMessage(), Toast.LENGTH_LONG).show();
-                    } else {
-                        // Start an intent for the dispatch activity
-                        Intent intent = new Intent(Register.this, DispatchActivity.class);
-                        intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK | Intent.FLAG_ACTIVITY_NEW_TASK);
-                        startActivity(intent);
+                user.signUpInBackground(new SignUpCallback() {
+                    @Override
+                    public void done(ParseException e) {
+                        dialog.dismiss();
+                        if (e != null) {
+                            // Show the error message
+                            Toast.makeText(Register.this, e.getMessage(), Toast.LENGTH_LONG).show();
+                        }
+                        else {
+                            // Start an intent for the dispatch activity
+                            Intent intent = new Intent(Register.this, DispatchActivity.class);
+                            intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK | Intent.FLAG_ACTIVITY_NEW_TASK);
+                            startActivity(intent);
+                        }
                     }
-                }
-            });
+                });
+            }
+
         }
 
     }
 
     public static boolean isValidEmail(CharSequence target) {
         return !TextUtils.isEmpty(target) && android.util.Patterns.EMAIL_ADDRESS.matcher(target).matches();
+    }
+
+    public boolean isOnline() {
+        ConnectivityManager cm =
+                (ConnectivityManager) getSystemService(Context.CONNECTIVITY_SERVICE);
+        NetworkInfo netInfo = cm.getActiveNetworkInfo();
+        return netInfo!=null && netInfo.isConnected();
     }
 }
 
