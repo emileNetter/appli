@@ -52,7 +52,8 @@
                     android:hint="@string/firstName_hint"
                     android:textColorHint="@color/editTexts"
                     android:maxLines="1"
-                    android:textSize="@dimen/font_size_edittext"/>
+                    android:textSize="@dimen/font_size_edittext"
+                    android:singleLine="true" />
             </android.support.design.widget.TextInputLayout>
 
             <TextView
@@ -81,7 +82,8 @@
                     android:layout_height="wrap_content"
                     android:hint="@string/last_name_hint"
                     android:textColorHint="@color/editTexts"
-                    android:textSize="@dimen/font_size_edittext" />
+                    android:textSize="@dimen/font_size_edittext"
+                    android:singleLine="true" />
             </android.support.design.widget.TextInputLayout>
 
             <TextView

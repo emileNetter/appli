@@ -78,28 +78,27 @@
             android:inputType="textPassword"
             android:elevation="1dp" />
     </android.support.design.widget.TextInputLayout>
-
     <Button
         android:id="@+id/btn_login"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_below="@+id/passwordLoginLayout"
         android:layout_marginTop="25dp"
         android:background="@drawable/btn_login"
         android:padding="15dp"
         android:layout_marginLeft="15dp"
         android:layout_marginRight="15dp"
-        android:textSize="18dp"
+        android:textSize="18sp"
         android:text="@string/btn_login"
         android:textAppearance="@style/TextAppearance.AppCompat.Button"
-        android:textColor="@android:color/white" />
-
+        android:textColor="@android:color/white"
+        android:layout_below="@+id/passwordLoginLayout"
+        android:layout_alignStart="@+id/passwordLoginLayout" />
     <Button
         android:id="@+id/btn_registerL"
         android:layout_width="120dp"
         android:layout_height="wrap_content"
-        android:layout_alignLeft="@id/btn_login"
-        android:layout_marginLeft="20dp"
+        android:layout_alignStart="@id/btn_login"
+        android:layout_marginStart="20dp"
         android:layout_marginTop="10dp"
         android:layout_below="@id/btn_login"
         android:text="@string/btn_registerL"
@@ -118,5 +117,6 @@
         android:textSize="@dimen/btn_small"
         android:textAllCaps="false"
         android:maxLines="2"/>
+
 
 </RelativeLayout>

@@ -29,7 +29,9 @@
 
     <!-- Login Page -->
     <string name="progress_login">Loging In&#8230;</string>
-
+    <!-- Password Reset Page -->
+    <string name="password_reset">Enter your email address to receive password reset instructions</string>
+    <string name="btn_reset">Send</string>
     <!-- Navigation Drawer menu labels -->
     <string name="email_hint"><font size="12">Email</font></string>
     <string name="email_label">Email</string>
