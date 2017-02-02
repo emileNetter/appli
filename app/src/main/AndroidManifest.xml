@@ -26,12 +26,13 @@
         </activity>
         <activity
             android:name=".Activity.Register"
-            android:theme="@style/AppTheme.NoActionBar"></activity>
+            android:theme="@style/AppTheme.NoActionBar" />
         <activity android:name=".Activity.DispatchActivity" />
         <activity
             android:name=".Activity.MainActivity"
             android:label="@string/title_activity_main"
-            android:theme="@style/AppTheme.NoActionBar"></activity>
+            android:theme="@style/AppTheme.NoActionBar" />
+        <activity android:name=".Activity.Password"></activity>
     </application>
 
 </manifest>

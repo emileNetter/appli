@@ -1,8 +1,11 @@
 package com.example.emile1.findaparty.Activity;
 
 import android.app.ProgressDialog;
+import android.content.Context;
 import android.content.Intent;
 import android.content.pm.ActivityInfo;
+import android.net.ConnectivityManager;
+import android.net.NetworkInfo;
 import android.support.design.widget.TextInputLayout;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
@@ -46,9 +49,16 @@ public class Login extends AppCompatActivity {
 
         Button register = (Button) findViewById(R.id.btn_registerL);
         Button login = (Button) findViewById(R.id.btn_login);
+        Button password =(Button) findViewById(R.id.btn_retrieve_password);
 
         setTextChanged();
-
+        password.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent i = new Intent(getApplicationContext(),Password.class);
+                startActivity(i);
+            }
+        });
         login.setOnClickListener(new View.OnClickListener(){
             public void onClick(View v){
                 login();
@@ -91,29 +101,31 @@ public class Login extends AppCompatActivity {
             passwordLayout.setError("You must enter a password");
         }
         if (!error){
-            // Set up a progress dialog
-            final ProgressDialog dialog = new ProgressDialog(Login.this);
-            dialog.setMessage(getString(R.string.progress_login));
-            dialog.show();
 
-            ParseUser.logInInBackground(email, password, new LogInCallback() {
-                @Override
-                public void done(ParseUser user, ParseException e) {
-                    dialog.dismiss();
-                    if (e != null) {
-                        loginUnSuccessful();
-                    } else {
-                        // Start an intent for the dispatch activity
-                        Intent intent = new Intent(Login.this, DispatchActivity.class);
-                        intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK | Intent.FLAG_ACTIVITY_NEW_TASK);
-                        startActivity(intent);
+            if(!isOnline()){
+                Toast.makeText(Login.this, "Check your internet connection and try again", Toast.LENGTH_SHORT).show();
+            } else {
+                // Set up a progress dialog
+                final ProgressDialog dialog = new ProgressDialog(Login.this);
+                dialog.setMessage(getString(R.string.progress_login));
+                dialog.show();
+
+                ParseUser.logInInBackground(email, password, new LogInCallback() {
+                    @Override
+                    public void done(ParseUser user, ParseException e) {
+                        dialog.dismiss();
+                        if (e != null) {
+                            loginUnSuccessful();
+                        } else {
+                            // Start an intent for the dispatch activity
+                            Intent intent = new Intent(Login.this, DispatchActivity.class);
+                            intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK | Intent.FLAG_ACTIVITY_NEW_TASK);
+                            startActivity(intent);
+                        }
                     }
-                }
-            });
+                });
+            }
         }
-
-
-
     }
 
     public static boolean isValidEmail(CharSequence target) {
@@ -124,6 +136,13 @@ public class Login extends AppCompatActivity {
         // TODO Auto-generated method stub
         Toast.makeText(getApplicationContext(), "Email or Password is invalid", Toast.LENGTH_SHORT).show();
 
+    }
+
+    public boolean isOnline() {
+        ConnectivityManager cm =
+                (ConnectivityManager) getSystemService(Context.CONNECTIVITY_SERVICE);
+        NetworkInfo netInfo = cm.getActiveNetworkInfo();
+        return netInfo!=null && netInfo.isConnected();
     }
 }
 
