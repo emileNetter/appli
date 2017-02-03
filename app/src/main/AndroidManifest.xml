@@ -27,7 +27,8 @@
         <activity
             android:name=".Activity.Register"
             android:theme="@style/AppTheme.NoActionBar" />
-        <activity android:name=".Activity.DispatchActivity" />
+        <activity android:name=".Activity.DispatchActivity"
+            android:theme="@style/AppTheme.NoActionBar"/>
 
         <activity
             android:name=".Activity.MainActivity"
