@@ -18,17 +18,19 @@
         <activity
             android:name=".Activity.Login"
             android:theme="@style/Theme.AppCompat.Light.NoActionBar">
+        </activity>
+        <activity
+            android:name=".Activity.Register"
+            android:theme="@style/AppTheme.NoActionBar" />
+        <activity
+            android:name=".Activity.DispatchActivity"
+            android:theme="@style/AppTheme.NoActionBar">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity
-            android:name=".Activity.Register"
-            android:theme="@style/AppTheme.NoActionBar" />
-        <activity android:name=".Activity.DispatchActivity"
-            android:theme="@style/AppTheme.NoActionBar"/>
 
         <activity
             android:name=".Activity.MainActivity"

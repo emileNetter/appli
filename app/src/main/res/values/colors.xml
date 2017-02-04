@@ -10,4 +10,5 @@
     <color name="editTexts">#9d9f9f</color>
     <color name="password_toggle">#b1aeae</color>
     <color name="datepicker">#7986cb</color>
+    <color name="nav_header">#636ea6</color>
 </resources>

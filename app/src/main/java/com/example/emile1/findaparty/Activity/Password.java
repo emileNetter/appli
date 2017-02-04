@@ -27,6 +27,7 @@ public class Password extends AppCompatActivity {
         etEmail = (EditText) findViewById(R.id.etPasswordReset);
         email = etEmail.getText().toString();
         Toast.makeText(Password.this,currentUser.getEmail(),Toast.LENGTH_LONG).show();
+
         sendEmail.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
