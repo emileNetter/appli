@@ -2,7 +2,6 @@
     <string name="app_name">FindAParty</string>
 
     <string name="password_label">Password</string>
-
     <string name="title_activity_login">Sign in</string>
     <string name="passwordAgain_label">Confirm Password</string>
     <string name="password_hint_login"><font size="12">Password</font></string>
@@ -29,15 +28,19 @@
 
     <!-- Login Page -->
     <string name="progress_login">Loging In&#8230;</string>
-    <!-- Password Reset Page -->
-    <string name="password_reset">Enter your email address to receive password reset instructions</string>
-    <string name="btn_reset">Send</string>
-    <!-- Navigation Drawer menu labels -->
     <string name="email_hint"><font size="12">Email</font></string>
     <string name="email_label">Email</string>
     <string name="btn_login">Log In</string>
     <string name="btn_registerL"><font size="10">No account ? Register here</font></string>
     <string name="btn_retrieve_password"><font size="10">Forgot your password ?</font></string>
+
+    <!-- Password Reset Page -->
+    <string name="password_reset">Enter your email address to receive password reset instructions</string>
+    <string name="btn_reset">Send</string>
+
+
+
+    <!-- Navigation Drawer menu labels -->
     <string name="nav_home">Home</string>
     <string name="nav_photos">Photos</string>
     <string name="nav_movies">Movies</string>
@@ -53,16 +56,14 @@
         <item>Settings</item>
     </string-array>
 
-    <string name="activity_title_about_us">About Us</string>
     <string name="activity_title_privacy_policy">Privacy Policy</string>
     <string name="action_clear_all">Clear All</string>
     <string name="action_logout">Logout</string>
-    <string name="action_mark_all_read">Mark All as Read</string>
     <string name="privacy_policy">Privacy Policy</string>
 
     <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment">Hello blank fragment</string>
-    <string name="title_activity_main">MainActivity</string>
+    <string name="title_activity_main">Home</string>
 
     <string name="navigation_drawer_open">Open navigation drawer</string>
     <string name="navigation_drawer_close">Close navigation drawer</string>
