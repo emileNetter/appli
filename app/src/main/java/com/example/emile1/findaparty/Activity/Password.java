@@ -2,6 +2,7 @@ package com.example.emile1.findaparty.Activity;
 
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.text.TextUtils;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
@@ -14,19 +15,14 @@ import com.parse.RequestPasswordResetCallback;
 
 public class Password extends AppCompatActivity {
     private EditText etEmail;
-    private ParseUser currentUser;
-    private String email;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_password);
 
-        currentUser = ParseUser.getCurrentUser();
         Button sendEmail = (Button) findViewById(R.id.btnSendEmail);
         etEmail = (EditText) findViewById(R.id.etPasswordReset);
-        email = etEmail.getText().toString();
-        Toast.makeText(Password.this,currentUser.getEmail(),Toast.LENGTH_LONG).show();
 
         sendEmail.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -37,7 +33,8 @@ public class Password extends AppCompatActivity {
     }
 
     public void requestPasswordReset(){
-        if(currentUser.getEmail().equals(email) && currentUser != null){
+        String email = etEmail.getText().toString();
+        if (!isValidEmail(email)){
             Toast.makeText(Password.this,"Please check your email address",Toast.LENGTH_LONG).show();
         } else {
             ParseUser.requestPasswordResetInBackground(email, new RequestPasswordResetCallback() {
@@ -51,6 +48,7 @@ public class Password extends AppCompatActivity {
             });
         }
     }
+    public static boolean isValidEmail(CharSequence target) {
+        return !TextUtils.isEmpty(target) && android.util.Patterns.EMAIL_ADDRESS.matcher(target).matches();
+    }
 }
-
-
