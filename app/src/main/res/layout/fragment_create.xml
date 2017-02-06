@@ -1,13 +1,41 @@
-<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:paddingStart="30dp"
+    android:paddingEnd="30dp"
+    android:layout_marginTop="10dp"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:theme="@style/Theme.App.Base"
     tools:context="com.example.emile1.findaparty.Activity.CreateFragment">
 
-    <!-- TODO: Update blank fragment layout -->
     <TextView
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:text="@string/hello_blank_fragment" />
+        android:id="@+id/dateTextView"
+        android:text="@string/date_create_fragment"
+        android:paddingTop="10dp"
+        android:textColor="@color/textViews"
+        android:textSize="@dimen/font_size_textview"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content" />
 
-</FrameLayout>
+    <android.support.design.widget.TextInputLayout
+        android:id="@+id/dateLayout"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:textColorHint="@color/editTexts"
+        android:layout_below="@+id/dateTextView"
+        android:layout_marginTop="10dp"
+        app:hintEnabled="false">
+
+        <android.support.design.widget.TextInputEditText
+            android:id="@+id/dateEditText"
+            android:layout_width="match_parent"
+            android:inputType="date"
+            android:layout_height="wrap_content"
+            android:textColorHint="@color/editTexts"
+            android:focusable="false"
+            android:textSize="@dimen/font_size_edittext" />
+
+    </android.support.design.widget.TextInputLayout>
+
+</RelativeLayout>

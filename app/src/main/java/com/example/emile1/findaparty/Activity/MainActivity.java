@@ -101,8 +101,19 @@ public class MainActivity extends AppCompatActivity
             toolbar.setTitle("Search");
             FindFragment findFragment = new FindFragment();
             FragmentManager manager = getSupportFragmentManager();
-            manager.beginTransaction().replace(R.id.content_main,findFragment).commit();
+            manager.beginTransaction().replace(
+                    R.id.content_main,
+                    findFragment,
+                    findFragment.getTag()
+            ).commit();
         } else if (id == R.id.nav_create) {
+            CreateFragment createFragment = CreateFragment.newInstance();
+            FragmentManager manager = getSupportFragmentManager();
+            manager.beginTransaction().replace(
+                    R.id.content_main,
+                    createFragment,
+                    createFragment.getTag()
+            ).commit();
 
         }  else if (id == R.id.nav_settings) {
 
