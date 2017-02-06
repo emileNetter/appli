@@ -39,7 +39,6 @@
     <string name="btn_reset">Send</string>
 
 
-
     <!-- Navigation Drawer menu labels -->
     <string name="nav_home">Home</string>
     <string name="nav_photos">Photos</string>
@@ -70,4 +69,5 @@
     <!-- Toolbar -->
     <string name="search">Search</string>
     <string name="action_settings">Settings</string>
+    <string name="title_activity_searchable">SearchableActivity</string>
 </resources>

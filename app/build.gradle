@@ -24,6 +24,7 @@ dependencies {
     androidTestCompile('com.android.support.test.espresso:espresso-core:2.2.2', {
         exclude group: 'com.android.support', module: 'support-annotations'
     })
+    compile files('libs/Parse-1.13.0.jar')
     compile 'com.android.support:appcompat-v7:24.2.1'
     compile 'com.android.support:design:24.2.1'
     compile 'com.mcxiaoke.volley:library-aar:1.0.0'
@@ -31,5 +32,4 @@ dependencies {
     compile 'com.parse.bolts:bolts-android:1.+'
     compile 'com.parse:parse-android:1.+'
     testCompile 'junit:junit:4.12'
-    compile files('libs/Parse-1.13.0.jar')
 }

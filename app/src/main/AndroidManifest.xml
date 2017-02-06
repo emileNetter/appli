@@ -17,8 +17,7 @@
         android:supportsRtl="true">
         <activity
             android:name=".Activity.Login"
-            android:theme="@style/Theme.AppCompat.Light.NoActionBar">
-        </activity>
+            android:theme="@style/Theme.AppCompat.Light.NoActionBar"></activity>
         <activity
             android:name=".Activity.Register"
             android:theme="@style/AppTheme.NoActionBar" />
@@ -31,14 +30,17 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-
         <activity
             android:name=".Activity.MainActivity"
             android:label="@string/title_activity_main"
+            android:theme="@style/AppTheme.NoActionBar">
+            <intent-filter>
+                <action android:name="android.intent.action.SEARCH" />
+            </intent-filter>
+        </activity>
+        <activity
+            android:name=".Activity.Password"
             android:theme="@style/AppTheme.NoActionBar" />
-
-        <activity android:name=".Activity.Password"
-            android:theme="@style/AppTheme.NoActionBar"/>
     </application>
 
 </manifest>
