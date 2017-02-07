@@ -63,27 +63,6 @@
         android:layout_height="wrap_content" />
 
     <android.support.design.widget.TextInputLayout
-        android:id="@+id/startsLayout"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:textColorHint="@color/editTexts"
-        android:layout_below="@+id/startsTextView"
-        android:layout_alignEnd="@id/startsTextView"
-        android:layout_marginEnd="-30dp"
-        android:layout_marginTop="10dp"
-        app:hintEnabled="false">
-
-        <android.support.design.widget.TextInputEditText
-            android:id="@+id/startsEditText"
-            android:layout_width="match_parent"
-            android:inputType="datetime"
-            android:layout_height="wrap_content"
-            android:textColorHint="@color/editTexts"
-            android:focusable="false"
-            android:textSize="@dimen/font_size_edittext" />
-    </android.support.design.widget.TextInputLayout>
-
-    <android.support.design.widget.TextInputLayout
         android:id="@+id/endsLayout"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
@@ -105,6 +84,62 @@
             android:textSize="@dimen/font_size_edittext" />
     </android.support.design.widget.TextInputLayout>
 
+    <android.support.design.widget.TextInputLayout
+        android:id="@+id/startsLayout"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/startsTextView"
+        android:layout_alignEnd="@id/startsTextView"
+        android:layout_alignStart="@id/startsTextView"
+        android:layout_marginRight="-30dp"
+        android:layout_marginLeft="-30dp"
+        android:layout_marginTop="10dp"
+        android:textColorHint="@color/editTexts"
+        app:hintEnabled="false">
+
+        <android.support.design.widget.TextInputEditText
+            android:id="@+id/startsEditText"
+            android:layout_width="match_parent"
+            android:inputType="datetime"
+            android:layout_height="wrap_content"
+            android:textColorHint="@color/editTexts"
+            android:focusable="false"
+            android:textSize="@dimen/font_size_edittext" />
+    </android.support.design.widget.TextInputLayout>
+
+    <TextView
+        android:id="@+id/nbrPeopleTextView"
+        android:text="@string/nbr_people_create_fragment"
+        android:textSize="@dimen/font_size_textview"
+        android:textColor="@color/textViews"
+        android:layout_below="@id/startsLayout"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="20dp"
+        android:layout_centerHorizontal="true"/>
+
+    <android.support.design.widget.TextInputLayout
+        android:id="@+id/nbrPeopleLayout"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignEnd="@id/nbrPeopleTextView"
+        android:layout_alignStart="@id/nbrPeopleTextView"
+        android:layout_marginLeft="-20dp"
+        android:layout_marginRight="-20dp"
+        android:layout_marginTop="10dp"
+        android:layout_below="@id/nbrPeopleTextView"
+        android:textColorHint="@color/editTexts"
+        app:hintEnabled="false">
+
+        <android.support.design.widget.TextInputEditText
+            android:id="@+id/nbrPeopleEditText"
+            android:layout_width="match_parent"
+            android:inputType="datetime"
+            android:layout_height="wrap_content"
+            android:textColorHint="@color/editTexts"
+            android:focusable="false"
+            android:textSize="@dimen/font_size_edittext" />
+    </android.support.design.widget.TextInputLayout>
 
 
 </RelativeLayout>
