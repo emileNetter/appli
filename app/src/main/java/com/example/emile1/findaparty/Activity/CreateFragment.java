@@ -2,22 +2,25 @@ package com.example.emile1.findaparty.Activity;
 
 
 import android.app.DatePickerDialog;
+import android.app.Dialog;
+import android.app.DialogFragment;
+import android.app.FragmentManager;
+import android.app.TimePickerDialog;
 import android.os.Bundle;
-import android.support.design.widget.TextInputLayout;
-import android.support.v4.app.DialogFragment;
 import android.support.v4.app.Fragment;
+import android.app.FragmentTransaction;
+import android.text.format.DateFormat;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
 import android.widget.DatePicker;
 import android.widget.EditText;
-import android.widget.Toast;
 
 import com.example.emile1.findaparty.R;
 
 import java.util.Calendar;
 import java.util.Date;
-import java.util.GregorianCalendar;
 
 /**
  * A simple {@link Fragment} subclass.
@@ -29,7 +32,14 @@ public class CreateFragment extends Fragment {
     // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
     private static final String ARG_PARAM1 = "param1";
     private static final String ARG_PARAM2 = "param2";
+
+    private int fromWhere;
+
+    private EditText startEditText;
+    private EditText endEditText;
+    private EditText nbrPeopleEditText;
     private EditText dateEditText;
+    private Button createButton;
 
     // TODO: Rename and change types of parameters
     private String mParam1;
@@ -65,8 +75,21 @@ public class CreateFragment extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         View v = inflater.inflate(R.layout.fragment_create, container, false);
-        dateEditText =(EditText)v.findViewById(R.id.dateEditText);
+        instantiateUI(v);
         showDatePicker();
+        startEditText.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                fromWhere = 0;
+                DialogFragment newFragment = new TimePickerFragment();
+                newFragment.show(getActivity().getFragmentManager(),"Timepicker");
+            }
+        });
+        endEditText.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+            }
+        });
         return v;
     }
 
@@ -74,9 +97,7 @@ public class CreateFragment extends Fragment {
         final DatePickerDialog.OnDateSetListener listener = new DatePickerDialog.OnDateSetListener() {
             @Override
             public void onDateSet(DatePicker view, int selectedyear, int selectedmonth, int selectedDay) {
-                    //String myFormat = "dd/MM/yy"; //In which you need put here
-                    int mmonth = selectedmonth+1;
-                    String mdate = selectedDay+"/"+mmonth+"/"+selectedyear;
+                    String mdate = checkDigit(selectedDay)+"/"+checkDigit(selectedmonth+1)+"/"+checkDigit(selectedyear);
                     //SimpleDateFormat sdf = new SimpleDateFormat(myFormat, Locale.ENGLISH);
                     dateEditText.setText(mdate);
             }
@@ -97,4 +118,17 @@ public class CreateFragment extends Fragment {
             }
         });
     }
+
+    public void instantiateUI(View v){
+        dateEditText =(EditText)v.findViewById(R.id.dateEditText);
+        startEditText = (EditText) v.findViewById(R.id.startsEditText);
+        endEditText = (EditText) v.findViewById(R.id.endsEditText);
+        createButton = (Button) v.findViewById(R.id.createButton);
+    }
+
+    public String checkDigit(int number)
+    {
+        return number<=9?"0"+number:String.valueOf(number);
+    }
+
 }
