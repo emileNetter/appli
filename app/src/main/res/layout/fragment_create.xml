@@ -5,6 +5,7 @@
     android:paddingStart="30dp"
     android:paddingEnd="30dp"
     android:layout_marginTop="10dp"
+    android:paddingTop="10dp"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:theme="@style/Theme.App.Base"
     tools:context="com.example.emile1.findaparty.Activity.CreateFragment">
@@ -12,7 +13,6 @@
     <TextView
         android:id="@+id/dateTextView"
         android:text="@string/date_create_fragment"
-        android:paddingTop="10dp"
         android:textColor="@color/textViews"
         android:textSize="@dimen/font_size_textview"
         android:layout_width="wrap_content"
@@ -38,5 +38,73 @@
             android:textSize="@dimen/font_size_edittext" />
 
     </android.support.design.widget.TextInputLayout>
+
+    <TextView
+        android:id="@+id/startsTextView"
+        android:text="@string/starts_create_fragment"
+        android:textColor="@color/textViews"
+        android:textSize="@dimen/font_size_textview"
+        android:layout_marginTop="20dp"
+        android:layout_marginStart="30dp"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/dateLayout"
+        android:layout_alignParentStart="true" />
+    <TextView
+        android:id="@+id/endsTextView"
+        android:textColor="@color/textViews"
+        android:textSize="@dimen/font_size_textview"
+        android:text="@string/ends_create_fragment"
+        android:layout_marginTop="20dp"
+        android:layout_marginEnd="30dp"
+        android:layout_below="@id/dateLayout"
+        android:layout_alignEnd="@id/dateLayout"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content" />
+
+    <android.support.design.widget.TextInputLayout
+        android:id="@+id/startsLayout"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:textColorHint="@color/editTexts"
+        android:layout_below="@+id/startsTextView"
+        android:layout_alignEnd="@id/startsTextView"
+        android:layout_marginEnd="-30dp"
+        android:layout_marginTop="10dp"
+        app:hintEnabled="false">
+
+        <android.support.design.widget.TextInputEditText
+            android:id="@+id/startsEditText"
+            android:layout_width="match_parent"
+            android:inputType="datetime"
+            android:layout_height="wrap_content"
+            android:textColorHint="@color/editTexts"
+            android:focusable="false"
+            android:textSize="@dimen/font_size_edittext" />
+    </android.support.design.widget.TextInputLayout>
+
+    <android.support.design.widget.TextInputLayout
+        android:id="@+id/endsLayout"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:textColorHint="@color/editTexts"
+        android:layout_below="@+id/endsTextView"
+        android:layout_alignEnd="@id/dateLayout"
+        android:layout_alignStart="@id/endsTextView"
+        android:layout_marginStart="-30dp"
+        android:layout_marginTop="10dp"
+        app:hintEnabled="false">
+
+        <android.support.design.widget.TextInputEditText
+            android:id="@+id/endsEditTxt"
+            android:layout_width="match_parent"
+            android:inputType="datetime"
+            android:layout_height="wrap_content"
+            android:textColorHint="@color/editTexts"
+            android:focusable="false"
+            android:textSize="@dimen/font_size_edittext" />
+    </android.support.design.widget.TextInputLayout>
+
+
 
 </RelativeLayout>
