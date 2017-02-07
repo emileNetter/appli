@@ -24,6 +24,7 @@
         android:layout_height="wrap_content"
         android:textColorHint="@color/editTexts"
         android:layout_below="@+id/dateTextView"
+        android:background="@drawable/et_rectangle_shape"
         android:layout_marginTop="10dp"
         app:hintEnabled="false">
 
@@ -68,19 +69,20 @@
         android:layout_height="wrap_content"
         android:textColorHint="@color/editTexts"
         android:layout_below="@+id/endsTextView"
-        android:layout_alignEnd="@id/dateLayout"
         android:layout_alignStart="@id/endsTextView"
         android:background="@drawable/et_rectangle_shape"
         android:layout_marginStart="-30dp"
         android:layout_marginTop="10dp"
-        app:hintEnabled="false">
+        app:hintEnabled="false"
+        android:layout_alignBottom="@+id/startsLayout">
 
         <android.support.design.widget.TextInputEditText
             android:id="@+id/endsEditText"
             android:layout_width="match_parent"
             android:inputType="datetime"
-            android:layout_height="wrap_content"
+            android:layout_height="match_parent"
             android:textColorHint="@color/editTexts"
+            android:layout_marginTop="10dp"
             android:drawableRight="@drawable/ic_clock_black_24dp"
             android:focusable="false"
             android:textSize="@dimen/font_size_edittext" />
@@ -116,11 +118,11 @@
         android:text="@string/nbr_people_create_fragment"
         android:textSize="@dimen/font_size_textview"
         android:textColor="@color/textViews"
-        android:layout_below="@id/startsLayout"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="20dp"
-        android:layout_centerHorizontal="true"/>
+        android:layout_below="@+id/endsLayout"
+        android:layout_centerHorizontal="true" />
 
     <android.support.design.widget.TextInputLayout
         android:id="@+id/nbrPeopleLayout"
@@ -144,6 +146,8 @@
             android:focusable="false"
             android:textSize="@dimen/font_size_edittext" />
     </android.support.design.widget.TextInputLayout>
+
+
 
 
 </RelativeLayout>
