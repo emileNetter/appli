@@ -33,6 +33,7 @@
             android:inputType="date"
             android:layout_height="wrap_content"
             android:textColorHint="@color/editTexts"
+            android:drawableRight="@drawable/ic_today_black_24dp"
             android:focusable="false"
             android:textSize="@dimen/font_size_edittext" />
 
