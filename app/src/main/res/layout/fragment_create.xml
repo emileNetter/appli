@@ -18,27 +18,21 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content" />
 
-    <android.support.design.widget.TextInputLayout
-        android:id="@+id/dateLayout"
+
+    <EditText
+        android:id="@+id/dateEditText"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:textColorHint="@color/editTexts"
+        android:inputType="date"
+        android:layout_height="40dp"
+        android:paddingEnd="5dp"
+        android:paddingStart="10dp"
         android:layout_below="@+id/dateTextView"
         android:background="@drawable/et_rectangle_shape"
         android:layout_marginTop="10dp"
-        app:hintEnabled="false">
-
-        <android.support.design.widget.TextInputEditText
-            android:id="@+id/dateEditText"
-            android:layout_width="match_parent"
-            android:inputType="date"
-            android:layout_height="wrap_content"
-            android:textColorHint="@color/editTexts"
-            android:drawableRight="@drawable/ic_today_black_24dp"
-            android:focusable="false"
-            android:textSize="@dimen/font_size_edittext" />
-
-    </android.support.design.widget.TextInputLayout>
+        android:textColorHint="@color/editTexts"
+        android:drawableEnd="@drawable/ic_today_black_24dp"
+        android:focusable="false"
+        android:textSize="@dimen/font_size_edittext" />
 
     <TextView
         android:id="@+id/startsTextView"
@@ -49,7 +43,7 @@
         android:layout_marginStart="30dp"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_below="@+id/dateLayout"
+        android:layout_below="@+id/dateEditText"
         android:layout_alignParentStart="true" />
     <TextView
         android:id="@+id/endsTextView"
@@ -58,40 +52,33 @@
         android:text="@string/ends_create_fragment"
         android:layout_marginTop="20dp"
         android:layout_marginEnd="30dp"
-        android:layout_below="@id/dateLayout"
-        android:layout_alignEnd="@id/dateLayout"
+        android:layout_below="@id/dateEditText"
+        android:layout_alignEnd="@id/dateEditText"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content" />
 
-    <android.support.design.widget.TextInputLayout
-        android:id="@+id/endsLayout"
+    <EditText
+        android:id="@+id/endsEditText"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
+        android:inputType="datetime"
+        android:layout_height="40dp"
+        android:paddingEnd="5dp"
         android:textColorHint="@color/editTexts"
         android:layout_below="@+id/endsTextView"
         android:layout_alignStart="@id/endsTextView"
         android:background="@drawable/et_rectangle_shape"
         android:layout_marginStart="-30dp"
         android:layout_marginTop="10dp"
-        app:hintEnabled="false"
-        android:layout_alignBottom="@+id/startsLayout">
+        android:drawableEnd="@drawable/ic_clock_black_24dp"
+        android:focusable="false"
+        android:textSize="@dimen/font_size_edittext" />
 
-        <android.support.design.widget.TextInputEditText
-            android:id="@+id/endsEditText"
-            android:layout_width="match_parent"
-            android:inputType="datetime"
-            android:layout_height="match_parent"
-            android:textColorHint="@color/editTexts"
-            android:layout_marginTop="10dp"
-            android:drawableRight="@drawable/ic_clock_black_24dp"
-            android:focusable="false"
-            android:textSize="@dimen/font_size_edittext" />
-    </android.support.design.widget.TextInputLayout>
-
-    <android.support.design.widget.TextInputLayout
-        android:id="@+id/startsLayout"
+    <EditText
+        android:id="@+id/startsEditText"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
+        android:inputType="datetime"
+        android:layout_height="40dp"
+        android:paddingEnd="5dp"
         android:layout_below="@id/startsTextView"
         android:layout_alignEnd="@id/startsTextView"
         android:layout_alignStart="@id/startsTextView"
@@ -100,18 +87,9 @@
         android:layout_marginLeft="-30dp"
         android:layout_marginTop="10dp"
         android:textColorHint="@color/editTexts"
-        app:hintEnabled="false">
-
-        <android.support.design.widget.TextInputEditText
-            android:id="@+id/startsEditText"
-            android:layout_width="match_parent"
-            android:inputType="datetime"
-            android:layout_height="wrap_content"
-            android:textColorHint="@color/editTexts"
-            android:drawableRight="@drawable/ic_clock_black_24dp"
-            android:focusable="false"
-            android:textSize="@dimen/font_size_edittext" />
-    </android.support.design.widget.TextInputLayout>
+        android:drawableEnd="@drawable/ic_clock_black_24dp"
+        android:focusable="false"
+        android:textSize="@dimen/font_size_edittext" />
 
     <TextView
         android:id="@+id/nbrPeopleTextView"
@@ -121,33 +99,24 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="20dp"
-        android:layout_below="@+id/endsLayout"
+        android:layout_below="@+id/endsEditText"
         android:layout_centerHorizontal="true" />
 
-    <android.support.design.widget.TextInputLayout
-        android:id="@+id/nbrPeopleLayout"
+    <EditText
+        android:id="@+id/nbrPeopleEditText"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_alignEnd="@id/nbrPeopleTextView"
-        android:layout_alignStart="@id/nbrPeopleTextView"
-        android:layout_marginLeft="-20dp"
-        android:layout_marginRight="-20dp"
-        android:layout_marginTop="10dp"
-        android:layout_below="@id/nbrPeopleTextView"
+        android:inputType="datetime"
+        android:layout_height="40dp"
         android:textColorHint="@color/editTexts"
-        app:hintEnabled="false">
-
-        <android.support.design.widget.TextInputEditText
-            android:id="@+id/nbrPeopleEditText"
-            android:layout_width="match_parent"
-            android:inputType="datetime"
-            android:layout_height="wrap_content"
-            android:textColorHint="@color/editTexts"
-            android:focusable="false"
-            android:textSize="@dimen/font_size_edittext" />
-    </android.support.design.widget.TextInputLayout>
-
-
+        android:background="@drawable/et_rectangle_shape"
+        android:focusable="false"
+        android:textSize="@dimen/font_size_edittext"
+        android:drawableRight="@drawable/ic_users_24dp"
+        android:paddingEnd="5dp"
+        android:layout_marginTop="10dp"
+        android:layout_below="@+id/nbrPeopleTextView"
+        android:layout_alignStart="@+id/nbrPeopleTextView"
+        android:layout_alignEnd="@id/nbrPeopleTextView"/>
 
 
 </RelativeLayout>
