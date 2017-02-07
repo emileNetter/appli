@@ -13,4 +13,5 @@
     <color name="nav_header">#636ea6</color>
     <color name="color_navigation_list_background">#d8d8d9</color>
     <color name="color_selector_navigation_item">#1b1b1b</color>
+    <color name="et_shape">#d37986cb</color>
 </resources>

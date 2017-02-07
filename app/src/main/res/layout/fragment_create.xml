@@ -70,16 +70,18 @@
         android:layout_below="@+id/endsTextView"
         android:layout_alignEnd="@id/dateLayout"
         android:layout_alignStart="@id/endsTextView"
+        android:background="@drawable/et_rectangle_shape"
         android:layout_marginStart="-30dp"
         android:layout_marginTop="10dp"
         app:hintEnabled="false">
 
         <android.support.design.widget.TextInputEditText
-            android:id="@+id/endsEditTxt"
+            android:id="@+id/endsEditText"
             android:layout_width="match_parent"
             android:inputType="datetime"
             android:layout_height="wrap_content"
             android:textColorHint="@color/editTexts"
+            android:drawableRight="@drawable/ic_clock_black_24dp"
             android:focusable="false"
             android:textSize="@dimen/font_size_edittext" />
     </android.support.design.widget.TextInputLayout>
@@ -91,6 +93,7 @@
         android:layout_below="@id/startsTextView"
         android:layout_alignEnd="@id/startsTextView"
         android:layout_alignStart="@id/startsTextView"
+        android:background="@drawable/et_rectangle_shape"
         android:layout_marginRight="-30dp"
         android:layout_marginLeft="-30dp"
         android:layout_marginTop="10dp"
@@ -103,6 +106,7 @@
             android:inputType="datetime"
             android:layout_height="wrap_content"
             android:textColorHint="@color/editTexts"
+            android:drawableRight="@drawable/ic_clock_black_24dp"
             android:focusable="false"
             android:textSize="@dimen/font_size_edittext" />
     </android.support.design.widget.TextInputLayout>
