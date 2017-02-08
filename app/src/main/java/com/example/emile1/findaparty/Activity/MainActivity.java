@@ -1,11 +1,13 @@
 package com.example.emile1.findaparty.Activity;
 
+import android.app.DialogFragment;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.Snackbar;
 import android.support.v4.app.FragmentManager;
 import android.support.v7.widget.SearchView;
+import android.util.Log;
 import android.view.View;
 import android.support.design.widget.NavigationView;
 import android.support.v4.view.GravityCompat;
@@ -15,7 +17,9 @@ import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.widget.EditText;
 import android.widget.TextView;
+import android.widget.TimePicker;
 import android.widget.Toast;
 
 import com.example.emile1.findaparty.R;
@@ -29,13 +33,17 @@ import com.parse.ParseUser;
 import org.w3c.dom.Text;
 
 public class MainActivity extends AppCompatActivity
-        implements NavigationView.OnNavigationItemSelectedListener {
+        implements NavigationView.OnNavigationItemSelectedListener{
 
     private TextView textView;
     private ParseUser currentUser;
     private String firstName;
     private String lastName;
     private Toolbar toolbar;
+    private EditText startEditText;
+    private EditText endEditText;
+    private static final int START_TIME_PICKER_ID = 1;
+    private static final int END_TIME_PICKER_ID = 2;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);

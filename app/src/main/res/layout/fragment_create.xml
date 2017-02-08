@@ -79,7 +79,7 @@
         android:inputType="datetime"
         android:layout_height="40dp"
         android:paddingEnd="5dp"
-        android:paddingStart="5dp"
+        android:paddingStart="15dp"
         android:layout_below="@id/startsTextView"
         android:layout_alignEnd="@id/startsTextView"
         android:layout_alignStart="@id/startsTextView"

@@ -10,15 +10,19 @@ import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.app.FragmentTransaction;
 import android.text.format.DateFormat;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.DatePicker;
 import android.widget.EditText;
+import android.widget.TimePicker;
+import android.widget.Toast;
 
 import com.example.emile1.findaparty.R;
 
+import java.sql.Time;
 import java.util.Calendar;
 import java.util.Date;
 
@@ -27,13 +31,15 @@ import java.util.Date;
  * Use the {@link CreateFragment#newInstance} factory method to
  * create an instance of this fragment.
  */
-public class CreateFragment extends Fragment {
+public class CreateFragment extends Fragment{
     // TODO: Rename parameter arguments, choose names that match
     // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
     private static final String ARG_PARAM1 = "param1";
     private static final String ARG_PARAM2 = "param2";
 
-    private int fromWhere;
+    private static final int START_TIME = 0;
+    private static final int END_TIME = 1;
+
 
     private EditText startEditText;
     private EditText endEditText;
@@ -80,18 +86,27 @@ public class CreateFragment extends Fragment {
         startEditText.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                fromWhere = 0;
-                DialogFragment newFragment = new TimePickerFragment();
-                newFragment.show(getActivity().getFragmentManager(),"Timepicker");
+                inputStartTime();
             }
         });
         endEditText.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                inputEndTime();
             }
         });
         return v;
     }
+    public void inputStartTime() {
+        DialogFragment newFragment = TimePickerFragment.newInstance(START_TIME);
+        newFragment.show(getActivity().getFragmentManager(), "timePicker");
+    }
+
+    public void inputEndTime() {
+        DialogFragment newFragment = TimePickerFragment.newInstance(END_TIME);
+        newFragment.show(getActivity().getFragmentManager(), "timePicker1");
+    }
+
 
     public void showDatePicker() {
         final DatePickerDialog.OnDateSetListener listener = new DatePickerDialog.OnDateSetListener() {
