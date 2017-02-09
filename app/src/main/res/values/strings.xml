@@ -79,6 +79,8 @@
     <string name="btn_create_create_fragment">Create</string>
     <string name="dialog_title">Choose a number</string>
     <string name="cancel_button">CANCEL</string>
+    <string name="snackbar_text">End time must be after start time</string>
+    <string name="snackbar_dismiss">Dismiss</string>
 
     <string-array name="Numbers">
         <item>1</item>

@@ -14,6 +14,7 @@ import android.support.design.widget.BaseTransientBottomBar;
 import android.support.design.widget.Snackbar;
 import android.support.v4.app.Fragment;
 import android.app.FragmentTransaction;
+import android.support.v4.content.ContextCompat;
 import android.text.Editable;
 import android.text.TextUtils;
 import android.text.TextWatcher;
@@ -26,10 +27,13 @@ import android.widget.Button;
 import android.widget.DatePicker;
 import android.widget.EditText;
 import android.widget.RelativeLayout;
+import android.widget.TextView;
 import android.widget.TimePicker;
 import android.widget.Toast;
 
 import com.example.emile1.findaparty.R;
+
+import org.w3c.dom.Text;
 
 import java.sql.Time;
 import java.util.Calendar;
@@ -114,7 +118,6 @@ public class CreateFragment extends Fragment{
         createButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Log.i("TEST","HI");
             }
         });
         return v;
@@ -208,6 +211,19 @@ public class CreateFragment extends Fragment{
 
         @Override
         public void afterTextChanged(Editable editable) {
+            if(checkHours()){
+                final Snackbar snackbar = Snackbar.make(relativeLayout,getString(R.string.snackbar_text),BaseTransientBottomBar.LENGTH_INDEFINITE);
+                View snackbar_view = snackbar.getView();
+                TextView snackbar_text = (TextView) snackbar_view.findViewById(android.support.design.R.id.snackbar_text);
+                snackbar_view.setBackgroundColor(ContextCompat.getColor(getActivity(),R.color.snackbar_warning));
+                snackbar.setAction(getString(R.string.snackbar_dismiss), new View.OnClickListener() {
+                    @Override
+                    public void onClick(View view) {
+                        snackbar.dismiss();
+                    }
+                });
+                snackbar.show();
+            }
         }
     };
 
@@ -222,6 +238,18 @@ public class CreateFragment extends Fragment{
         }else{
             createButton.setEnabled(true);
         }
+    }
+
+    private boolean checkHours(){
+        boolean error = false;
+        String timeStart = startEditText.getText().toString();
+        String timeEnd = endEditText.getText().toString();
+        if(!TextUtils.isEmpty(timeStart)&& !TextUtils.isEmpty(timeEnd)){
+            if(timeStart.compareTo(timeEnd)>-1){
+                error=true;
+            }
+        }
+        return error;
     }
 
 }
