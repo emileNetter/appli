@@ -10,8 +10,13 @@ import android.app.ListFragment;
 import android.app.TimePickerDialog;
 import android.content.DialogInterface;
 import android.os.Bundle;
+import android.support.design.widget.BaseTransientBottomBar;
+import android.support.design.widget.Snackbar;
 import android.support.v4.app.Fragment;
 import android.app.FragmentTransaction;
+import android.text.Editable;
+import android.text.TextUtils;
+import android.text.TextWatcher;
 import android.text.format.DateFormat;
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -20,6 +25,7 @@ import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.DatePicker;
 import android.widget.EditText;
+import android.widget.RelativeLayout;
 import android.widget.TimePicker;
 import android.widget.Toast;
 
@@ -49,6 +55,7 @@ public class CreateFragment extends Fragment{
     private EditText nbrPeopleEditText;
     private EditText dateEditText;
     private Button createButton;
+    private RelativeLayout relativeLayout;
 
     // TODO: Rename and change types of parameters
     private String mParam1;
@@ -101,14 +108,19 @@ public class CreateFragment extends Fragment{
         nbrPeopleEditText.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Log.i("HI","LIST");
                     showNumbersList();
+            }
+        });
+        createButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Log.i("TEST","HI");
             }
         });
         return v;
     }
 
-    public void showNumbersList(){
+    private void showNumbersList(){
         final String numbers[] = getResources().getStringArray(R.array.Numbers);
         final AlertDialog.Builder dialog = new AlertDialog.Builder(getActivity());
         dialog.setTitle(getString(R.string.dialog_title));
@@ -127,17 +139,18 @@ public class CreateFragment extends Fragment{
         AlertDialog alert = dialog.create();
         alert.show();
     }
-    public void inputStartTime() {
+
+    private void inputStartTime() {
         DialogFragment newFragment = TimePickerFragment.newInstance(START_TIME);
         newFragment.show(getActivity().getFragmentManager(), "timePicker");
     }
 
-    public void inputEndTime() {
+    private void inputEndTime() {
         DialogFragment newFragment = TimePickerFragment.newInstance(END_TIME);
         newFragment.show(getActivity().getFragmentManager(), "timePicker1");
     }
 
-    public void showDatePicker() {
+    private void showDatePicker() {
         final DatePickerDialog.OnDateSetListener listener = new DatePickerDialog.OnDateSetListener() {
             @Override
             public void onDateSet(DatePicker view, int selectedyear, int selectedmonth, int selectedDay) {
@@ -163,17 +176,52 @@ public class CreateFragment extends Fragment{
         });
     }
 
-    public void instantiateUI(View v){
+    private void instantiateUI(View v){
         dateEditText =(EditText)v.findViewById(R.id.dateEditText);
         startEditText = (EditText) v.findViewById(R.id.startsEditText);
         endEditText = (EditText) v.findViewById(R.id.endsEditText);
         createButton = (Button) v.findViewById(R.id.createButton);
         nbrPeopleEditText = (EditText) v.findViewById(R.id.nbrPeopleEditText);
+        relativeLayout = (RelativeLayout) v.findViewById(R.id.relativeLayout);
+        dateEditText.addTextChangedListener(textWatcher);
+        startEditText.addTextChangedListener(textWatcher);
+        endEditText.addTextChangedListener(textWatcher);
+        nbrPeopleEditText.addTextChangedListener(textWatcher);
     }
 
-    public String checkDigit(int number)
+    private String checkDigit(int number)
     {
         return number<=9?"0"+number:String.valueOf(number);
+    }
+
+    private TextWatcher textWatcher = new TextWatcher() {
+        @Override
+        public void beforeTextChanged(CharSequence charSequence, int i, int i2, int i3)
+        {
+
+        }
+
+        @Override
+        public void onTextChanged(CharSequence charSequence, int i, int i2, int i3) {
+            checkFieldsForEmptyValues();
+        }
+
+        @Override
+        public void afterTextChanged(Editable editable) {
+        }
+    };
+
+    private void checkFieldsForEmptyValues(){
+        String e1 = dateEditText.getText().toString().trim();
+        String e2 = startEditText.getText().toString().trim();
+        String e3 = endEditText.getText().toString().trim();
+        String e4 = nbrPeopleEditText.getText().toString().trim();
+        if(e1.isEmpty()|| e2.isEmpty()||
+                e3.isEmpty()|| e4.isEmpty()){
+            createButton.setEnabled(false);
+        }else{
+            createButton.setEnabled(true);
+        }
     }
 
 }

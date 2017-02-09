@@ -1,5 +1,6 @@
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/relativeLayout"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:paddingStart="30dp"
@@ -134,6 +135,7 @@
         android:layout_marginStart="30dp"
         android:layout_marginEnd="60dp"
         android:layout_height="55dp"
+        android:enabled="false"
         android:background="@drawable/btn_create"
         android:text="@string/btn_create_create_fragment" />
 
