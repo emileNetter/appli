@@ -1,11 +1,14 @@
 package com.example.emile1.findaparty.Activity;
 
 
+import android.app.AlertDialog;
 import android.app.DatePickerDialog;
 import android.app.Dialog;
 import android.app.DialogFragment;
 import android.app.FragmentManager;
+import android.app.ListFragment;
 import android.app.TimePickerDialog;
+import android.content.DialogInterface;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.app.FragmentTransaction;
@@ -95,7 +98,34 @@ public class CreateFragment extends Fragment{
                 inputEndTime();
             }
         });
+        nbrPeopleEditText.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Log.i("HI","LIST");
+                    showNumbersList();
+            }
+        });
         return v;
+    }
+
+    public void showNumbersList(){
+        final String numbers[] = getResources().getStringArray(R.array.Numbers);
+        final AlertDialog.Builder dialog = new AlertDialog.Builder(getActivity());
+        dialog.setTitle(getString(R.string.dialog_title));
+        dialog.setItems(numbers, new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialogInterface, int i) {
+                nbrPeopleEditText.setText(numbers[i]);
+            }
+        });
+        dialog.setNegativeButton(getString(R.string.cancel_button), new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialogInterface, int i) {
+                dialogInterface.dismiss();
+            }
+        });
+        AlertDialog alert = dialog.create();
+        alert.show();
     }
     public void inputStartTime() {
         DialogFragment newFragment = TimePickerFragment.newInstance(START_TIME);
@@ -138,6 +168,7 @@ public class CreateFragment extends Fragment{
         startEditText = (EditText) v.findViewById(R.id.startsEditText);
         endEditText = (EditText) v.findViewById(R.id.endsEditText);
         createButton = (Button) v.findViewById(R.id.createButton);
+        nbrPeopleEditText = (EditText) v.findViewById(R.id.nbrPeopleEditText);
     }
 
     public String checkDigit(int number)

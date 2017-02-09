@@ -77,4 +77,14 @@
     <string name="ends_create_fragment">Ends at</string>
     <string name="nbr_people_create_fragment">Max invited people</string>
     <string name="btn_create_create_fragment">Create</string>
+    <string name="dialog_title">Choose a number</string>
+    <string name="cancel_button">CANCEL</string>
+
+    <string-array name="Numbers">
+        <item>1</item>
+        <item>2</item>
+        <item>3</item>
+        <item>4</item>
+    </string-array>
+
 </resources>

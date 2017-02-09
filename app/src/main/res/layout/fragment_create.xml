@@ -31,7 +31,7 @@
         android:textColorHint="@color/editTexts"
         android:drawableEnd="@drawable/ic_today_black_24dp"
         android:focusable="false"
-        android:textSize="@dimen/font_size_edittext" />
+        android:textSize="@dimen/text_size_edittext_create" />
 
     <TextView
         android:id="@+id/startsTextView"
@@ -63,6 +63,7 @@
         android:layout_height="40dp"
         android:paddingEnd="5dp"
         android:paddingStart="5dp"
+        android:gravity="center"
         android:textColorHint="@color/editTexts"
         android:layout_below="@+id/endsTextView"
         android:layout_alignStart="@id/endsTextView"
@@ -71,7 +72,7 @@
         android:layout_marginTop="10dp"
         android:drawableEnd="@drawable/ic_clock_black_24dp"
         android:focusable="false"
-        android:textSize="@dimen/font_size_edittext" />
+        android:textSize="@dimen/text_size_edittext_create" />
 
     <EditText
         android:id="@+id/startsEditText"
@@ -80,6 +81,7 @@
         android:layout_height="40dp"
         android:paddingEnd="5dp"
         android:paddingStart="15dp"
+        android:gravity="center"
         android:layout_below="@id/startsTextView"
         android:layout_alignEnd="@id/startsTextView"
         android:layout_alignStart="@id/startsTextView"
@@ -90,7 +92,7 @@
         android:textColorHint="@color/editTexts"
         android:drawableEnd="@drawable/ic_clock_black_24dp"
         android:focusable="false"
-        android:textSize="@dimen/font_size_edittext" />
+        android:textSize="@dimen/text_size_edittext_create" />
 
     <TextView
         android:id="@+id/nbrPeopleTextView"
@@ -106,14 +108,15 @@
     <EditText
         android:id="@+id/nbrPeopleEditText"
         android:layout_width="match_parent"
-        android:inputType="datetime"
+        android:inputType="number"
         android:layout_height="40dp"
         android:textColorHint="@color/editTexts"
+        android:textSize="@dimen/text_size_edittext_create"
         android:background="@drawable/et_rectangle_shape"
         android:focusable="false"
-        android:textSize="@dimen/font_size_edittext"
-        android:drawableRight="@drawable/ic_users_24dp"
+        android:drawableEnd="@drawable/ic_users_24dp"
         android:paddingEnd="5dp"
+        android:paddingStart="20dp"
         android:gravity="center"
         android:layout_marginTop="10dp"
         android:layout_marginStart="15dp"
@@ -133,6 +136,5 @@
         android:layout_height="55dp"
         android:background="@drawable/btn_create"
         android:text="@string/btn_create_create_fragment" />
-
 
 </RelativeLayout>
