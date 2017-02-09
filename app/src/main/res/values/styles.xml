@@ -20,6 +20,7 @@
         <item name="colorControlActivated">@color/accent</item>
         <item name="colorControlHighlight">@color/accent</item>
         <item name="android:editTextColor">#f2282727</item>
+        <item name="android:drawableTintMode">@color/icon_tint</item>
         <item name="colorAccent">@color/buttonLoginColor</item>
         <item name="android:maxLines">1</item>
     </style>

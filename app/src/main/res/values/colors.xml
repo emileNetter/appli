@@ -15,4 +15,5 @@
     <color name="color_selector_navigation_item">#1b1b1b</color>
     <color name="et_shape">#72799b</color>
     <color name="btn_create">#7b8aae</color>
+    <color name="icon_tint">#616161</color>
 </resources>

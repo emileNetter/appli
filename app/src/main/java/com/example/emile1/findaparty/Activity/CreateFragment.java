@@ -107,7 +107,6 @@ public class CreateFragment extends Fragment{
         newFragment.show(getActivity().getFragmentManager(), "timePicker1");
     }
 
-
     public void showDatePicker() {
         final DatePickerDialog.OnDateSetListener listener = new DatePickerDialog.OnDateSetListener() {
             @Override

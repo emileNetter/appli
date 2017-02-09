@@ -45,15 +45,20 @@ public class TimePickerFragment extends DialogFragment implements TimePickerDial
         // Create a new instance of TimePickerDialog and return it
         return new TimePickerDialog(getActivity(), this, hour, minute,DateFormat.is24HourFormat(getActivity()));
     }
-
+    public String checkDigit(int number)
+    {
+        return number<=9?"0"+number:String.valueOf(number);
+    }
+    //No need to use this method in the fragment code, just use it here.........
      public void onTimeSet(TimePicker view, int hourOfDay, int minute) {
+         String mTime = checkDigit(hourOfDay) + " : " + checkDigit(minute);
          startEditText = (EditText) getActivity().findViewById(R.id.startsEditText);
          endEditText = (EditText) getActivity().findViewById(R.id.endsEditText);
         if (mListener != null) mListener.onTimeSet(mId, view, hourOfDay, minute);
          switch (mId){
-             case 0 : startEditText.setText(hourOfDay + " : " + minute);
+             case 0 : startEditText.setText(mTime);
                  break;
-             case 1 : endEditText.setText(hourOfDay + " : " + minute);
+             case 1 : endEditText.setText(mTime);
                  break;
          }
     }
