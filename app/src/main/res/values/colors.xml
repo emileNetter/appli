@@ -17,4 +17,5 @@
     <color name="btn_create">#7b8aae</color>
     <color name="icon_tint">#616161</color>
     <color name="snackbar_warning">#e64545</color>
+    <color name="banner">#1e2649</color>
 </resources>

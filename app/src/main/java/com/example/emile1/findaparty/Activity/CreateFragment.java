@@ -9,6 +9,7 @@ import android.app.FragmentManager;
 import android.app.ListFragment;
 import android.app.TimePickerDialog;
 import android.content.DialogInterface;
+import android.graphics.Color;
 import android.os.Bundle;
 import android.support.design.widget.BaseTransientBottomBar;
 import android.support.design.widget.Snackbar;
@@ -214,8 +215,8 @@ public class CreateFragment extends Fragment{
             if(checkHours()){
                 final Snackbar snackbar = Snackbar.make(relativeLayout,getString(R.string.snackbar_text),BaseTransientBottomBar.LENGTH_INDEFINITE);
                 View snackbar_view = snackbar.getView();
-                TextView snackbar_text = (TextView) snackbar_view.findViewById(android.support.design.R.id.snackbar_text);
                 snackbar_view.setBackgroundColor(ContextCompat.getColor(getActivity(),R.color.snackbar_warning));
+                snackbar.setActionTextColor(Color.WHITE);
                 snackbar.setAction(getString(R.string.snackbar_dismiss), new View.OnClickListener() {
                     @Override
                     public void onClick(View view) {
@@ -233,7 +234,7 @@ public class CreateFragment extends Fragment{
         String e3 = endEditText.getText().toString().trim();
         String e4 = nbrPeopleEditText.getText().toString().trim();
         if(e1.isEmpty()|| e2.isEmpty()||
-                e3.isEmpty()|| e4.isEmpty()){
+                e3.isEmpty()|| e4.isEmpty() || checkHours()){
             createButton.setEnabled(false);
         }else{
             createButton.setEnabled(true);
