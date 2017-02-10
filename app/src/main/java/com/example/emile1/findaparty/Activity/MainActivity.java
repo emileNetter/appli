@@ -43,8 +43,7 @@ public class MainActivity extends AppCompatActivity
     private Toolbar toolbar;
     private EditText startEditText;
     private EditText endEditText;
-    private static final int START_TIME_PICKER_ID = 1;
-    private static final int END_TIME_PICKER_ID = 2;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -107,7 +106,7 @@ public class MainActivity extends AppCompatActivity
         int id = item.getItemId();
 
         if (id == R.id.nav_search) {
-            toolbar.setTitle("Search");
+            toolbar.setTitle(getString(R.string.search));
             FindFragment findFragment = new FindFragment();
             FragmentManager manager = getSupportFragmentManager();
             manager.beginTransaction().replace(
@@ -116,6 +115,7 @@ public class MainActivity extends AppCompatActivity
                     findFragment.getTag()
             ).commit();
         } else if (id == R.id.nav_create) {
+            toolbar.setTitle(getString(R.string.create));
             CreateFragment createFragment = CreateFragment.newInstance();
             FragmentManager manager = getSupportFragmentManager();
             manager.beginTransaction().replace(

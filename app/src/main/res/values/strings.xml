@@ -48,12 +48,6 @@
     <string name="nav_about_us">About Us</string>
 
     <!-- Toolbar titles when navigation menu item is selected -->
-    <string-array name="drawer_options_array">
-        <item>My LAN</item>
-        <item>Search LANS</item>
-        <item>My profile</item>
-        <item>Settings</item>
-    </string-array>
 
     <string name="activity_title_privacy_policy">Privacy Policy</string>
     <string name="action_clear_all">Clear All</string>
@@ -66,8 +60,10 @@
 
     <string name="navigation_drawer_open">Open navigation drawer</string>
     <string name="navigation_drawer_close">Close navigation drawer</string>
+
     <!-- Toolbar -->
     <string name="search">Search</string>
+    <string name="create">Create</string>
     <string name="action_settings">Settings</string>
     <string name="title_activity_searchable">SearchableActivity</string>
 
