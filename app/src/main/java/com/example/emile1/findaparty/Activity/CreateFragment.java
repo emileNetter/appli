@@ -7,6 +7,7 @@ import android.app.Dialog;
 import android.app.DialogFragment;
 import android.app.FragmentManager;
 import android.app.ListFragment;
+import android.app.ProgressDialog;
 import android.app.TimePickerDialog;
 import android.content.DialogInterface;
 import android.graphics.Color;
@@ -33,6 +34,10 @@ import android.widget.TimePicker;
 import android.widget.Toast;
 
 import com.example.emile1.findaparty.R;
+import com.parse.ParseException;
+import com.parse.ParseObject;
+import com.parse.ParseUser;
+import com.parse.SaveCallback;
 
 import org.w3c.dom.Text;
 
@@ -119,6 +124,7 @@ public class CreateFragment extends Fragment{
         createButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+                createLan();
             }
         });
         return v;
@@ -251,6 +257,48 @@ public class CreateFragment extends Fragment{
             }
         }
         return error;
+    }
+
+    private void createLan(){
+        ParseUser currentUser = ParseUser.getCurrentUser();
+        String firstName = currentUser.getString("firstName");
+        String lastName = currentUser.getString("lastName");
+        String date = dateEditText.getText().toString();
+        String startTime = startEditText.getText().toString();
+        String endTime = endEditText.getText().toString();
+        int maxPeople = Integer.parseInt(nbrPeopleEditText.getText().toString());
+
+        final ProgressDialog dialog = new ProgressDialog(getActivity());
+        dialog.setMessage(getString(R.string.progress_dialog_create));
+        dialog.show();
+
+        ParseObject lan = new ParseObject("Lan");
+        lan.add("Owner", firstName + " " + lastName);
+        lan.add("Address", "");
+        lan.add("Date",date);
+        lan.add("Start",startTime);
+        lan.add("End",endTime);
+        lan.add("MaxPeople",maxPeople);
+        lan.add("Remaining_Places",maxPeople);
+        lan.saveInBackground(new SaveCallback() {
+            @Override
+            public void done(ParseException e) {
+                dialog.dismiss();
+                if (e !=null){
+                    //Error Message
+                    Toast.makeText(getActivity(),
+                            "There was an error during the process, please try again",
+                            Toast.LENGTH_LONG)
+                            .show();
+                } else {
+                    Toast.makeText(getActivity(),"YOLO",Toast.LENGTH_SHORT).show();
+                }
+
+            }
+        });
+
+
+
     }
 
 }

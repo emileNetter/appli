@@ -77,6 +77,7 @@
     <string name="cancel_button">CANCEL</string>
     <string name="snackbar_text">End time must be after start time</string>
     <string name="snackbar_dismiss">Dismiss</string>
+    <string name="progress_dialog_create">Creating your LAN...</string>
 
     <string-array name="Numbers">
         <item>1</item>
