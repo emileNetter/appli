@@ -12,7 +12,7 @@
         android:background="@color/banner"
         android:layout_width="match_parent"
         android:gravity="center_vertical"
-        android:paddingStart="10dp"
+        android:paddingStart="20dp"
         android:layout_height="40dp" />
     <TextView
         android:id="@+id/dateTextView"
@@ -141,12 +141,20 @@
         android:layout_width="match_parent"
         android:layout_below="@id/nbrPeopleEditText"
         android:layout_centerHorizontal="true"
-        android:layout_marginTop="40dp"
+        android:layout_marginTop="50dp"
         android:layout_marginStart="60dp"
         android:layout_marginEnd="60dp"
         android:layout_height="55dp"
         android:enabled="false"
         android:background="@drawable/btn_create"
         android:text="@string/btn_create_create_fragment" />
+
+    <View
+        android:layout_width="100dp"
+        android:layout_height="2dp"
+        android:background="?android:attr/listDivider"
+        android:layout_marginTop="20dp"
+        android:layout_centerHorizontal="true"
+        android:layout_below="@id/nbrPeopleEditText" />
 
 </RelativeLayout>
