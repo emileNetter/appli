@@ -7,12 +7,13 @@
 
     <TextView
         android:id="@+id/banner"
-        android:text="DATE AND TIME"
+        android:text="@string/text_title"
         android:textColor="@android:color/white"
         android:background="@color/banner"
         android:layout_width="match_parent"
         android:gravity="center_vertical"
         android:paddingStart="20dp"
+        android:paddingEnd="20dp"
         android:layout_height="40dp" />
     <TextView
         android:id="@+id/dateTextView"
