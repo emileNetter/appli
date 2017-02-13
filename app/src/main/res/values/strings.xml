@@ -41,10 +41,11 @@
 
     <!-- Navigation Drawer menu labels -->
     <string name="nav_home">Home</string>
-    <string name="nav_create">Create</string>
-    <string name="nav_search">Search</string>
+    <string name="nav_photos">Photos</string>
+    <string name="nav_movies">Movies</string>
+    <string name="nav_notifications">Notifications</string>
     <string name="nav_settings">Settings</string>
-    <string name="nav_logout">Log Out</string>
+    <string name="nav_about_us">About Us</string>
 
     <!-- Toolbar titles when navigation menu item is selected -->
 

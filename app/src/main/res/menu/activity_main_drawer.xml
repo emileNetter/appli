@@ -4,37 +4,26 @@
 
     <group android:checkableBehavior="single">
         <item
-            android:id="@+id/nav_home"
-            android:title="@string/nav_home"
-            android:icon="@drawable/ic_home_black_24dp" />
-        <item
             android:id="@+id/nav_search"
             android:icon="@drawable/ic_search_black_24dp"
-            android:title="@string/nav_search" />
+            android:title="Search" />
         <item
             android:id="@+id/nav_create"
             android:icon="@drawable/ic_create_black_24dp"
-            android:title="@string/nav_create" />
+            android:title="Create" />
 
         <item
             android:id="@+id/nav_settings"
-            android:icon="@drawable/ic_settings_black_24dp"
-            android:title="@string/nav_settings" />
+            android:icon="@drawable/ic_menu_manage"
+            android:title="Settings" />
     </group>
 
-    <item android:title="">
+    <item android:title="Communicate">
         <menu>
-            <item>
-
-            </item>
-            <item>
-
-            </item>
-
             <item
                 android:id="@+id/nav_logOut"
                 android:icon="@drawable/logout"
-                android:title="@string/nav_logout" />
+                android:title="Log Out" />
         </menu>
     </item>
 
