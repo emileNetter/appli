@@ -1,14 +1,8 @@
 package com.example.emile1.findaparty.Activity;
 
-import android.app.DialogFragment;
-import android.app.ListFragment;
 import android.content.Intent;
 import android.os.Bundle;
-import android.support.design.widget.FloatingActionButton;
-import android.support.design.widget.Snackbar;
 import android.support.v4.app.FragmentManager;
-import android.support.v7.widget.SearchView;
-import android.util.Log;
 import android.view.View;
 import android.support.design.widget.NavigationView;
 import android.support.v4.view.GravityCompat;
@@ -20,18 +14,9 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.widget.EditText;
 import android.widget.TextView;
-import android.widget.TimePicker;
-import android.widget.Toast;
 
 import com.example.emile1.findaparty.R;
-import com.parse.GetCallback;
-import com.parse.Parse;
-import com.parse.ParseException;
-import com.parse.ParseObject;
-import com.parse.ParseQuery;
 import com.parse.ParseUser;
-
-import org.w3c.dom.Text;
 
 public class MainActivity extends AppCompatActivity
         implements NavigationView.OnNavigationItemSelectedListener{
@@ -43,6 +28,7 @@ public class MainActivity extends AppCompatActivity
     private Toolbar toolbar;
     private EditText startEditText;
     private EditText endEditText;
+    private FragmentManager fm;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -51,6 +37,13 @@ public class MainActivity extends AppCompatActivity
         setUserData();
         toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
+        fm = getSupportFragmentManager();
+        HomeFragment homeFragment =HomeFragment.newInstance();
+        fm.beginTransaction().replace(
+                R.id.content_main,
+                homeFragment,
+                homeFragment.getTag()
+        ).commit();
 
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
         ActionBarDrawerToggle toggle = new ActionBarDrawerToggle(
@@ -108,37 +101,34 @@ public class MainActivity extends AppCompatActivity
 
         if (id == R.id.nav_search) {
             toolbar.setTitle(getString(R.string.search));
-            FindFragment findFragment = new FindFragment();
-            FragmentManager manager = getSupportFragmentManager();
-            manager.beginTransaction().replace(
+            SearchFragment searchFragment = new SearchFragment();
+            fm.beginTransaction().replace(
                     R.id.content_main,
-                    findFragment,
-                    findFragment.getTag()
+                    searchFragment,
+                    searchFragment.getTag()
             ).commit();
         } else if (id == R.id.nav_create) {
             toolbar.setTitle(getString(R.string.create));
             CreateFragment createFragment = CreateFragment.newInstance();
-            FragmentManager manager = getSupportFragmentManager();
-            manager.beginTransaction().replace(
+            fm.beginTransaction().replace(
                     R.id.content_main,
                     createFragment,
                     createFragment.getTag()
             ).commit();
 
         }  else if (id == R.id.nav_settings) {
+            setTitle(getString(R.string.nav_settings));
 
         } else if (id == R.id.nav_logOut) {
             logOut();
-        } else if (id==R.id.nav_home){
+        } else if (id==R.id.nav_main){
             toolbar.setTitle(getString(R.string.nav_home));
-            HomeFragment homeFragment = HomeFragment.newInstance();
-            FragmentManager manager = getSupportFragmentManager();
-            manager.beginTransaction().replace(
+            HomeFragment homeFragment =HomeFragment.newInstance();
+            fm.beginTransaction().replace(
                     R.id.content_main,
                     homeFragment,
                     homeFragment.getTag()
             ).commit();
-
         }
 
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
