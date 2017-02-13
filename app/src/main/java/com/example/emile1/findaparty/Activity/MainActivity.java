@@ -60,6 +60,7 @@ public class MainActivity extends AppCompatActivity
 
         NavigationView navigationView = (NavigationView) findViewById(R.id.nav_view);
         navigationView.setNavigationItemSelectedListener(this);
+        navigationView.getMenu().getItem(0).setChecked(true);
         //allow to find nav header textview and instantiate it
         View header=navigationView.getHeaderView(0);
         textView = (TextView) header.findViewById(R.id.tvUserName);
@@ -128,6 +129,16 @@ public class MainActivity extends AppCompatActivity
 
         } else if (id == R.id.nav_logOut) {
             logOut();
+        } else if (id==R.id.nav_home){
+            toolbar.setTitle(getString(R.string.nav_home));
+            HomeFragment homeFragment = HomeFragment.newInstance();
+            FragmentManager manager = getSupportFragmentManager();
+            manager.beginTransaction().replace(
+                    R.id.content_main,
+                    homeFragment,
+                    homeFragment.getTag()
+            ).commit();
+
         }
 
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
