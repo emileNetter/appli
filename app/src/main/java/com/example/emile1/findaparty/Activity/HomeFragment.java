@@ -28,6 +28,7 @@ import java.util.StringTokenizer;
 public class HomeFragment extends Fragment {
 
     ListView mListView;
+    List<String> idList;
     String[] prenoms = new String[]{
             "Antoine", "Benoit", "Cyril", "David", "Eloise", "Florent",
             "Gerard", "Hugo", "Ingrid", "Jonathan", "Kevin", "Logan",
@@ -47,13 +48,10 @@ public class HomeFragment extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
+        idList = new ArrayList<>();
         View v = inflater.inflate(R.layout.fragment_home, container, false);
-        mListView = (ListView) v.findViewById(R.id.listview_home);
-        ArrayAdapter<String> adapter = new ArrayAdapter<String>(getActivity(),
-                android.R.layout.simple_list_item_1, prenoms);
-        mListView.setAdapter(adapter);
         getLans();
-
+        mListView = (ListView) v.findViewById(R.id.listview_home);
 
         return v;
     }
@@ -65,8 +63,11 @@ public class HomeFragment extends Fragment {
             public void done(List<ParseObject> objects, ParseException e) {
                 if (e == null) {
                     for(ParseObject lan : objects){
-                        Log.i("Lan",lan.getObjectId());
+                        idList.add(lan.getObjectId());
                     }
+                    ArrayAdapter<String> adapter = new ArrayAdapter<>(getActivity(),
+                            android.R.layout.simple_list_item_1, idList);
+                    mListView.setAdapter(adapter);
 
                 } else {
                     Toast.makeText(getActivity(),"Error",Toast.LENGTH_SHORT).show();
