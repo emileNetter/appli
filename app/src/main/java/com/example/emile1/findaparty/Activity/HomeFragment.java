@@ -3,13 +3,24 @@ package com.example.emile1.findaparty.Activity;
 
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
 import android.widget.ListView;
+import android.widget.Toast;
 
 import com.example.emile1.findaparty.R;
+import com.parse.FindCallback;
+import com.parse.ParseException;
+import com.parse.ParseObject;
+import com.parse.ParseQuery;
+import com.parse.ParseUser;
+
+import java.util.ArrayList;
+import java.util.List;
+import java.util.StringTokenizer;
 
 /**
  * A simple {@link Fragment} subclass.
@@ -41,7 +52,28 @@ public class HomeFragment extends Fragment {
         ArrayAdapter<String> adapter = new ArrayAdapter<String>(getActivity(),
                 android.R.layout.simple_list_item_1, prenoms);
         mListView.setAdapter(adapter);
+        getLans();
+
 
         return v;
     }
+
+    public void getLans(){
+        ParseQuery<ParseObject> query = ParseQuery.getQuery("Lan");
+        query.whereContains("IdOwner", ParseUser.getCurrentUser().getObjectId());
+        query.findInBackground(new FindCallback<ParseObject>() {
+            public void done(List<ParseObject> objects, ParseException e) {
+                if (e == null) {
+                    for(ParseObject lan : objects){
+                        Log.i("Lan",lan.getObjectId());
+                    }
+
+                } else {
+                    Toast.makeText(getActivity(),"Error",Toast.LENGTH_SHORT).show();
+
+                }
+            }
+        });
+    }
+
 }

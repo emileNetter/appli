@@ -273,6 +273,7 @@ public class CreateFragment extends Fragment{
         dialog.show();
 
         ParseObject lan = new ParseObject("Lan");
+        lan.add("IdOwner",ParseUser.getCurrentUser().getObjectId());
         lan.add("Owner", firstName + " " + lastName);
         lan.add("Address", "");
         lan.add("Date",date);
