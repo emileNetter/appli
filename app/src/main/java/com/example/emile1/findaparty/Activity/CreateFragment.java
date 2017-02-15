@@ -294,12 +294,7 @@ public class CreateFragment extends Fragment{
                 } else {
                     Toast.makeText(getActivity(),"YOLO",Toast.LENGTH_SHORT).show();
                 }
-
             }
         });
-
-
-
     }
-
 }

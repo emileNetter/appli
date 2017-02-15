@@ -3,6 +3,7 @@ package com.example.emile1.findaparty.Activity;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.v4.app.FragmentManager;
+import android.support.v4.app.FragmentTabHost;
 import android.view.View;
 import android.support.design.widget.NavigationView;
 import android.support.v4.view.GravityCompat;
@@ -13,6 +14,7 @@ import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.widget.EditText;
+import android.widget.TabHost;
 import android.widget.TextView;
 
 import com.example.emile1.findaparty.R;
@@ -59,6 +61,15 @@ public class MainActivity extends AppCompatActivity
         textView = (TextView) header.findViewById(R.id.tvUserName);
         textView.setText(firstName +" "+ lastName);
 
+        FragmentTabHost host = (FragmentTabHost)findViewById(R.id.tabHost);
+        host.setup(this, getSupportFragmentManager(), android.R.id.tabcontent);
+
+        host.addTab(
+                host.newTabSpec("homeTab").setIndicator("Recent",null),
+                HomeFragment.class,null);
+        host.addTab(
+                host.newTabSpec("homeTab").setIndicator("Archive",null),
+                HomeFragment.class,null);
     }
 
     @Override

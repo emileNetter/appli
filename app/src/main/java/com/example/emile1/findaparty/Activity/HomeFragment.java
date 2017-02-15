@@ -71,10 +71,8 @@ public class HomeFragment extends Fragment {
 
                 } else {
                     Toast.makeText(getActivity(),"Error",Toast.LENGTH_SHORT).show();
-
                 }
             }
         });
     }
-
 }
