@@ -3,6 +3,7 @@ package com.example.emile1.findaparty.Activity;
 
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
+import android.support.v4.app.FragmentTabHost;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -27,15 +28,8 @@ import java.util.StringTokenizer;
  */
 public class HomeFragment extends Fragment {
 
-    ListView mListView;
-    List<String> idList;
-    String[] prenoms = new String[]{
-            "Antoine", "Benoit", "Cyril", "David", "Eloise", "Florent",
-            "Gerard", "Hugo", "Ingrid", "Jonathan", "Kevin", "Logan",
-            "Mathieu", "Noemie", "Olivia", "Philippe", "Quentin", "Romain",
-            "Sophie", "Tristan", "Ulric", "Vincent", "Willy", "Xavier",
-            "Yann", "Zoé"
-    };
+    private FragmentTabHost host;
+
     public HomeFragment() {
         // Required empty public constructor
     }
@@ -48,31 +42,21 @@ public class HomeFragment extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
-        idList = new ArrayList<>();
+
         View v = inflater.inflate(R.layout.fragment_home, container, false);
-        getLans();
-        mListView = (ListView) v.findViewById(R.id.listview_home);
+//        getLans();
+
+        host = (FragmentTabHost)v.findViewById(R.id.tabHost);
+        host.setup(getActivity(), getChildFragmentManager(), android.R.id.tabcontent);
+        host.addTab(
+                host.newTabSpec("recentTab").setIndicator("Recent",null),
+                RecentFragment.class,null);
+        host.addTab(
+                host.newTabSpec("archiveTab").setIndicator("Archives",null),
+                ArchiveFragment.class,null);
 
         return v;
     }
 
-    public void getLans(){
-        ParseQuery<ParseObject> query = ParseQuery.getQuery("Lan");
-        query.whereContains("IdOwner", ParseUser.getCurrentUser().getObjectId());
-        query.findInBackground(new FindCallback<ParseObject>() {
-            public void done(List<ParseObject> objects, ParseException e) {
-                if (e == null) {
-                    for(ParseObject lan : objects){
-                        idList.add(lan.getObjectId());
-                    }
-                    ArrayAdapter<String> adapter = new ArrayAdapter<>(getActivity(),
-                            android.R.layout.simple_list_item_1, idList);
-                    mListView.setAdapter(adapter);
 
-                } else {
-                    Toast.makeText(getActivity(),"Error",Toast.LENGTH_SHORT).show();
-                }
-            }
-        });
-    }
 }

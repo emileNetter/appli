@@ -40,13 +40,15 @@ public class MainActivity extends AppCompatActivity
         toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
         fm = getSupportFragmentManager();
-        HomeFragment homeFragment =HomeFragment.newInstance();
-        fm.beginTransaction().replace(
-                R.id.content_main,
-                homeFragment,
-                homeFragment.getTag()
-        ).commit();
-
+//        HomeFragment homeFragment =HomeFragment.newInstance();
+//        fm.beginTransaction().replace(
+//                R.id.content_main,
+//                homeFragment,
+//                homeFragment.getTag()
+//        ).commit();
+        HomeFragment fragmenttab = new HomeFragment();
+        fm.beginTransaction().replace(R.id.content_main,fragmenttab,fragmenttab.getTag())
+                .commit();
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
         ActionBarDrawerToggle toggle = new ActionBarDrawerToggle(
                 this, drawer, toolbar, R.string.navigation_drawer_open, R.string.navigation_drawer_close);
@@ -61,15 +63,6 @@ public class MainActivity extends AppCompatActivity
         textView = (TextView) header.findViewById(R.id.tvUserName);
         textView.setText(firstName +" "+ lastName);
 
-        FragmentTabHost host = (FragmentTabHost)findViewById(R.id.tabHost);
-        host.setup(this, getSupportFragmentManager(), android.R.id.tabcontent);
-
-        host.addTab(
-                host.newTabSpec("homeTab").setIndicator("Recent",null),
-                HomeFragment.class,null);
-        host.addTab(
-                host.newTabSpec("homeTab").setIndicator("Archive",null),
-                HomeFragment.class,null);
     }
 
     @Override
