@@ -49,6 +49,7 @@ public class MainActivity extends AppCompatActivity
         HomeFragment fragmenttab = new HomeFragment();
         fm.beginTransaction().replace(R.id.content_main,fragmenttab,fragmenttab.getTag())
                 .commit();
+
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
         ActionBarDrawerToggle toggle = new ActionBarDrawerToggle(
                 this, drawer, toolbar, R.string.navigation_drawer_open, R.string.navigation_drawer_close);

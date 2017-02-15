@@ -40,10 +40,18 @@ public class RecentFragment extends Fragment {
         idList = new ArrayList<>();
         mListView = (ListView) v.findViewById(R.id.listview_home);
         getLans();
-        
+
         return v;
     }
 
+    @Override
+    public void onStart(){
+        super.onStart();
+    }
+    @Override
+    public void onSaveInstanceState(Bundle outState){
+        super.onSaveInstanceState(outState);
+    }
     public void getLans(){
         ParseQuery<ParseObject> query = ParseQuery.getQuery("Lan");
         query.whereContains("IdOwner", ParseUser.getCurrentUser().getObjectId());
