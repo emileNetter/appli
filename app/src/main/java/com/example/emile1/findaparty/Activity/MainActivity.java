@@ -4,6 +4,7 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentTabHost;
+import android.util.Log;
 import android.view.View;
 import android.support.design.widget.NavigationView;
 import android.support.v4.view.GravityCompat;
@@ -31,6 +32,8 @@ public class MainActivity extends AppCompatActivity
     private EditText startEditText;
     private EditText endEditText;
     private FragmentManager fm;
+    private HomeFragment homeFragment;
+    private CreateFragment createFragment;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -46,8 +49,8 @@ public class MainActivity extends AppCompatActivity
 //                homeFragment,
 //                homeFragment.getTag()
 //        ).commit();
-        HomeFragment fragmenttab = new HomeFragment();
-        fm.beginTransaction().replace(R.id.content_main,fragmenttab,fragmenttab.getTag())
+        homeFragment = new HomeFragment();
+        fm.beginTransaction().replace(R.id.content_main,homeFragment,homeFragment.getTag())
                 .commit();
 
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
@@ -112,9 +115,10 @@ public class MainActivity extends AppCompatActivity
                     searchFragment,
                     searchFragment.getTag()
             ).commit();
+
         } else if (id == R.id.nav_create) {
             toolbar.setTitle(getString(R.string.create));
-            CreateFragment createFragment = CreateFragment.newInstance();
+            createFragment = CreateFragment.newInstance();
             fm.beginTransaction().replace(
                     R.id.content_main,
                     createFragment,
@@ -128,7 +132,6 @@ public class MainActivity extends AppCompatActivity
             logOut();
         } else if (id==R.id.nav_main){
             toolbar.setTitle(getString(R.string.nav_home));
-            HomeFragment homeFragment =HomeFragment.newInstance();
             fm.beginTransaction().replace(
                     R.id.content_main,
                     homeFragment,

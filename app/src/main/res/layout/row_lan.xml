@@ -1,6 +1,83 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:layout_width="match_parent" android:layout_height="match_parent">
+    android:layout_width="match_parent" android:layout_height="match_parent"
+    android:paddingTop="20dp"
+    android:paddingStart="40dp"
+    android:paddingEnd="40dp">
+
+    <TextView
+        android:id="@+id/date"
+        android:layout_width="wrap_content"
+        android:text="Date"
+        android:textStyle="bold"
+        android:layout_height="wrap_content" />
+
+    <TextView
+        android:id="@+id/textViewStart"
+        android:layout_below="@+id/date"
+        android:text="Start : "
+        android:layout_marginTop="5dp"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content" />
+    <TextView
+        android:id="@+id/start"
+        android:layout_toEndOf="@id/textViewStart"
+        android:text="hello"
+        android:textStyle="bold"
+        android:layout_alignTop="@id/textViewStart"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content" />
+    <TextView
+        android:id="@+id/textViewEnd"
+        android:layout_below="@id/textViewStart"
+        android:layout_marginTop="5dp"
+        android:text="End : "
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content" />
+    <TextView
+        android:id="@+id/end"
+        android:layout_toEndOf="@id/textViewEnd"
+        android:layout_alignTop="@id/textViewEnd"
+        android:text="End"
+        android:textStyle="bold"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content" />
+    <TextView
+        android:id="@+id/textViewMaxPlaces"
+        android:layout_alignParentEnd="true"
+        android:layout_marginEnd="30dp"
+        android:text="Max People :"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content" />
+    <TextView
+        android:id="@+id/max"
+        android:text="3"
+        android:layout_alignEnd="@id/textViewMaxPlaces"
+        android:textStyle="bold"
+        android:layout_alignParentEnd="true"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content" />
+    <TextView
+        android:id="@+id/textViewParticipant"
+        android:layout_alignParentEnd="true"
+        android:layout_marginEnd="30dp"
+        android:text="Participants : "
+        android:layout_below="@id/textViewMaxPlaces"
+        android:layout_alignEnd="@id/textViewEnd"
+        android:layout_marginTop="5dp"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content" />
+    <TextView
+        android:id="@+id/participant"
+        android:layout_alignParentEnd="true"
+        android:layout_alignEnd="@id/textViewParticipant"
+        android:layout_below="@id/textViewMaxPlaces"
+        android:layout_marginTop="5dp"
+        android:textStyle="bold"
+        android:text="4"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content" />
+
 
 
 </RelativeLayout>
