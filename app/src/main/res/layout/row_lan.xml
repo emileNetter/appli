@@ -20,7 +20,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content" />
     <TextView
-        android:id="@+id/start"
+        android:id="@+id/startTime"
         android:layout_toEndOf="@id/textViewStart"
         android:text="hello"
         android:textStyle="bold"
@@ -35,7 +35,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content" />
     <TextView
-        android:id="@+id/end"
+        android:id="@+id/endTime"
         android:layout_toEndOf="@id/textViewEnd"
         android:layout_alignTop="@id/textViewEnd"
         android:text="End"
@@ -50,7 +50,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content" />
     <TextView
-        android:id="@+id/max"
+        android:id="@+id/maxSpots"
         android:text="3"
         android:layout_alignEnd="@id/textViewMaxPlaces"
         android:textStyle="bold"
