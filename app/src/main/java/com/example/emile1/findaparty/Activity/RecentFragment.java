@@ -40,6 +40,9 @@ public class RecentFragment extends Fragment {
         View v = inflater.inflate(R.layout.fragment_recent, container, false);
         idList = new ArrayList<String>();
         mListView = (ListView) v.findViewById(R.id.listview_home);
+        List<Lan> lans= generateLans();
+        LanAdapter lanAdapter= new LanAdapter(getActivity(),lans);
+        mListView.setAdapter(lanAdapter);
 //        getLans();
 
         return v;
@@ -80,4 +83,12 @@ public class RecentFragment extends Fragment {
         });
     }
 
+    private List<Lan> generateLans(){
+        List<Lan> lans = new ArrayList<Lan>();
+        lans.add(new Lan("20/12/2016","10:00","12:00",3,0));
+        lans.add(new Lan("20/12/2016","15:00","18:00",5,2));
+        lans.add(new Lan("10/08/2017","10:00","12:00",4,1));
+        lans.add(new Lan("03/04/2017","18:00","20:00",5,3));
+        return lans;
+    }
 }

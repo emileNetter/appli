@@ -1,6 +1,7 @@
 package com.example.emile1.findaparty.Activity;
 
 import android.content.Context;
+import android.content.Intent;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -10,6 +11,7 @@ import android.widget.TextView;
 import com.example.emile1.findaparty.R;
 
 import java.util.List;
+import java.util.Locale;
 
 /**
  * Created by Emile1 on 16/02/2017.
@@ -17,8 +19,8 @@ import java.util.List;
 public class LanAdapter extends ArrayAdapter<Lan> {
 
     //tweets est la liste des models à afficher
-    public LanAdapter(Context context, List<Lan> tweets) {
-        super(context, 0, tweets);
+    public LanAdapter(Context context, List<Lan> lans) {
+        super(context, 0, lans);
     }
 
     @Override
@@ -35,7 +37,7 @@ public class LanAdapter extends ArrayAdapter<Lan> {
             viewHolder.startTime = (TextView) convertView.findViewById(R.id.startTime);
             viewHolder.endTime = (TextView) convertView.findViewById(R.id.endTime);
             viewHolder.maxSpots = (TextView) convertView.findViewById(R.id.maxSpots);
-            viewHolder.participants = (TextView) convertView.findViewById(R.id.participant);
+            viewHolder.participants = (TextView) convertView.findViewById(R.id.participants);
             convertView.setTag(viewHolder);
         }
 
@@ -43,11 +45,11 @@ public class LanAdapter extends ArrayAdapter<Lan> {
         Lan lan = getItem(position);
 
         //il ne reste plus qu'à remplir notre vue
-//        viewHolder.date.setText(lan.getDate());
-//        viewHolder.startTime.setText(lan.getStartTime());
-//        viewHolder.endTime.setText(lan.getEndTime());
-//        viewHolder.maxSpots.setText(lan.getMaxSpots());
-//        viewHolder.participants.setText(lan.getParticipants());
+        viewHolder.date.setText(lan.getDate());
+        viewHolder.startTime.setText(lan.getStartTime());
+        viewHolder.endTime.setText(lan.getEndTime());
+        viewHolder.maxSpots.setText(String.format(Locale.getDefault(),"%d",lan.getMaxSpots()));
+        viewHolder.participants.setText(String.format(Locale.getDefault(),"%d",lan.getNbrParticipants()));
 
         return convertView;
     }
