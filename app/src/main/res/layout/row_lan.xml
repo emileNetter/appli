@@ -45,6 +45,7 @@
     <TextView
         android:id="@+id/textViewMaxPlaces"
         android:layout_alignParentEnd="true"
+        android:layout_alignTop="@id/textViewStart"
         android:layout_marginEnd="30dp"
         android:text="Max People :"
         android:layout_width="wrap_content"
@@ -52,9 +53,9 @@
     <TextView
         android:id="@+id/maxSpots"
         android:text="3"
-        android:layout_alignEnd="@id/textViewMaxPlaces"
-        android:textStyle="bold"
         android:layout_alignParentEnd="true"
+        android:layout_alignTop="@id/textViewStart"
+        android:textStyle="bold"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content" />
     <TextView
