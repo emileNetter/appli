@@ -18,4 +18,5 @@
     <color name="icon_tint">#616161</color>
     <color name="snackbar_warning">#e64545</color>
     <color name="banner">#1e2649</color>
+    <color name="light_grey">#dfdede</color>
 </resources>
