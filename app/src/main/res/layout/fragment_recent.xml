@@ -8,7 +8,11 @@
     <ListView
         android:id="@+id/listview_home"
         android:layout_width="match_parent"
-        android:layout_height="match_parent">
+        android:layout_height="match_parent"
+        android:divider="@android:color/transparent"
+        android:layout_marginStart="4dp"
+        android:layout_marginEnd="4dp"
+        android:dividerHeight="10.0sp">
     </ListView>
 
 </FrameLayout>
