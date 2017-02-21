@@ -19,4 +19,5 @@
     <color name="snackbar_warning">#e64545</color>
     <color name="banner">#1e2649</color>
     <color name="light_grey">#dfdede</color>
+    <color name="pressed_state">#dadada</color>
 </resources>
