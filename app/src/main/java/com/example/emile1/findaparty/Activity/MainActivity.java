@@ -34,6 +34,7 @@ public class MainActivity extends AppCompatActivity
     private FragmentManager fm;
     private HomeFragment homeFragment;
     private CreateFragment createFragment;
+    private SettingsFragment settingsFragment;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -127,6 +128,13 @@ public class MainActivity extends AppCompatActivity
 
         }  else if (id == R.id.nav_settings) {
             setTitle(getString(R.string.nav_settings));
+            settingsFragment = SettingsFragment.newInstance();
+            fm.beginTransaction().replace(
+                    R.id.content_main,
+                    settingsFragment,
+                    settingsFragment.getTag()
+            ).commit();
+
 
         } else if (id == R.id.nav_logOut) {
             logOut();
