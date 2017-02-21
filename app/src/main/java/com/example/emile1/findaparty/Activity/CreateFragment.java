@@ -272,15 +272,15 @@ public class CreateFragment extends Fragment{
         dialog.setMessage(getString(R.string.progress_dialog_create));
         dialog.show();
 
-        ParseObject lan = new ParseObject("Lan");
-        lan.add("IdOwner",ParseUser.getCurrentUser().getObjectId());
-        lan.add("Owner", firstName + " " + lastName);
-        lan.add("Address", "");
-        lan.add("Date",date);
-        lan.add("Start",startTime);
-        lan.add("End",endTime);
-        lan.add("MaxPeople",maxPeople);
-        lan.add("Remaining_Places",maxPeople);
+        ParseObject lan = new ParseObject("Lans");
+        lan.put("IdOwner",ParseUser.getCurrentUser().getObjectId());
+        lan.put("Owner", firstName + " " + lastName);
+        lan.put("Address", "");
+        lan.put("Date",date);
+        lan.put("Start",startTime);
+        lan.put("End",endTime);
+        lan.put("MaxPeople",maxPeople);
+        lan.put("Remaining_Places",maxPeople);
         lan.saveInBackground(new SaveCallback() {
             @Override
             public void done(ParseException e) {

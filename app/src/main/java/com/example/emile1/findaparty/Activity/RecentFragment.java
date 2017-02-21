@@ -27,6 +27,7 @@ import java.util.List;
 public class RecentFragment extends Fragment {
     private ArrayList<String> idList;
     private ListView mListView;
+    private List<Lan> lans;
 
     public RecentFragment() {
         // Required empty public constructor
@@ -38,12 +39,9 @@ public class RecentFragment extends Fragment {
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
         View v = inflater.inflate(R.layout.fragment_recent, container, false);
-        idList = new ArrayList<String>();
+//        idList = new ArrayList<String>();
+        getLans();
         mListView = (ListView) v.findViewById(R.id.listview_home);
-        List<Lan> lans= generateLans();
-        LanAdapter lanAdapter= new LanAdapter(getActivity(),lans);
-        mListView.setAdapter(lanAdapter);
-//        getLans();
 
         return v;
     }
@@ -59,23 +57,26 @@ public class RecentFragment extends Fragment {
         super.onActivityCreated(savedInstanceState);
         if (savedInstanceState != null) {
             // Restore last state for checked position.
-            Log.i("Test","HELLO");
             idList = savedInstanceState.getStringArrayList("idList");
         }
     }
     public void getLans(){
+        lans = new ArrayList<Lan>();
         ParseQuery<ParseObject> query = ParseQuery.getQuery("Lan");
         query.whereContains("IdOwner", ParseUser.getCurrentUser().getObjectId());
         query.findInBackground(new FindCallback<ParseObject>() {
             public void done(List<ParseObject> objects, ParseException e) {
                 if (e == null) {
                     for(ParseObject lan : objects){
-                        idList.add(lan.getObjectId());
-                    }
-                    ArrayAdapter<String> adapter = new ArrayAdapter<>(getActivity(),
-                            android.R.layout.simple_list_item_1, idList);
-                    mListView.setAdapter(adapter);
+                        lans.add(new Lan(lan.getString("Date"),
+                                lan.getString("Start"),
+                                lan.getString("End"),
+                                lan.getInt("MaxPeople"),
+                                lan.getInt("Remaining_Places")));
 
+                    }
+                    LanAdapter lanAdapter= new LanAdapter(getActivity(),lans);
+                    mListView.setAdapter(lanAdapter);
                 } else {
                     Toast.makeText(getActivity(),"Error",Toast.LENGTH_SHORT).show();
                 }
@@ -83,12 +84,11 @@ public class RecentFragment extends Fragment {
         });
     }
 
-    private List<Lan> generateLans(){
-        List<Lan> lans = new ArrayList<Lan>();
-        lans.add(new Lan("20/12/2016","10:00","12:00",3,0));
-        lans.add(new Lan("20/12/2016","15:00","18:00",5,2));
-        lans.add(new Lan("10/08/2017","10:00","12:00",4,1));
-        lans.add(new Lan("03/04/2017","18:00","20:00",5,3));
-        return lans;
-    }
+//    private List<Lan> generateLans(){
+//        lans.add(new Lan("20/12/2016","10:00","12:00",3,0));
+//        lans.add(new Lan("20/12/2016","15:00","18:00",5,2));
+//        lans.add(new Lan("10/08/2017","10:00","12:00",4,1));
+//        lans.add(new Lan("03/04/2017","18:00","20:00",5,3));
+//        return lans;
+//    }
 }
