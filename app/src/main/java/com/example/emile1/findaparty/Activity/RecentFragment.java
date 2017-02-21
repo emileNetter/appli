@@ -25,6 +25,7 @@ import java.util.List;
  * A simple {@link Fragment} subclass.
  */
 public class RecentFragment extends Fragment {
+
     private ArrayList<String> idList;
     private ListView mListView;
     private List<Lan> lans;
@@ -33,16 +34,21 @@ public class RecentFragment extends Fragment {
         // Required empty public constructor
     }
 
-
+    @Override
+    public void onCreate(Bundle savedInstanceState){
+        super.onCreate(savedInstanceState);
+//        getLans();
+    }
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
         View v = inflater.inflate(R.layout.fragment_recent, container, false);
-//        idList = new ArrayList<String>();
-        getLans();
         mListView = (ListView) v.findViewById(R.id.listview_home);
+        lans = new ArrayList<>();
+        getLans();
 
+        Log.i("LAN",String.valueOf(lans.size()));
         return v;
     }
 
@@ -60,9 +66,9 @@ public class RecentFragment extends Fragment {
             idList = savedInstanceState.getStringArrayList("idList");
         }
     }
+
     public void getLans(){
-        lans = new ArrayList<Lan>();
-        ParseQuery<ParseObject> query = ParseQuery.getQuery("Lan");
+        ParseQuery<ParseObject> query = ParseQuery.getQuery("Lans");
         query.whereContains("IdOwner", ParseUser.getCurrentUser().getObjectId());
         query.findInBackground(new FindCallback<ParseObject>() {
             public void done(List<ParseObject> objects, ParseException e) {
@@ -73,7 +79,6 @@ public class RecentFragment extends Fragment {
                                 lan.getString("End"),
                                 lan.getInt("MaxPeople"),
                                 lan.getInt("Remaining_Places")));
-
                     }
                     LanAdapter lanAdapter= new LanAdapter(getActivity(),lans);
                     mListView.setAdapter(lanAdapter);
@@ -84,11 +89,4 @@ public class RecentFragment extends Fragment {
         });
     }
 
-//    private List<Lan> generateLans(){
-//        lans.add(new Lan("20/12/2016","10:00","12:00",3,0));
-//        lans.add(new Lan("20/12/2016","15:00","18:00",5,2));
-//        lans.add(new Lan("10/08/2017","10:00","12:00",4,1));
-//        lans.add(new Lan("03/04/2017","18:00","20:00",5,3));
-//        return lans;
-//    }
 }
