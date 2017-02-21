@@ -37,7 +37,6 @@ public class RecentFragment extends Fragment {
     @Override
     public void onCreate(Bundle savedInstanceState){
         super.onCreate(savedInstanceState);
-//        getLans();
     }
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -67,6 +66,7 @@ public class RecentFragment extends Fragment {
         }
     }
 
+    //retrieve all the user's Lans and display it in a listview using a custom adapter
     public void getLans(){
         ParseQuery<ParseObject> query = ParseQuery.getQuery("Lans");
         query.whereContains("IdOwner", ParseUser.getCurrentUser().getObjectId());

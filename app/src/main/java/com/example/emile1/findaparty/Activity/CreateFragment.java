@@ -130,6 +130,7 @@ public class CreateFragment extends Fragment{
         return v;
     }
 
+    // show a clickable dialog to pick a number
     private void showNumbersList(){
         final String numbers[] = getResources().getStringArray(R.array.Numbers);
         final AlertDialog.Builder dialog = new AlertDialog.Builder(getActivity());
@@ -199,11 +200,13 @@ public class CreateFragment extends Fragment{
         nbrPeopleEditText.addTextChangedListener(textWatcher);
     }
 
+    //add a 0 before a day or month with only 1 digit
     private String checkDigit(int number)
     {
         return number<=9?"0"+number:String.valueOf(number);
     }
 
+    //textwatcher to check when text is entered
     private TextWatcher textWatcher = new TextWatcher() {
         @Override
         public void beforeTextChanged(CharSequence charSequence, int i, int i2, int i3)
@@ -234,6 +237,7 @@ public class CreateFragment extends Fragment{
         }
     };
 
+    //enable / disable button if info is missing
     private void checkFieldsForEmptyValues(){
         String e1 = dateEditText.getText().toString().trim();
         String e2 = startEditText.getText().toString().trim();
@@ -247,6 +251,7 @@ public class CreateFragment extends Fragment{
         }
     }
 
+    //checks whereas the end time is before or after the start time
     private boolean checkHours(){
         boolean error = false;
         String timeStart = startEditText.getText().toString();
@@ -259,6 +264,7 @@ public class CreateFragment extends Fragment{
         return error;
     }
 
+    //Create a Lan and add it in the Database
     private void createLan(){
         ParseUser currentUser = ParseUser.getCurrentUser();
         String firstName = currentUser.getString("firstName");
