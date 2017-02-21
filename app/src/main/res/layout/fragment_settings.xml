@@ -23,24 +23,61 @@
         android:id="@+id/title_profile_textview"
         android:layout_below="@id/frame"
         android:text="Your profile"
+        android:textSize="20sp"
         android:layout_marginTop="20dp"
         android:layout_marginStart="20dp"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content" />
+
     <TextView
         android:id="@+id/firstname_profile_textview"
         android:layout_alignStart="@id/title_profile_textview"
-        android:layout_marginTop="10dp"
+        android:layout_marginTop="15dp"
         android:layout_marginStart="15dp"
         android:text="FIRSTNAME"
         android:layout_below="@id/title_profile_textview"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content" />
     <EditText
+        android:id="@+id/firstname_profile_edittext"
         android:layout_below="@id/firstname_profile_textview"
         android:layout_marginStart="20dp"
         android:layout_marginEnd="20dp"
         android:text="EMILE"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content" />
+
+    <TextView
+        android:id="@+id/lastname_profile_textview"
+        android:layout_below="@id/firstname_profile_edittext"
+        android:layout_alignStart="@id/title_profile_textview"
+        android:text="LASTNAME"
+        android:layout_marginStart="15dp"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content" />
+
+    <EditText
+        android:id="@+id/lastname_profile_edittext"
+        android:layout_below="@id/lastname_profile_textview"
+        android:layout_marginStart="20dp"
+        android:text="NETTER"
+        android:layout_marginEnd="20dp"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content" />
+    <TextView
+        android:id="@+id/email_profile_textview"
+        android:layout_below="@id/lastname_profile_edittext"
+        android:layout_alignStart="@id/title_profile_textview"
+        android:text="EMAIL"
+        android:layout_marginStart="15dp"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content" />
+    <EditText
+        android:id="@+id/email_profile_edittext"
+        android:layout_below="@id/email_profile_textview"
+        android:text="EMILE@NETTER.FR"
+        android:layout_marginStart="20dp"
+        android:layout_marginEnd="20dp"
         android:layout_width="match_parent"
         android:layout_height="wrap_content" />
 
