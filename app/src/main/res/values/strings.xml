@@ -80,6 +80,9 @@
     <string name="progress_dialog_create">Creating your LAN...</string>
     <string name="text_title">DATE AND TIME</string>
 
+    <!-- HomeFragment -->
+    <string name="recent_tab">Recent</string>
+    <string name="archive_tab">Finished</string>
     <string-array name="Numbers">
         <item>1</item>
         <item>2</item>

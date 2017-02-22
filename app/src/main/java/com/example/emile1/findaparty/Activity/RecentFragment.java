@@ -33,6 +33,11 @@ public class RecentFragment extends Fragment {
         // Required empty public constructor
     }
 
+    public static RecentFragment newInstance() {
+        RecentFragment fragment = new RecentFragment();
+        return fragment;
+    }
+
     @Override
     public void onCreate(Bundle savedInstanceState){
         super.onCreate(savedInstanceState);

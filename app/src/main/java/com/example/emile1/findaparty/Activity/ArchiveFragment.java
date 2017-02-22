@@ -19,6 +19,10 @@ public class ArchiveFragment extends Fragment {
         // Required empty public constructor
     }
 
+    public static ArchiveFragment newInstance() {
+        ArchiveFragment fragment = new ArchiveFragment();
+        return fragment;
+    }
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
