@@ -7,13 +7,13 @@
         android:id="@+id/frame"
         android:layout_width="match_parent"
         android:background="@color/buttonLoginColor"
-        android:layout_height="200dp"
+        android:layout_height="175dp"
         tools:context="com.example.emile1.findaparty.Activity.SettingsFragment">
 
     <ImageView
         android:id="@+id/profile_image"
         android:layout_width="65dp"
-        android:layout_height="87dp"
+        android:layout_height="73dp"
         android:layout_gravity="center_horizontal"
         android:layout_marginTop="40dp"
         android:background="@mipmap/ic_launcher"/>
@@ -38,12 +38,15 @@
         android:layout_below="@id/title_profile_textview"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content" />
+
     <EditText
         android:id="@+id/firstname_profile_edittext"
         android:layout_below="@id/firstname_profile_textview"
         android:layout_marginStart="20dp"
         android:layout_marginEnd="20dp"
+        android:textSize="16sp"
         android:text="EMILE"
+        android:inputType="text"
         android:layout_width="match_parent"
         android:layout_height="wrap_content" />
 
@@ -60,6 +63,8 @@
         android:id="@+id/lastname_profile_edittext"
         android:layout_below="@id/lastname_profile_textview"
         android:layout_marginStart="20dp"
+        android:textSize="16sp"
+        android:inputType="text"
         android:text="NETTER"
         android:layout_marginEnd="20dp"
         android:layout_width="match_parent"
@@ -76,8 +81,27 @@
         android:id="@+id/email_profile_edittext"
         android:layout_below="@id/email_profile_textview"
         android:text="EMILE@NETTER.FR"
+        android:inputType="textEmailAddress"
+        android:textSize="16sp"
         android:layout_marginStart="20dp"
         android:layout_marginEnd="20dp"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content" />
+    <TextView
+        android:id="@+id/address_profile_textview"
+        android:layout_below="@id/email_profile_edittext"
+        android:layout_alignStart="@id/title_profile_textview"
+        android:text="ADDRESS"
+        android:layout_marginStart="15dp"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content" />
+    <EditText
+        android:id="@+id/address_profile_edittext"
+        android:layout_below="@id/address_profile_textview"
+        android:layout_marginStart="20dp"
+        android:layout_marginEnd="20dp"
+        android:textSize="16sp"
+        android:inputType="textPostalAddress"
         android:layout_width="match_parent"
         android:layout_height="wrap_content" />
 

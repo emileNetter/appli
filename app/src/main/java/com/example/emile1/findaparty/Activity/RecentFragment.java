@@ -26,7 +26,6 @@ import java.util.List;
  */
 public class RecentFragment extends Fragment {
 
-    private ArrayList<String> idList;
     private ListView mListView;
     private List<Lan> lans;
 
@@ -46,8 +45,6 @@ public class RecentFragment extends Fragment {
         mListView = (ListView) v.findViewById(R.id.listview_home);
         lans = new ArrayList<>();
         getLans();
-        LanAdapter lanAdapter= new LanAdapter(getActivity(),lans);
-        mListView.setAdapter(lanAdapter);
 
         Log.i("LAN",String.valueOf(lans.size()));
         return v;
@@ -68,6 +65,8 @@ public class RecentFragment extends Fragment {
                                 lan.getInt("MaxPeople"),
                                 lan.getInt("Remaining_Places")));
                     }
+                    LanAdapter lanAdapter= new LanAdapter(getActivity(),lans);
+                    mListView.setAdapter(lanAdapter);
 
                 } else {
                     Toast.makeText(getActivity(),"Error",Toast.LENGTH_SHORT).show();
