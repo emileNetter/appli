@@ -35,6 +35,7 @@ import java.util.StringTokenizer;
 public class HomeFragment extends Fragment {
 
     private FragmentTabHost host;
+    private int limit;
 
     public HomeFragment() {
         // Required empty public constructor
@@ -44,20 +45,32 @@ public class HomeFragment extends Fragment {
         HomeFragment fragment = new HomeFragment();
         return fragment;
     }
+
+    @Override
+    public void onCreate(Bundle savedInstanceState){
+        super.onCreate(savedInstanceState);
+        setRetainInstance(true);
+
+    }
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
 
         View v = inflater.inflate(R.layout.fragment_home, container, false);
+        MyPagerAdapter myPagerAdapter = new MyPagerAdapter(getChildFragmentManager());
         final ViewPager viewPager = (ViewPager) v.findViewById(R.id.viewpager);
+        limit = (myPagerAdapter.getCount() > 1 ? myPagerAdapter.getCount() - 1 : 1);
 
+        //TabLayout definition
         TabLayout tabLayout = (TabLayout) v.findViewById(R.id.tab_layout);
-        tabLayout.addTab(tabLayout.newTab().setText("Tab 1"));
-        tabLayout.addTab(tabLayout.newTab().setText("Tab 2"));
+        tabLayout.addTab(tabLayout.newTab());
+        tabLayout.addTab(tabLayout.newTab());
         tabLayout.setTabGravity(TabLayout.GRAVITY_FILL);
         tabLayout.setupWithViewPager(viewPager);
-        viewPager.setAdapter(new MyPagerAdapter(getFragmentManager()));
+
+        viewPager.setAdapter(myPagerAdapter);
+        viewPager.setOffscreenPageLimit(limit);
         tabLayout.setOnTabSelectedListener(new TabLayout.OnTabSelectedListener() {
             @Override
             public void onTabSelected(TabLayout.Tab tab) {
@@ -107,6 +120,5 @@ public class HomeFragment extends Fragment {
             return tabTitles[position];
         }
     }
-
 
 }

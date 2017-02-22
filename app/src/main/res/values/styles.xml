@@ -39,7 +39,11 @@
         <item name="android:background">@color/buttonLoginColor</item>
         <item name="android:indeterminateDrawable">@drawable/circular_progress_dialog</item>
     </style>
-
+    <style name="MyCustomTabLayout" parent="Widget.Design.TabLayout">
+        <item name="tabSelectedTextColor">@android:color/white</item>
+        <item name="tabTextColor">@android:color/white</item>
+        <item name="android:background">@color/tab_background</item>
+    </style>
     <style name="AppTheme.AppBarOverlay" parent="ThemeOverlay.AppCompat.Dark.ActionBar" />
 
     <style name="AppTheme.PopupOverlay" parent="ThemeOverlay.AppCompat.Light" />

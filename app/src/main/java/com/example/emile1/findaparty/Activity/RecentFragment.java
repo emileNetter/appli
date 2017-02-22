@@ -28,6 +28,7 @@ public class RecentFragment extends Fragment {
 
     private ListView mListView;
     private List<Lan> lans;
+    private LanAdapter lanAdapter;
 
     public RecentFragment() {
         // Required empty public constructor
@@ -49,6 +50,7 @@ public class RecentFragment extends Fragment {
         View v = inflater.inflate(R.layout.fragment_recent, container, false);
         mListView = (ListView) v.findViewById(R.id.listview_home);
         lans = new ArrayList<>();
+        lanAdapter= new LanAdapter(getActivity(),lans);
         getLans();
 
         Log.i("LAN",String.valueOf(lans.size()));
@@ -70,9 +72,7 @@ public class RecentFragment extends Fragment {
                                 lan.getInt("MaxPeople"),
                                 lan.getInt("Remaining_Places")));
                     }
-                    LanAdapter lanAdapter= new LanAdapter(getActivity(),lans);
                     mListView.setAdapter(lanAdapter);
-
                 } else {
                     Toast.makeText(getActivity(),"Error",Toast.LENGTH_SHORT).show();
                 }
