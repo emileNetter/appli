@@ -11,6 +11,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         style="@style/MyCustomTabLayout"
+        app:tabBackground="@color/tab_background"
         android:elevation="6dp"
         android:minHeight="?attr/actionBarSize" />
 

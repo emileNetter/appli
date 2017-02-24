@@ -1,12 +1,14 @@
 package com.example.emile1.findaparty.Activity;
 
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.ListView;
 import android.widget.Toast;
@@ -52,8 +54,15 @@ public class RecentFragment extends Fragment {
         lans = new ArrayList<>();
         lanAdapter= new LanAdapter(getActivity(),lans);
         getLans();
+        mListView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
+                Intent intent = new Intent(getActivity(),MyLanDetailsActivity.class);
+                intent.putExtra("Date",mListView.getItemAtPosition(i).toString());
+                startActivity(intent);
 
-        Log.i("LAN",String.valueOf(lans.size()));
+            }
+        });
         return v;
     }
 
