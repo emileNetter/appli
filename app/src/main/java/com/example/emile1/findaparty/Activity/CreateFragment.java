@@ -286,7 +286,7 @@ public class CreateFragment extends Fragment{
         lan.put("Start",startTime);
         lan.put("End",endTime);
         lan.put("MaxPeople",maxPeople);
-        lan.put("Remaining_Places",maxPeople);
+        lan.put("Participants",0);
         lan.saveInBackground(new SaveCallback() {
             @Override
             public void done(ParseException e) {

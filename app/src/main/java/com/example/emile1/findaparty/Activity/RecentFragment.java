@@ -58,9 +58,8 @@ public class RecentFragment extends Fragment {
             @Override
             public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
                 Intent intent = new Intent(getActivity(),MyLanDetailsActivity.class);
-                intent.putExtra("Date",mListView.getItemAtPosition(i).toString());
+                intent.putExtra("Lan",lans.get(i));
                 startActivity(intent);
-
             }
         });
         return v;

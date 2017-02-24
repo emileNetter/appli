@@ -1,10 +1,9 @@
 package com.example.emile1.findaparty.Activity;
 
-/**
- * Created by Emile1 on 16/02/2017.
- */
+import java.io.Serializable;
 
-public class Lan {
+
+public class Lan implements Serializable{
     private String date;
     private String startTime;
     private String endTime;
