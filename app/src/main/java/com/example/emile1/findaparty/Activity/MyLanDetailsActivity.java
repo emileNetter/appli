@@ -29,7 +29,6 @@ public class MyLanDetailsActivity extends AppCompatActivity {
         Intent intent= getIntent();
         final Lan mLan = (Lan)intent.getSerializableExtra("Lan");
         final ParseObject lan = ParseObject.createWithoutData("Lans",mLan.getIdLan());
-        Toast.makeText(getApplicationContext(),mLan.getIdLan(),Toast.LENGTH_SHORT).show();
 
         btn_delete.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -38,7 +37,7 @@ public class MyLanDetailsActivity extends AppCompatActivity {
                     @Override
                     public void done(ParseException e) {
                         if(e==null){
-                            Toast.makeText(getApplicationContext(),"Deleted",Toast.LENGTH_SHORT).show();
+                            Toast.makeText(getApplicationContext(),"Deleted lan " +mLan.getIdLan(),Toast.LENGTH_SHORT).show();
                         }
                         else {
                             Toast.makeText(getApplicationContext(),"Error",Toast.LENGTH_SHORT).show();
