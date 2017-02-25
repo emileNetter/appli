@@ -11,14 +11,18 @@ public class Lan implements Serializable{
     private int nbrParticipants;
     private String idOwner;
     private String nameOwner;
+    private String idLan;
 
-    public Lan(String date, String startTime, String endTime, int maxSpots, int nbrParticipants){
+    public Lan(String idLan,String date, String startTime, String endTime, int maxSpots, int nbrParticipants){
+        this.idLan=idLan;
         this.date = date;
         this.startTime = startTime;
         this.endTime = endTime;
         this.maxSpots = maxSpots;
         this.nbrParticipants = nbrParticipants;
     }
+
+    public  String getIdLan(){return idLan;}
 
     public String getDate(){
         return date;
@@ -47,6 +51,8 @@ public class Lan implements Serializable{
     public String getNameOwner(){
         return nameOwner;
     }
+
+    public void setIdLan(String idLan) {this.idLan = idLan;}
 
     public void setDate(String date){
         this.date = date;

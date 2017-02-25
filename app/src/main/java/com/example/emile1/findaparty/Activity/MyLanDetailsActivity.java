@@ -22,7 +22,7 @@ public class MyLanDetailsActivity extends AppCompatActivity {
         getSupportActionBar().setDisplayShowHomeEnabled(true);
         Intent intent= getIntent();
         Lan mLan = (Lan)intent.getSerializableExtra("Lan");
-        Toast.makeText(getApplicationContext(),mLan.getDate(),Toast.LENGTH_SHORT).show();
+        Toast.makeText(getApplicationContext(),mLan.getIdLan(),Toast.LENGTH_SHORT).show();
 
         toolbar.setNavigationOnClickListener(new View.OnClickListener() {
             @Override

@@ -74,7 +74,8 @@ public class RecentFragment extends Fragment {
             public void done(List<ParseObject> objects, ParseException e) {
                 if (e == null) {
                     for(ParseObject lan : objects){
-                        lans.add(new Lan(lan.getString("Date"),
+                        lans.add(new Lan(lan.getObjectId(),
+                                lan.getString("Date"),
                                 lan.getString("Start"),
                                 lan.getString("End"),
                                 lan.getInt("MaxPeople"),
