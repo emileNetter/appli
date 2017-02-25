@@ -31,6 +31,7 @@ public class RecentFragment extends Fragment {
     private ListView mListView;
     private List<Lan> lans;
     private LanAdapter lanAdapter;
+    private List<ParseObject> parseLans;
 
     public RecentFragment() {
         // Required empty public constructor
@@ -50,6 +51,7 @@ public class RecentFragment extends Fragment {
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
         View v = inflater.inflate(R.layout.fragment_recent, container, false);
+        parseLans = new ArrayList<>();
         mListView = (ListView) v.findViewById(R.id.listview_home);
         lans = new ArrayList<>();
         lanAdapter= new LanAdapter(getActivity(),lans);
@@ -63,6 +65,12 @@ public class RecentFragment extends Fragment {
             }
         });
         return v;
+    }
+
+    @Override
+    public void onResume(){
+        super.onResume();
+
     }
 
 
@@ -88,5 +96,4 @@ public class RecentFragment extends Fragment {
             }
         });
     }
-
 }
