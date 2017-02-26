@@ -1,125 +1,156 @@
-<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent">
-
-    <FrameLayout
-        android:id="@+id/frame"
+    <RelativeLayout
         android:layout_width="match_parent"
-        android:background="@color/buttonLoginColor"
-        android:layout_height="175dp"
-        tools:context="com.example.emile1.findaparty.Activity.SettingsFragment">
+        android:layout_height="wrap_content">
+        <FrameLayout
+            android:id="@+id/frame"
+            android:layout_width="match_parent"
+            android:background="@color/buttonLoginColor"
+            android:layout_height="175dp"
+            tools:context="com.example.emile1.findaparty.Activity.SettingsFragment">
 
-    <ImageView
-        android:id="@+id/profile_image"
-        android:layout_width="65dp"
-        android:layout_height="73dp"
-        android:layout_gravity="center_horizontal"
-        android:layout_marginTop="40dp"
-        android:background="@mipmap/ic_launcher"/>
-    </FrameLayout>
+            <ImageView
+                android:id="@+id/profile_image"
+                android:layout_width="65dp"
+                android:layout_height="73dp"
+                android:layout_gravity="center_horizontal"
+                android:layout_marginTop="40dp"
+                android:background="@mipmap/ic_launcher"/>
+        </FrameLayout>
 
-    <TextView
-        android:id="@+id/title_profile_textview"
-        android:layout_below="@id/frame"
-        android:text="Your profile"
-        android:textSize="20sp"
-        android:layout_marginTop="20dp"
-        android:layout_marginStart="20dp"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content" />
+        <TextView
+            android:id="@+id/title_profile_textview"
+            android:layout_below="@id/frame"
+            android:text="@string/profile_title"
+            android:textSize="20sp"
+            android:layout_marginTop="20dp"
+            android:layout_marginStart="20dp"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content" />
 
-    <TextView
-        android:id="@+id/firstname_profile_textview"
-        android:layout_alignStart="@id/title_profile_textview"
-        android:layout_marginTop="15dp"
-        android:layout_marginStart="15dp"
-        android:text="FIRSTNAME"
-        android:layout_below="@id/title_profile_textview"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content" />
+        <TextView
+            android:id="@+id/firstname_profile_textview"
+            android:layout_alignStart="@id/title_profile_textview"
+            android:layout_marginTop="15dp"
+            android:layout_marginStart="15dp"
+            android:text="@string/profile_firstname"
+            android:layout_below="@id/title_profile_textview"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content" />
 
-    <EditText
-        android:id="@+id/firstname_profile_edittext"
-        android:layout_below="@id/firstname_profile_textview"
-        android:layout_marginStart="20dp"
-        android:layout_marginEnd="20dp"
-        android:textSize="16sp"
-        android:text="EMILE"
-        android:inputType="text"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content" />
+        <EditText
+            android:id="@+id/firstname_profile_edittext"
+            android:layout_below="@id/firstname_profile_textview"
+            android:layout_marginStart="20dp"
+            android:layout_marginEnd="20dp"
+            android:textSize="16sp"
+            android:text="EMILE"
+            android:inputType="text"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content" />
 
-    <TextView
-        android:id="@+id/lastname_profile_textview"
-        android:layout_below="@id/firstname_profile_edittext"
-        android:layout_alignStart="@id/title_profile_textview"
-        android:text="LASTNAME"
-        android:layout_marginStart="15dp"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content" />
+        <TextView
+            android:id="@+id/lastname_profile_textview"
+            android:layout_below="@id/firstname_profile_edittext"
+            android:layout_alignStart="@id/title_profile_textview"
+            android:text="@string/profile_lastname"
+            android:layout_marginStart="15dp"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content" />
 
-    <EditText
-        android:id="@+id/lastname_profile_edittext"
-        android:layout_below="@id/lastname_profile_textview"
-        android:layout_marginStart="20dp"
-        android:textSize="16sp"
-        android:inputType="text"
-        android:text="NETTER"
-        android:layout_marginEnd="20dp"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content" />
-    <TextView
-        android:id="@+id/email_profile_textview"
-        android:layout_below="@id/lastname_profile_edittext"
-        android:layout_alignStart="@id/title_profile_textview"
-        android:text="EMAIL"
-        android:layout_marginStart="15dp"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content" />
-    <EditText
-        android:id="@+id/email_profile_edittext"
-        android:layout_below="@id/email_profile_textview"
-        android:text="EMILE@NETTER.FR"
-        android:inputType="textEmailAddress"
-        android:textSize="16sp"
-        android:layout_marginStart="20dp"
-        android:layout_marginEnd="20dp"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content" />
-    <TextView
-        android:id="@+id/address_profile_textview"
-        android:layout_below="@id/email_profile_edittext"
-        android:layout_alignStart="@id/title_profile_textview"
-        android:text="ADDRESS"
-        android:layout_marginStart="15dp"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content" />
-    <EditText
-        android:id="@+id/address_profile_edittext"
-        android:layout_below="@id/address_profile_textview"
-        android:layout_marginStart="20dp"
-        android:layout_marginEnd="20dp"
-        android:textSize="16sp"
-        android:inputType="textPostalAddress"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content" />
-    <TextView
-        android:id="@+id/zipcode_profile_textview"
-        android:layout_below="@+id/address_profile_edittext"
-        android:layout_alignStart="@id/title_profile_textview"
-        android:text="ZIP CODE"
-        android:layout_marginStart="15dp"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content" />
-    <EditText
-        android:id="@+id/zipcode_profile_edittext"
-        android:layout_below="@id/zipcode_profile_textview"
-        android:layout_marginStart="20dp"
-        android:layout_marginEnd="20dp"
-        android:textSize="16sp"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content" />
+        <EditText
+            android:id="@+id/lastname_profile_edittext"
+            android:layout_below="@id/lastname_profile_textview"
+            android:layout_marginStart="20dp"
+            android:textSize="16sp"
+            android:inputType="text"
+            android:text="NETTER"
+            android:layout_marginEnd="20dp"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content" />
+        <TextView
+            android:id="@+id/email_profile_textview"
+            android:layout_below="@id/lastname_profile_edittext"
+            android:layout_alignStart="@id/title_profile_textview"
+            android:text="@string/profile_email"
+            android:layout_marginStart="15dp"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content" />
+        <EditText
+            android:id="@+id/email_profile_edittext"
+            android:layout_below="@id/email_profile_textview"
+            android:text="EMILE@NETTER.FR"
+            android:inputType="textEmailAddress"
+            android:textSize="16sp"
+            android:layout_marginStart="20dp"
+            android:layout_marginEnd="20dp"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content" />
+        <TextView
+            android:id="@+id/address_profile_textview"
+            android:layout_below="@id/email_profile_edittext"
+            android:layout_alignStart="@id/title_profile_textview"
+            android:text="@string/profile_address"
+            android:layout_marginStart="15dp"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content" />
+        <EditText
+            android:id="@+id/address_profile_edittext"
+            android:layout_below="@id/address_profile_textview"
+            android:layout_marginStart="20dp"
+            android:layout_marginEnd="20dp"
+            android:textSize="16sp"
+            android:inputType="textPostalAddress"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content" />
+        <TextView
+            android:id="@+id/zipcode_profile_textview"
+            android:layout_below="@+id/address_profile_edittext"
+            android:layout_alignStart="@id/title_profile_textview"
+            android:text="@string/profile_zipcode"
+            android:layout_marginStart="15dp"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content" />
+        <EditText
+            android:id="@+id/zipcode_profile_edittext"
+            android:layout_below="@id/zipcode_profile_textview"
+            android:layout_marginStart="20dp"
+            android:layout_marginEnd="20dp"
+            android:textSize="16sp"
+            android:inputType="number"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content" />
+        <TextView
+            android:id="@+id/state_profile_textview"
+            android:layout_below="@id/zipcode_profile_edittext"
+            android:layout_alignStart="@id/title_profile_textview"
+            android:layout_marginStart="15dp"
+            android:text="@string/profile_state"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content" />
+        <EditText
+            android:id="@+id/state_profile_edittext"
+            android:layout_below="@id/state_profile_textview"
+            android:inputType="text"
+            android:layout_marginStart="20dp"
+            android:layout_marginEnd="20dp"
+            android:textSize="16sp"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content" />
+        <Button
+            android:id="@+id/profile_save"
+            android:layout_below="@id/state_profile_edittext"
+            android:text="@string/profile_save_button"
+            android:layout_marginTop="15dp"
+            android:layout_marginStart="25dp"
+            android:layout_marginEnd="25dp"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content" />
 
-</RelativeLayout>
+    </RelativeLayout>
+
+</ScrollView>
 

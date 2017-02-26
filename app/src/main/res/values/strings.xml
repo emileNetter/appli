@@ -90,4 +90,16 @@
         <item>4</item>
     </string-array>
 
+    <!-- Settings -->
+    <string name="profile_title">Your profile</string>
+    <string name="profile_firstname">FIRSTNAME</string>
+    <string name="profile_lastname">LASTNAME</string>
+    <string name="profile_email">EMAIL</string>
+    <string name="profile_address">ADDRESS</string>
+    <string name="profile_zipcode">ZIP CODE</string>
+    <string name="profile_state">STATE</string>
+    <string name="profile_save_button">SAVE</string>
+
+
+
 </resources>

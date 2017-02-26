@@ -1,6 +1,8 @@
 package com.example.emile1.findaparty.Activity;
 
+import android.content.DialogInterface;
 import android.content.Intent;
+import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.Toolbar;
@@ -33,17 +35,37 @@ public class MyLanDetailsActivity extends AppCompatActivity {
         btn_delete.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                lan.deleteInBackground(new DeleteCallback() {
-                    @Override
-                    public void done(ParseException e) {
-                        if(e==null){
-                            Toast.makeText(getApplicationContext(),"Deleted lan " +mLan.getIdLan(),Toast.LENGTH_SHORT).show();
-                        }
-                        else {
-                            Toast.makeText(getApplicationContext(),"Error",Toast.LENGTH_SHORT).show();
-                        }
-                    }
-                });
+                AlertDialog.Builder builder = new AlertDialog.Builder(MyLanDetailsActivity.this);
+                builder.setTitle("Delete");
+                builder.setMessage("Do you really want to delete this event ?");
+                builder.setCancelable(true);
+                builder.setPositiveButton(
+                        android.R.string.yes,
+                        new DialogInterface.OnClickListener() {
+                            public void onClick(DialogInterface dialog, int id) {
+                                lan.deleteInBackground(new DeleteCallback() {
+                                    @Override
+                                    public void done(ParseException e) {
+                                        if(e==null){
+                                            Toast.makeText(getApplicationContext(),"Deleted lan " +mLan.getIdLan(),Toast.LENGTH_SHORT).show();
+                                        }
+                                        else {
+                                            Toast.makeText(getApplicationContext(),"Error " + e,Toast.LENGTH_SHORT).show();
+                                        }
+                                    }
+                                });
+                            }
+                        });
+
+                builder.setNegativeButton(
+                        android.R.string.no,
+                        new DialogInterface.OnClickListener() {
+                            public void onClick(DialogInterface dialog, int id) {
+                                dialog.cancel();
+                            }
+                        });
+                AlertDialog alert1 = builder.create();
+                alert1.show();
 
             }
         });

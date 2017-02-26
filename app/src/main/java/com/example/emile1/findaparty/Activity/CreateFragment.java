@@ -298,7 +298,7 @@ public class CreateFragment extends Fragment{
                             Toast.LENGTH_LONG)
                             .show();
                 } else {
-                    Toast.makeText(getActivity(),"YOLO",Toast.LENGTH_SHORT).show();
+                    Toast.makeText(getActivity(),"Lan created !",Toast.LENGTH_SHORT).show();
                 }
             }
         });
