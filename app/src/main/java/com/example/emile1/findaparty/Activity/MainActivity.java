@@ -46,12 +46,6 @@ public class MainActivity extends AppCompatActivity
         toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
         fm = getSupportFragmentManager();
-//        HomeFragment homeFragment =HomeFragment.newInstance();
-//        fm.beginTransaction().replace(
-//                R.id.content_main,
-//                homeFragment,
-//                homeFragment.getTag()
-//        ).commit();
         homeFragment = new HomeFragment();
         fm.beginTransaction().replace(R.id.content_main,homeFragment,homeFragment.getTag())
                 .commit();
@@ -85,7 +79,6 @@ public class MainActivity extends AppCompatActivity
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         // Inflate the menu; this adds items to the action bar if it is present.
-        getMenuInflater().inflate(R.menu.main, menu);
         return true;
     }
 

@@ -3,6 +3,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent">
     <RelativeLayout
+        android:background="@android:color/white"
         android:layout_width="match_parent"
         android:layout_height="wrap_content">
         <FrameLayout
@@ -47,7 +48,6 @@
             android:layout_marginStart="20dp"
             android:layout_marginEnd="20dp"
             android:textSize="16sp"
-            android:text="EMILE"
             android:inputType="text"
             android:layout_width="match_parent"
             android:layout_height="wrap_content" />
@@ -67,7 +67,6 @@
             android:layout_marginStart="20dp"
             android:textSize="16sp"
             android:inputType="text"
-            android:text="NETTER"
             android:layout_marginEnd="20dp"
             android:layout_width="match_parent"
             android:layout_height="wrap_content" />
@@ -82,7 +81,6 @@
         <EditText
             android:id="@+id/email_profile_edittext"
             android:layout_below="@id/email_profile_textview"
-            android:text="EMILE@NETTER.FR"
             android:inputType="textEmailAddress"
             android:textSize="16sp"
             android:layout_marginStart="20dp"
