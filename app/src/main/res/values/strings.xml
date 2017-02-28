@@ -97,6 +97,7 @@
     <string name="profile_email">EMAIL</string>
     <string name="profile_address">ADDRESS</string>
     <string name="profile_zipcode">ZIP CODE</string>
+    <string name="profile_city">CITY</string>
     <string name="profile_state">STATE</string>
     <string name="profile_save_button">SAVE</string>
 

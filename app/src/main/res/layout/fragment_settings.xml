@@ -122,8 +122,25 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content" />
         <TextView
-            android:id="@+id/state_profile_textview"
+            android:id="@+id/city_profile_textview"
             android:layout_below="@id/zipcode_profile_edittext"
+            android:layout_alignStart="@id/title_profile_textview"
+            android:layout_marginStart="15dp"
+            android:text="@string/profile_city"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content" />
+        <EditText
+            android:id="@+id/city_profile_edittext"
+            android:layout_below="@id/city_profile_textview"
+            android:inputType="text"
+            android:layout_marginStart="20dp"
+            android:layout_marginEnd="20dp"
+            android:textSize="16sp"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content" />
+        <TextView
+            android:id="@+id/state_profile_textview"
+            android:layout_below="@id/city_profile_edittext"
             android:layout_alignStart="@id/title_profile_textview"
             android:layout_marginStart="15dp"
             android:text="@string/profile_state"
