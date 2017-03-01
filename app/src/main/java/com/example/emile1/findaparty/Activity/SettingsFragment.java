@@ -3,6 +3,7 @@ package com.example.emile1.findaparty.Activity;
 
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
+import android.support.v4.widget.SwipeRefreshLayout;
 import android.text.TextUtils;
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -118,6 +119,9 @@ public class SettingsFragment extends Fragment {
         final int mZipCode = Integer.parseInt(zipcode.getText().toString());
         final String mCity = city.getText().toString();
         final String mState = state.getText().toString();
+        final String mFirstName = firstname.getText().toString();
+        final String mLastName = lastname.getText().toString();
+        final String mEmail = email.getText().toString();
 
         ParseUser user = ParseUser.getCurrentUser();
         JSONObject address = new JSONObject();
@@ -130,6 +134,10 @@ public class SettingsFragment extends Fragment {
             Toast.makeText(getContext(),"Error : " + j.toString(),Toast.LENGTH_SHORT).show();
         }
         user.put("address", address);
+        user.setEmail(mEmail);
+        user.setUsername(mEmail);
+        user.put("firstName",mFirstName);
+        user.put("lastName",mLastName);
         user.saveInBackground(new SaveCallback() {
             @Override
             public void done(ParseException e) {
