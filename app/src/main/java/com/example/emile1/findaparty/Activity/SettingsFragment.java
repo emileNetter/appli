@@ -3,6 +3,7 @@ package com.example.emile1.findaparty.Activity;
 
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
+import android.text.TextUtils;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -20,6 +21,7 @@ import com.parse.ParseException;
 import com.parse.ParseObject;
 import com.parse.ParseQuery;
 import com.parse.ParseUser;
+import com.parse.SaveCallback;
 
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -100,6 +102,7 @@ public class SettingsFragment extends Fragment {
         lastname.setText(ParseUser.getCurrentUser().get("lastName").toString());
         email.setText(ParseUser.getCurrentUser().get("email").toString());
         getData();
+
         save_button.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -110,37 +113,6 @@ public class SettingsFragment extends Fragment {
         return  v;
     }
 
-    private void updateUserInfo(){
-        ParseQuery<ParseObject> query = ParseQuery.getQuery("_User");
-        String userId = ParseUser.getCurrentUser().getObjectId();
-        final String mLane = lane.getText().toString();
-        final int mZipCode = Integer.parseInt(zipcode.getText().toString());
-        final String mCity = city.getText().toString();
-        final String mState = state.getText().toString();
-
-// Retrieve the object by id
-        query.getInBackground(userId, new GetCallback<ParseObject>() {
-            public void done(ParseObject user, ParseException e) {
-                if (e == null) {
-                    // Now let's update it with some new data. In this case, only cheatMode and score
-                    // will get sent to the Parse Cloud. playerName hasn't changed.
-                    JSONObject address = new JSONObject();
-                    try{
-                        address.put("lane",mLane);
-                        address.put("zipcode",mZipCode);
-                        address.put("city",mCity);
-                        address.put("state",mState);
-                    } catch (JSONException j){
-                        Log.i("TEST",j.toString());
-                    }
-                    user.put("address", address);
-                    user.saveInBackground();
-                    Log.i("Success","BIen");
-                }
-            }
-        });
-    }
-
     public void saveUserInfo(){
         final String mLane = lane.getText().toString();
         final int mZipCode = Integer.parseInt(zipcode.getText().toString());
@@ -149,30 +121,40 @@ public class SettingsFragment extends Fragment {
 
         ParseUser user = ParseUser.getCurrentUser();
         JSONObject address = new JSONObject();
-        Gson gson = new Gson();
         try{
             address.put("lane",mLane);
             address.put("zipcode",mZipCode);
             address.put("city",mCity);
             address.put("state",mState);
         } catch (JSONException j){
-            Log.i("TEST",j.toString());
+            Toast.makeText(getContext(),"Error : " + j.toString(),Toast.LENGTH_SHORT).show();
         }
-        String json = gson.toJson(address);
-        user.put("address", json);
-        user.saveInBackground();
-        Log.i("Success","BIen");
+        user.put("address", address);
+        user.saveInBackground(new SaveCallback() {
+            @Override
+            public void done(ParseException e) {
+                if(e==null){
+                    Toast.makeText(getContext(),"Saved Successfully",Toast.LENGTH_SHORT).show();
+                } else{
+                    Toast.makeText(getContext(),"Error : " +e.toString(),Toast.LENGTH_SHORT).show();
+                }
+            }
+        });
     }
 
     public void getData(){
+
         String json = ParseUser.getCurrentUser().getJSONObject("address").toString();
-        try{
-            JSONObject data = new JSONObject(json);
-            Log.i("MArche",data.getString("lane"));
-        }catch (JSONException j){
-            Log.i("Erreur",j.toString());
+        if(json!=null){
+            try{
+                JSONObject data = new JSONObject(json);
+                lane.setText(data.getString("lane"));
+                zipcode.setText(data.getString("zipcode"));
+                city.setText(data.getString("city"));
+                state.setText(data.getString("state"));
+            }catch (JSONException j){
+                Toast.makeText(getContext(),"Error : "+j.toString(),Toast.LENGTH_SHORT).show();
+            }
         }
-
     }
-
 }

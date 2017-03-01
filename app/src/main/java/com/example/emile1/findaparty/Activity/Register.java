@@ -31,6 +31,9 @@ import com.parse.ParseException;
 import com.parse.ParseUser;
 import com.parse.SignUpCallback;
 
+import org.json.JSONException;
+import org.json.JSONObject;
+
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.Date;
@@ -38,6 +41,7 @@ import java.util.GregorianCalendar;
 import java.util.Locale;
 
 import static com.parse.ParseException.USERNAME_TAKEN;
+import static java.security.AccessController.getContext;
 
 public class Register extends AppCompatActivity  {
 
@@ -206,12 +210,22 @@ public class Register extends AppCompatActivity  {
 
         // Set up a new Parse user
         ParseUser user = new ParseUser();
+        JSONObject address = new JSONObject();
         user.setUsername(email);
         user.setPassword(password);
         user.setEmail(email);
         user.put("dateOfBirth",birthDate);
         user.put("firstName",firstName);
         user.put("lastName",lastName);
+        try{
+            address.put("lane","");
+            address.put("zipcode","");
+            address.put("city","");
+            address.put("state","");
+        } catch (JSONException j){
+            Toast.makeText(getApplicationContext(),"Error : " + j.toString(),Toast.LENGTH_SHORT).show();
+        }
+        user.put("address", address);
 
         // Call the Parse signup method
         if(!error){
