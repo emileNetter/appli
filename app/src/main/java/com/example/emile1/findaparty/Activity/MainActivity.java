@@ -6,6 +6,7 @@ import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentPagerAdapter;
 import android.support.v4.app.FragmentTabHost;
+import android.support.v4.app.FragmentTransaction;
 import android.util.Log;
 import android.view.View;
 import android.support.design.widget.NavigationView;
@@ -101,50 +102,42 @@ public class MainActivity extends AppCompatActivity
     @Override
     public boolean onNavigationItemSelected(MenuItem item) {
         // Handle navigation view item clicks here.
-        int id = item.getItemId();
 
-        if (id == R.id.nav_search) {
-            toolbar.setTitle(getString(R.string.search));
-            SearchFragment searchFragment = new SearchFragment();
-            fm.beginTransaction().replace(
-                    R.id.content_main,
-                    searchFragment,
-                    searchFragment.getTag()
-            ).commit();
+        displaySelectedItem(item.getItemId());
+        return true;
+    }
+    private void displaySelectedItem(int itemId){
+        Fragment fragment = null;
 
-        } else if (id == R.id.nav_create) {
-            toolbar.setTitle(getString(R.string.create));
-            createFragment = CreateFragment.newInstance();
-            fm.beginTransaction().replace(
-                    R.id.content_main,
-                    createFragment,
-                    createFragment.getTag()
-            ).commit();
-
-        }  else if (id == R.id.nav_settings) {
-            setTitle(getString(R.string.nav_settings));
-            settingsFragment = SettingsFragment.newInstance();
-            fm.beginTransaction().replace(
-                    R.id.content_main,
-                    settingsFragment,
-                    settingsFragment.getTag()
-            ).commit();
-
-
-        } else if (id == R.id.nav_logOut) {
-            logOut();
-        } else if (id==R.id.nav_main){
-            toolbar.setTitle(getString(R.string.nav_home));
-            fm.beginTransaction().replace(
-                    R.id.content_main,
-                    homeFragment,
-                    homeFragment.getTag()
-            ).commit();
+        switch (itemId){
+            case R.id.nav_main:
+                fragment= new HomeFragment();
+                toolbar.setTitle(getString(R.string.nav_home));
+                break;
+            case R.id.nav_search:
+                fragment= new SearchFragment();
+                toolbar.setTitle(getString(R.string.search));
+                break;
+            case R.id.nav_create:
+                fragment = new CreateFragment();
+                toolbar.setTitle(getString(R.string.create));
+                break;
+            case R.id.nav_settings:
+                fragment= new SettingsFragment();
+                setTitle(getString(R.string.nav_settings));
+                break;
+            case R.id.nav_logOut:
+                logOut();
+                break;
         }
-
+        //replacing the fragment
+        if (fragment != null) {
+            FragmentTransaction ft = getSupportFragmentManager().beginTransaction();
+            ft.replace(R.id.content_main, fragment);
+            ft.commit();
+        }
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
         drawer.closeDrawer(GravityCompat.START);
-        return true;
     }
     public void setUserData(){
         currentUser = ParseUser.getCurrentUser();
