@@ -270,6 +270,7 @@ public class CreateFragment extends Fragment{
         String firstName = currentUser.getString("firstName");
         String lastName = currentUser.getString("lastName");
         String date = dateEditText.getText().toString();
+
         String startTime = startEditText.getText().toString();
         String endTime = endEditText.getText().toString();
         int maxPeople = Integer.parseInt(nbrPeopleEditText.getText().toString());

@@ -5,6 +5,7 @@
     <string name="title_activity_login">Sign in</string>
     <string name="passwordAgain_label">Confirm Password</string>
     <string name="password_hint_login"><font size="12">Password</font></string>
+    <string name="google_api_key">AIzaSyBitsQWhIMva5MXLHNdA9C1LCm--m7OCng</string>
 
     <!-- Register page -->
     <string name="password_hint"><font size="12">Password (6 characters min)</font></string>

@@ -151,7 +151,6 @@ public class SettingsFragment extends Fragment {
     }
 
     public void getData(){
-
         String json = ParseUser.getCurrentUser().getJSONObject("address").toString();
         if(json!=null){
             try{

@@ -48,7 +48,8 @@ public class MyLanDetailsActivity extends AppCompatActivity {
                                     @Override
                                     public void done(ParseException e) {
                                         if(e==null){
-                                            Toast.makeText(getApplicationContext(),"Deleted lan " +mLan.getIdLan(),Toast.LENGTH_SHORT).show();
+                                            Toast.makeText(getApplicationContext(),"Lan deleted ! ",Toast.LENGTH_SHORT).show();
+                                            finish();
                                         }
                                         else {
                                             Toast.makeText(getApplicationContext(),"Error " + e,Toast.LENGTH_SHORT).show();
