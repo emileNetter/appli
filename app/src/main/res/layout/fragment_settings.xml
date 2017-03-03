@@ -4,6 +4,8 @@
     android:layout_height="match_parent">
     <RelativeLayout
         android:background="@android:color/white"
+        android:focusableInTouchMode="true"
+        android:descendantFocusability="beforeDescendants"
         android:layout_width="match_parent"
         android:layout_height="wrap_content">
         <FrameLayout

@@ -46,7 +46,7 @@ public class MainActivity extends AppCompatActivity
         setUserData();
         toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
-        
+
         displaySelectedItem(R.id.nav_main);
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
         ActionBarDrawerToggle toggle = new ActionBarDrawerToggle(
