@@ -153,4 +153,14 @@ public class MainActivity extends AppCompatActivity
         finish();
     }
 
+    @Override
+    public void onActivityResult(int requestCode, int resultCode, Intent data) {
+        SearchFragment searchFragment = new SearchFragment();
+        if(requestCode == SearchFragment.REQUEST_CHECK_SETTINGS){
+            searchFragment.onActivityResult(requestCode,resultCode,data);
+        } else {
+            super.onActivityResult(requestCode,resultCode,data);
+        }
+    }
+
 }

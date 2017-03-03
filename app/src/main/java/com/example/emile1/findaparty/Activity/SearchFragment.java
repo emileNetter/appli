@@ -2,6 +2,7 @@ package com.example.emile1.findaparty.Activity;
 
 
 import android.Manifest;
+import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
 import android.content.IntentSender;
@@ -49,9 +50,7 @@ import static android.content.ContentValues.TAG;
  */
 public class SearchFragment extends Fragment {
 
-    private static final int REQUEST_CHECK_SETTINGS = 2;
-    private static final int RESULT_OK = 1;
-    private static final int RESULT_CANCELED = 0;
+    static final int REQUEST_CHECK_SETTINGS = 33;
     protected static final String TAG = "SearchFragment";
 
     MapView mMapView;
@@ -125,10 +124,6 @@ public class SearchFragment extends Fragment {
                 if (grantResults.length > 0
                         && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
 
-                    // permission was granted, yay! Do the
-                    // contacts-related task you need to do.
-                    googleMap.setMyLocationEnabled(true);
-
                 }
             }
         }
@@ -185,6 +180,7 @@ public class SearchFragment extends Fragment {
                 switch (status.getStatusCode()) {
                     case LocationSettingsStatusCodes.SUCCESS:
                         Log.i(TAG, "All location settings are satisfied.");
+                        setLocation();
                         break;
                     case LocationSettingsStatusCodes.RESOLUTION_REQUIRED:
                         Log.i(TAG, "Location settings are not satisfied. Show the user a dialog to upgrade location settings ");
@@ -192,7 +188,7 @@ public class SearchFragment extends Fragment {
                         try {
                             // Show the dialog by calling startResolutionForResult(), and check the result
                             // in onActivityResult().
-                            status.startResolutionForResult(getActivity(), REQUEST_CHECK_SETTINGS);
+                            status.startResolutionForResult(getActivity(),REQUEST_CHECK_SETTINGS);
                         } catch (IntentSender.SendIntentException e) {
                             Log.i(TAG, "PendingIntent unable to execute request.");
                         }
@@ -207,18 +203,64 @@ public class SearchFragment extends Fragment {
 
     @Override
     public void onActivityResult(int requestCode, int resultCode, Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+        Log.i(TAG,"In the method");
         switch (requestCode) {
             // Check for the integer request code originally supplied to startResolutionForResult().
             case REQUEST_CHECK_SETTINGS:
                 switch (resultCode) {
-                    case RESULT_OK:
+                    case Activity.RESULT_OK:
                         Log.i(TAG, "User agreed to make required location settings changes.");
+                        setLocation();
                         break;
-                    case RESULT_CANCELED:
+                    case Activity.RESULT_CANCELED:
                         Log.i(TAG, "User chose not to make required location settings changes.");
                         break;
                 }
                 break;
+        }
+    }
+
+    private void setLocation (){
+         /* Use the LocationManager class to obtain GPS locations */
+        LocationManager mlocManager = (LocationManager) getContext().getSystemService(Context.LOCATION_SERVICE);
+
+        LocationListener mlocListener = new MyLocationListener();
+        mlocManager.requestLocationUpdates( LocationManager.GPS_PROVIDER, 1000, 1000, mlocListener);
+    }
+
+    /* Class My Location Listener */
+    public class MyLocationListener implements LocationListener
+    {
+        @Override
+        public void onLocationChanged(Location loc)
+        {
+
+            loc.getLatitude();
+            loc.getLongitude();
+
+            String Text = "My current location is: " +
+                    "Latitud = " + loc.getLatitude() +
+                    "Longitud = " + loc.getLongitude();
+
+            Toast.makeText( getContext(), Text, Toast.LENGTH_SHORT).show();
+        }
+
+        @Override
+        public void onProviderDisabled(String provider)
+        {
+            Toast.makeText( getContext(), "Gps Disabled", Toast.LENGTH_SHORT ).show();
+        }
+
+        @Override
+        public void onProviderEnabled(String provider)
+        {
+            Toast.makeText( getContext(), "Gps Enabled", Toast.LENGTH_SHORT).show();
+        }
+        @Override
+        public void onStatusChanged(String provider, int status, Bundle extras)
+        {
+
         }
     }
 }
