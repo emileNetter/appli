@@ -3,6 +3,7 @@ package com.example.emile1.findaparty.Activity;
 
 import android.Manifest;
 import android.content.Context;
+import android.content.Intent;
 import android.content.IntentSender;
 import android.content.pm.PackageManager;
 import android.location.Criteria;
@@ -49,6 +50,10 @@ import static android.content.ContentValues.TAG;
 public class SearchFragment extends Fragment {
 
     private static final int REQUEST_CHECK_SETTINGS = 2;
+    private static final int RESULT_OK = 1;
+    private static final int RESULT_CANCELED = 0;
+    protected static final String TAG = "SearchFragment";
+
     MapView mMapView;
     private GoogleMap googleMap;
     private final int MY_PERMISSIONS_REQUEST_ACCESS_FINE_LOCATION = 1;
@@ -198,5 +203,22 @@ public class SearchFragment extends Fragment {
                 }
             }
         });
+    }
+
+    @Override
+    public void onActivityResult(int requestCode, int resultCode, Intent data) {
+        switch (requestCode) {
+            // Check for the integer request code originally supplied to startResolutionForResult().
+            case REQUEST_CHECK_SETTINGS:
+                switch (resultCode) {
+                    case RESULT_OK:
+                        Log.i(TAG, "User agreed to make required location settings changes.");
+                        break;
+                    case RESULT_CANCELED:
+                        Log.i(TAG, "User chose not to make required location settings changes.");
+                        break;
+                }
+                break;
+        }
     }
 }
