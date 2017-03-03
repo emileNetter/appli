@@ -46,11 +46,8 @@ public class MainActivity extends AppCompatActivity
         setUserData();
         toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
-        fm = getSupportFragmentManager();
-        homeFragment = new HomeFragment();
-        fm.beginTransaction().replace(R.id.content_main,homeFragment,homeFragment.getTag())
-                .commit();
-
+        
+        displaySelectedItem(R.id.nav_main);
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
         ActionBarDrawerToggle toggle = new ActionBarDrawerToggle(
                 this, drawer, toolbar, R.string.navigation_drawer_open, R.string.navigation_drawer_close);
@@ -139,14 +136,16 @@ public class MainActivity extends AppCompatActivity
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
         drawer.closeDrawer(GravityCompat.START);
     }
-    public void setUserData(){
+
+    private void setUserData(){
         currentUser = ParseUser.getCurrentUser();
         if(currentUser!=null){
             firstName = currentUser.getString("firstName");
             lastName = currentUser.getString("lastName");
         }
     }
-    public void logOut(){
+
+    private void logOut(){
         ParseUser.logOutInBackground();
         Intent i = new Intent(getApplicationContext(),Login.class);
         i.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
