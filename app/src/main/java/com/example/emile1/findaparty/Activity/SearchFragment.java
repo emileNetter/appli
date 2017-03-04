@@ -61,6 +61,7 @@ public class SearchFragment extends Fragment {
     private final int MY_PERMISSIONS_REQUEST_ACCESS_FINE_LOCATION = 1;
     private FloatingActionButton mFloatinButton;
     private Circle circle;
+    private LocationManager mlocManager;
 
     public SearchFragment() {
         // Required empty public constructor
@@ -76,6 +77,7 @@ public class SearchFragment extends Fragment {
         mMapView = (MapView) v.findViewById(R.id.mapView);
         mFloatinButton = (FloatingActionButton)v.findViewById(R.id.floatingButton);
         mMapView.onCreate(savedInstanceState);
+        mlocManager = (LocationManager) getContext().getSystemService(Context.LOCATION_SERVICE);
 
         mMapView.onResume(); // needed to get the map to display immediately
 
@@ -88,8 +90,7 @@ public class SearchFragment extends Fragment {
         if (ContextCompat.checkSelfPermission(getActivity(), Manifest.permission.ACCESS_FINE_LOCATION)
                 != PackageManager.PERMISSION_GRANTED) {
 
-            ActivityCompat.requestPermissions(getActivity(),
-                    new String[]{Manifest.permission.ACCESS_FINE_LOCATION},
+            requestPermissions(new String[]{Manifest.permission.ACCESS_FINE_LOCATION},
                     MY_PERMISSIONS_REQUEST_ACCESS_FINE_LOCATION);
         } else {
 
@@ -119,7 +120,10 @@ public class SearchFragment extends Fragment {
                 // If request is cancelled, the result arrays are empty.
                 if (grantResults.length > 0
                         && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
-
+                    Log.i("SEARCH","OK");
+                }
+                else{
+                    mFloatinButton.setEnabled(false);
                 }
             }
         }
@@ -176,7 +180,8 @@ public class SearchFragment extends Fragment {
                 switch (status.getStatusCode()) {
                     case LocationSettingsStatusCodes.SUCCESS:
                         Log.i(TAG, "All location settings are satisfied.");
-                        setLocation();
+//                        setLocation();
+                        getSimpleLocation();
 
                         break;
                     case LocationSettingsStatusCodes.RESOLUTION_REQUIRED:
@@ -219,14 +224,9 @@ public class SearchFragment extends Fragment {
 
     private void setLocation (){
          /* Use the LocationManager class to obtain GPS locations */
-        // Creating a criteria object to retrieve provider
-        Criteria criteria = new Criteria();
 
-        LocationManager mlocManager = (LocationManager) getContext().getSystemService(Context.LOCATION_SERVICE);
         LocationListener mlocListener = new MyLocationListener();
-        // Getting the name of the best provider
-        String provider = LocationManager.NETWORK_PROVIDER;
-        mlocManager.requestLocationUpdates(provider , 10000, 0, mlocListener);
+        mlocManager.requestLocationUpdates(LocationManager.NETWORK_PROVIDER , 10000, 0, mlocListener);
     }
 
     /* Class My Location Listener */
@@ -235,7 +235,9 @@ public class SearchFragment extends Fragment {
         @Override
         public void onLocationChanged(Location loc)
         {
-            circle.remove();
+            if(circle!=null){
+                circle.remove();
+            }
             // For dropping a marker at a point on the Map
             LatLng mPos = new LatLng(loc.getLatitude(), loc.getLongitude());
 
@@ -269,5 +271,17 @@ public class SearchFragment extends Fragment {
         {
 
         }
+    }
+
+    private void getSimpleLocation(){
+
+        // get the last know location from your location manager.
+        Location location= mlocManager.getLastKnownLocation(LocationManager.NETWORK_PROVIDER);
+        // now get the lat/lon from the location and do something with it.
+        if(location != null){
+            String s = "Lat : " + location.getLatitude() + "Lon : " + location.getLongitude();
+            Toast.makeText(getActivity(),s,Toast.LENGTH_SHORT).show();
+        }
+
     }
 }

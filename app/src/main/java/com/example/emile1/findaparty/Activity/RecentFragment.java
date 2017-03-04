@@ -87,7 +87,6 @@ public class RecentFragment extends Fragment {
         super.onDestroyView();
     }
 
-
     //retrieve all the user's Lans and display it in a listview using a custom adapter
     public void getLans(){
         ParseQuery<ParseObject> query = ParseQuery.getQuery("Lans");
