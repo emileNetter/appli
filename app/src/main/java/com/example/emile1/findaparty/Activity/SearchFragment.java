@@ -62,6 +62,7 @@ public class SearchFragment extends Fragment {
     private FloatingActionButton mFloatinButton;
     private Circle circle;
     private LocationManager mlocManager;
+    private LocationListener mlocListener;
 
     public SearchFragment() {
         // Required empty public constructor
@@ -222,13 +223,18 @@ public class SearchFragment extends Fragment {
         }
     }
 
-    private void setLocation (LocationListener locationListener){
-         /* Use the LocationManager class to obtain GPS locations */
-        mlocManager.requestLocationUpdates(LocationManager.NETWORK_PROVIDER , 10000, 0, locationListener);
+    private void listenForLocation (LocationListener locationListener){
+        try{
+            /* Use the LocationManager class to obtain GPS locations */
+            mlocManager.requestLocationUpdates(LocationManager.NETWORK_PROVIDER , 10000, 0, locationListener);
+        } catch (SecurityException e){
+
+        }
+
     }
 
     /* Class My Location Listener */
-    public class MyLocationListener implements LocationListener
+    private class MyLocationListener implements LocationListener
     {
         @Override
         public void onLocationChanged(Location loc)
@@ -236,7 +242,7 @@ public class SearchFragment extends Fragment {
             // For dropping a marker at a point on the Map
             LatLng mPos = new LatLng(loc.getLatitude(), loc.getLongitude());
             setOptions(mPos);
-
+            mlocManager.removeUpdates(mlocListener);
         }
 
         @Override
@@ -259,30 +265,35 @@ public class SearchFragment extends Fragment {
 
     private void getSimpleLocation(){
 
-        // STart a request Location update in case there is no last known location
-        LocationListener mlocListener = new MyLocationListener();
-        mlocManager.requestLocationUpdates(LocationManager.NETWORK_PROVIDER , 10000, 0, mlocListener);
-        // get the last know location from your location manager.
-        Location location= mlocManager.getLastKnownLocation(LocationManager.NETWORK_PROVIDER);
-        Location location1= mlocManager.getLastKnownLocation(LocationManager.GPS_PROVIDER);
-        // now get the lat/lon from the NETWORK PROVIDER and do something with it.
-        if(location != null){
-            Log.i("SEARCH","NETWORK");
-            // For dropping a marker at a point on the Map
-            LatLng mPos = new LatLng(location.getLatitude(), location.getLongitude());
-            setOptions(mPos);
-        }
-        //try with the gps provider
-        else if (location1 != null){
-            Log.i("SEARCH","GPS");
-            // For dropping a marker at a point on the Map
-            LatLng mPos = new LatLng(location1.getLatitude(), location1.getLongitude());
-            setOptions(mPos);
-        } else {
-            Log.i("SEARCH","listener");
-            setLocation(mlocListener);
-        }
+        try{
+            // STart a request Location update in case there is no last known location
+            mlocListener = new MyLocationListener();
+            // get the last know location from your location manager.
+            Location location= mlocManager.getLastKnownLocation(LocationManager.NETWORK_PROVIDER);
+            Location location1= mlocManager.getLastKnownLocation(LocationManager.GPS_PROVIDER);
 
+            // now get the lat/lon from the NETWORK PROVIDER and do something with it.
+            if(location != null){
+                Log.i("SEARCH","NETWORK");
+                // For dropping a marker at a point on the Map
+                LatLng mPos = new LatLng(location.getLatitude(), location.getLongitude());
+                setOptions(mPos);
+            }
+            //try with the gps provider
+            else if (location1 != null){
+                Log.i("SEARCH","GPS");
+                // For dropping a marker at a point on the Map
+                LatLng mPos = new LatLng(location1.getLatitude(), location1.getLongitude());
+                setOptions(mPos);
+            } else {
+                //start listening for the user's position
+                Log.i("SEARCH","listener");
+                listenForLocation(mlocListener);
+            }
+        } catch (SecurityException e){
+            Toast.makeText(getContext(),e.getMessage(),Toast.LENGTH_LONG).show();
+
+        }
     }
 
     private void setOptions(LatLng latLng){
