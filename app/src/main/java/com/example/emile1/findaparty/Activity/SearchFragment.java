@@ -244,7 +244,7 @@ public class SearchFragment extends Fragment {
             setOptions(mPos);
             mlocManager.removeUpdates(mlocListener);
         }
-
+        
         @Override
         public void onProviderDisabled(String provider)
         {
