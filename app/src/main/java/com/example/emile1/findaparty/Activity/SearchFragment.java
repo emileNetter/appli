@@ -7,6 +7,7 @@ import android.content.Context;
 import android.content.Intent;
 import android.content.IntentSender;
 import android.content.pm.PackageManager;
+import android.graphics.Color;
 import android.location.Criteria;
 import android.location.Location;
 import android.location.LocationListener;
@@ -40,6 +41,8 @@ import com.google.android.gms.maps.MapView;
 import com.google.android.gms.maps.MapsInitializer;
 import com.google.android.gms.maps.OnMapReadyCallback;
 import com.google.android.gms.maps.model.CameraPosition;
+import com.google.android.gms.maps.model.Circle;
+import com.google.android.gms.maps.model.CircleOptions;
 import com.google.android.gms.maps.model.LatLng;
 import com.google.android.gms.maps.model.MarkerOptions;
 
@@ -57,6 +60,7 @@ public class SearchFragment extends Fragment {
     private GoogleMap googleMap;
     private final int MY_PERMISSIONS_REQUEST_ACCESS_FINE_LOCATION = 1;
     private FloatingActionButton mFloatinButton;
+    private Circle circle;
 
     public SearchFragment() {
         // Required empty public constructor
@@ -101,14 +105,6 @@ public class SearchFragment extends Fragment {
             @Override
             public void onMapReady(GoogleMap mMap) {
                 googleMap = mMap;
-
-                // For dropping a marker at a point on the Map
-                LatLng sydney = new LatLng(-34, 151);
-                googleMap.addMarker(new MarkerOptions().position(sydney).title("Marker Title").snippet("Marker Description"));
-
-                // For zooming automatically to the location of the marker
-                CameraPosition cameraPosition = new CameraPosition.Builder().target(sydney).zoom(12).build();
-                googleMap.animateCamera(CameraUpdateFactory.newCameraPosition(cameraPosition));
             }
         });
 
@@ -164,7 +160,7 @@ public class SearchFragment extends Fragment {
                 .addApi(LocationServices.API).build();
         googleApiClient.connect();
 
-        LocationRequest locationRequest = LocationRequest.create();
+        final LocationRequest locationRequest = LocationRequest.create();
         locationRequest.setPriority(LocationRequest.PRIORITY_HIGH_ACCURACY);
         locationRequest.setInterval(10000);
         locationRequest.setFastestInterval(10000 / 2);
@@ -181,6 +177,7 @@ public class SearchFragment extends Fragment {
                     case LocationSettingsStatusCodes.SUCCESS:
                         Log.i(TAG, "All location settings are satisfied.");
                         setLocation();
+
                         break;
                     case LocationSettingsStatusCodes.RESOLUTION_REQUIRED:
                         Log.i(TAG, "Location settings are not satisfied. Show the user a dialog to upgrade location settings ");
@@ -211,7 +208,6 @@ public class SearchFragment extends Fragment {
                 switch (resultCode) {
                     case Activity.RESULT_OK:
                         Log.i(TAG, "User agreed to make required location settings changes.");
-                        setLocation();
                         break;
                     case Activity.RESULT_CANCELED:
                         Log.i(TAG, "User chose not to make required location settings changes.");
@@ -223,10 +219,14 @@ public class SearchFragment extends Fragment {
 
     private void setLocation (){
          /* Use the LocationManager class to obtain GPS locations */
-        LocationManager mlocManager = (LocationManager) getContext().getSystemService(Context.LOCATION_SERVICE);
+        // Creating a criteria object to retrieve provider
+        Criteria criteria = new Criteria();
 
+        LocationManager mlocManager = (LocationManager) getContext().getSystemService(Context.LOCATION_SERVICE);
         LocationListener mlocListener = new MyLocationListener();
-        mlocManager.requestLocationUpdates( LocationManager.GPS_PROVIDER, 1000, 1000, mlocListener);
+        // Getting the name of the best provider
+        String provider = LocationManager.NETWORK_PROVIDER;
+        mlocManager.requestLocationUpdates(provider , 10000, 0, mlocListener);
     }
 
     /* Class My Location Listener */
@@ -235,15 +235,22 @@ public class SearchFragment extends Fragment {
         @Override
         public void onLocationChanged(Location loc)
         {
+            circle.remove();
+            // For dropping a marker at a point on the Map
+            LatLng mPos = new LatLng(loc.getLatitude(), loc.getLongitude());
 
-            loc.getLatitude();
-            loc.getLongitude();
+            CircleOptions circleOptions=new CircleOptions()
+            .center(mPos)
+            .strokeColor(Color.GRAY)
+            .strokeWidth(2f)
+            .fillColor(0x11FFA420)
+            .radius(50);
+            circle = googleMap.addCircle(circleOptions);
 
-            String Text = "My current location is: " +
-                    "Latitud = " + loc.getLatitude() +
-                    "Longitud = " + loc.getLongitude();
+            // For zooming automatically to the location of the marker
+            CameraPosition cameraPosition = new CameraPosition.Builder().target(mPos).zoom(16).build();
+            googleMap.animateCamera(CameraUpdateFactory.newCameraPosition(cameraPosition));
 
-            Toast.makeText( getContext(), Text, Toast.LENGTH_SHORT).show();
         }
 
         @Override
