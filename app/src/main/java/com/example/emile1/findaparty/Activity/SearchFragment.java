@@ -222,11 +222,9 @@ public class SearchFragment extends Fragment {
         }
     }
 
-    private void setLocation (){
+    private void setLocation (LocationListener locationListener){
          /* Use the LocationManager class to obtain GPS locations */
-
-        LocationListener mlocListener = new MyLocationListener();
-        mlocManager.requestLocationUpdates(LocationManager.NETWORK_PROVIDER , 10000, 0, mlocListener);
+        mlocManager.requestLocationUpdates(LocationManager.NETWORK_PROVIDER , 10000, 0, locationListener);
     }
 
     /* Class My Location Listener */
@@ -235,23 +233,9 @@ public class SearchFragment extends Fragment {
         @Override
         public void onLocationChanged(Location loc)
         {
-            if(circle!=null){
-                circle.remove();
-            }
             // For dropping a marker at a point on the Map
             LatLng mPos = new LatLng(loc.getLatitude(), loc.getLongitude());
-
-            CircleOptions circleOptions=new CircleOptions()
-            .center(mPos)
-            .strokeColor(Color.GRAY)
-            .strokeWidth(2f)
-            .fillColor(0x11FFA420)
-            .radius(50);
-            circle = googleMap.addCircle(circleOptions);
-
-            // For zooming automatically to the location of the marker
-            CameraPosition cameraPosition = new CameraPosition.Builder().target(mPos).zoom(16).build();
-            googleMap.animateCamera(CameraUpdateFactory.newCameraPosition(cameraPosition));
+            setOptions(mPos);
 
         }
 
@@ -275,13 +259,47 @@ public class SearchFragment extends Fragment {
 
     private void getSimpleLocation(){
 
+        // STart a request Location update in case there is no last known location
+        LocationListener mlocListener = new MyLocationListener();
+        mlocManager.requestLocationUpdates(LocationManager.NETWORK_PROVIDER , 10000, 0, mlocListener);
         // get the last know location from your location manager.
         Location location= mlocManager.getLastKnownLocation(LocationManager.NETWORK_PROVIDER);
-        // now get the lat/lon from the location and do something with it.
+        Location location1= mlocManager.getLastKnownLocation(LocationManager.GPS_PROVIDER);
+        // now get the lat/lon from the NETWORK PROVIDER and do something with it.
         if(location != null){
-            String s = "Lat : " + location.getLatitude() + "Lon : " + location.getLongitude();
-            Toast.makeText(getActivity(),s,Toast.LENGTH_SHORT).show();
+            Log.i("SEARCH","NETWORK");
+            // For dropping a marker at a point on the Map
+            LatLng mPos = new LatLng(location.getLatitude(), location.getLongitude());
+            setOptions(mPos);
+        }
+        //try with the gps provider
+        else if (location1 != null){
+            Log.i("SEARCH","GPS");
+            // For dropping a marker at a point on the Map
+            LatLng mPos = new LatLng(location1.getLatitude(), location1.getLongitude());
+            setOptions(mPos);
+        } else {
+            Log.i("SEARCH","listener");
+            setLocation(mlocListener);
         }
 
+    }
+
+    private void setOptions(LatLng latLng){
+        if(circle!=null){
+            circle.remove();
+        }
+        // For dropping a marker at a point on the Map
+        CircleOptions circleOptions=new CircleOptions()
+                .center(latLng)
+                .strokeColor(Color.GRAY)
+                .strokeWidth(2f)
+                .fillColor(0x11FFA420)
+                .radius(50);
+        circle = googleMap.addCircle(circleOptions);
+
+        // For zooming automatically to the location of the marker
+        CameraPosition cameraPosition = new CameraPosition.Builder().target(latLng).zoom(16).build();
+        googleMap.animateCamera(CameraUpdateFactory.newCameraPosition(cameraPosition));
     }
 }
