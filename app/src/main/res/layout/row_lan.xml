@@ -1,89 +1,89 @@
 <?xml version="1.0" encoding="utf-8"?>
+
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/rl_row_lan"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:paddingTop="5dp"
-    android:paddingBottom="5dp"
     android:background="@drawable/listview_backgroundstate"
-    android:outlineProvider="bounds"
     android:elevation="2dp"
+    android:outlineProvider="bounds"
+    android:paddingBottom="5dp"
+    android:paddingEnd="30dp"
     android:paddingStart="30dp"
-    android:paddingEnd="30dp">
+    android:paddingTop="5dp">
 
     <TextView
         android:id="@+id/date"
         android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
         android:text="Date"
-        android:textStyle="bold"
-        android:layout_height="wrap_content" />
+        android:textStyle="bold" />
 
     <TextView
         android:id="@+id/textViewStart"
-        android:layout_below="@+id/date"
-        android:text="Start : "
-        android:layout_marginTop="5dp"
         android:layout_width="wrap_content"
-        android:layout_height="wrap_content" />
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/date"
+        android:layout_marginTop="5dp"
+        android:text="Start : " />
     <TextView
         android:id="@+id/startTime"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignTop="@id/textViewStart"
         android:layout_toEndOf="@id/textViewStart"
         android:text="hello"
-        android:textStyle="bold"
-        android:layout_alignTop="@id/textViewStart"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content" />
+        android:textStyle="bold" />
     <TextView
         android:id="@+id/textViewEnd"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
         android:layout_below="@id/textViewStart"
         android:layout_marginTop="5dp"
-        android:text="End : "
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content" />
+        android:text="End : " />
     <TextView
         android:id="@+id/endTime"
-        android:layout_toEndOf="@id/textViewEnd"
-        android:layout_alignTop="@id/textViewEnd"
-        android:text="End"
-        android:textStyle="bold"
         android:layout_width="wrap_content"
-        android:layout_height="wrap_content" />
+        android:layout_height="wrap_content"
+        android:layout_alignTop="@id/textViewEnd"
+        android:layout_toEndOf="@id/textViewEnd"
+        android:text="End"
+        android:textStyle="bold" />
     <TextView
         android:id="@+id/textViewMaxPlaces"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
         android:layout_alignParentEnd="true"
         android:layout_alignTop="@id/textViewStart"
         android:layout_marginEnd="30dp"
-        android:text="Max People :"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content" />
+        android:text="Max People :" />
     <TextView
         android:id="@+id/maxSpots"
-        android:text="3"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
         android:layout_alignParentEnd="true"
         android:layout_alignTop="@id/textViewStart"
-        android:textStyle="bold"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content" />
+        android:text="3"
+        android:textStyle="bold" />
     <TextView
         android:id="@+id/textViewParticipant"
-        android:layout_alignParentEnd="true"
-        android:layout_marginEnd="30dp"
-        android:text="Participants : "
-        android:layout_below="@id/textViewMaxPlaces"
-        android:layout_alignEnd="@id/textViewEnd"
-        android:layout_marginTop="5dp"
         android:layout_width="wrap_content"
-        android:layout_height="wrap_content" />
+        android:layout_height="wrap_content"
+        android:layout_alignEnd="@id/textViewEnd"
+        android:layout_alignParentEnd="true"
+        android:layout_below="@id/textViewMaxPlaces"
+        android:layout_marginEnd="30dp"
+        android:layout_marginTop="5dp"
+        android:text="Participants : " />
     <TextView
         android:id="@+id/participants"
-        android:layout_alignParentEnd="true"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
         android:layout_alignEnd="@id/textViewParticipant"
+        android:layout_alignParentEnd="true"
         android:layout_below="@id/textViewMaxPlaces"
         android:layout_marginTop="5dp"
-        android:textStyle="bold"
         android:text="4"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content" />
-
-
+        android:textStyle="bold" />
 
 </RelativeLayout>
