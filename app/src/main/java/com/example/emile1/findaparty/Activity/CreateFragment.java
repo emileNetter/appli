@@ -63,6 +63,7 @@ public class CreateFragment extends Fragment{
     private static final int END_TIME = 1;
     private String lane, city, state;
     private int zipcode;
+    private JSONObject address;
 
 
     private EditText startEditText;
@@ -294,18 +295,7 @@ public class CreateFragment extends Fragment{
         lan.put("MaxPeople",maxPeople);
         lan.put("Participants",0);
         setAddressData();
-        JSONObject address = new JSONObject();
-        try{
-            address.put("lane",lane);
-            address.put("zipcode",zipcode);
-            address.put("city",city);
-            address.put("state",state);
-            Log.i("SEARCH",address.getString("lane"));
-        } catch (JSONException j){
-            Toast.makeText(getContext(),"Error : " + j.toString(),Toast.LENGTH_SHORT).show();
-        }
         lan.put("address", address);
-
         lan.saveInBackground(new SaveCallback() {
             @Override
             public void done(ParseException e) {
@@ -327,15 +317,10 @@ public class CreateFragment extends Fragment{
         String json = ParseUser.getCurrentUser().getJSONObject("address").toString();
         if(json!=null){
             try{
-                JSONObject data = new JSONObject(json);
-                lane = data.getString("lane");
-                zipcode = data.getInt("zipcode");
-                city = data.getString("city");
-                state = data.getString("state");
+                address = new JSONObject(json);
             }catch (JSONException j){
                 Toast.makeText(getContext(),"Error : "+j.toString(),Toast.LENGTH_SHORT).show();
             }
         }
     }
-
 }
