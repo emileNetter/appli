@@ -40,6 +40,8 @@ import com.parse.ParseObject;
 import com.parse.ParseUser;
 import com.parse.SaveCallback;
 
+import org.json.JSONException;
+import org.json.JSONObject;
 import org.w3c.dom.Text;
 
 import java.sql.Time;
@@ -59,6 +61,8 @@ public class CreateFragment extends Fragment{
 
     private static final int START_TIME = 0;
     private static final int END_TIME = 1;
+    private String lane, city, state;
+    private int zipcode;
 
 
     private EditText startEditText;
@@ -289,6 +293,19 @@ public class CreateFragment extends Fragment{
         lan.put("End",endTime);
         lan.put("MaxPeople",maxPeople);
         lan.put("Participants",0);
+        setAddressData();
+        JSONObject address = new JSONObject();
+        try{
+            address.put("lane",lane);
+            address.put("zipcode",zipcode);
+            address.put("city",city);
+            address.put("state",state);
+            Log.i("SEARCH",address.getString("lane"));
+        } catch (JSONException j){
+            Toast.makeText(getContext(),"Error : " + j.toString(),Toast.LENGTH_SHORT).show();
+        }
+        lan.put("address", address);
+
         lan.saveInBackground(new SaveCallback() {
             @Override
             public void done(ParseException e) {
@@ -296,7 +313,7 @@ public class CreateFragment extends Fragment{
                 if (e !=null){
                     //Error Message
                     Toast.makeText(getActivity(),
-                            "There was an error during the process, please try again",
+                            "There was an error : " +e.getMessage(),
                             Toast.LENGTH_LONG)
                             .show();
                 } else {
@@ -304,6 +321,21 @@ public class CreateFragment extends Fragment{
                 }
             }
         });
+    }
+
+    public void setAddressData(){
+        String json = ParseUser.getCurrentUser().getJSONObject("address").toString();
+        if(json!=null){
+            try{
+                JSONObject data = new JSONObject(json);
+                lane = data.getString("lane");
+                zipcode = data.getInt("zipcode");
+                city = data.getString("city");
+                state = data.getString("state");
+            }catch (JSONException j){
+                Toast.makeText(getContext(),"Error : "+j.toString(),Toast.LENGTH_SHORT).show();
+            }
+        }
     }
 
 }

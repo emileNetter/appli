@@ -160,10 +160,10 @@ public class SearchFragment extends Fragment {
     public void onPause() {
         super.onPause();
         MapStateManager mgr = new MapStateManager(getContext());
+        //check if the map is null otherwise it crashes the first time we open the app
         if(googleMap !=null){
             mgr.saveMapState(googleMap);
         }
-
     }
 
     @Override
@@ -330,5 +330,9 @@ public class SearchFragment extends Fragment {
         // For zooming automatically to the location of the marker
         CameraPosition cameraPosition = new CameraPosition.Builder().target(latLng).zoom(16).build();
         googleMap.animateCamera(CameraUpdateFactory.newCameraPosition(cameraPosition));
+    }
+
+    private void getLan(){
+
     }
 }
