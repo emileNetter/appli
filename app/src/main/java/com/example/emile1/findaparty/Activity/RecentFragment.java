@@ -108,7 +108,7 @@ public class RecentFragment extends Fragment {
                     }
                     mListView.setAdapter(lanAdapter);
                 } else {
-                    Toast.makeText(getActivity(),"Error",Toast.LENGTH_SHORT).show();
+//                    Toast.makeText(getContext(),"Error",Toast.LENGTH_SHORT).show();
                 }
             }
         });

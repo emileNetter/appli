@@ -35,6 +35,7 @@ import com.google.android.gms.location.LocationServices;
 import com.google.android.gms.location.LocationSettingsRequest;
 import com.google.android.gms.location.LocationSettingsResult;
 import com.google.android.gms.location.LocationSettingsStatusCodes;
+import com.google.android.gms.maps.CameraUpdate;
 import com.google.android.gms.maps.CameraUpdateFactory;
 import com.google.android.gms.maps.GoogleMap;
 import com.google.android.gms.maps.MapView;
@@ -44,6 +45,7 @@ import com.google.android.gms.maps.model.CameraPosition;
 import com.google.android.gms.maps.model.Circle;
 import com.google.android.gms.maps.model.CircleOptions;
 import com.google.android.gms.maps.model.LatLng;
+import com.google.android.gms.maps.model.MapStyleOptions;
 import com.google.android.gms.maps.model.MarkerOptions;
 
 import static android.content.ContentValues.TAG;
@@ -69,6 +71,10 @@ public class SearchFragment extends Fragment {
     }
 
 
+    @Override
+    public void onCreate(Bundle savedInstanceState){
+        super.onCreate(savedInstanceState);
+    }
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
@@ -107,6 +113,13 @@ public class SearchFragment extends Fragment {
             @Override
             public void onMapReady(GoogleMap mMap) {
                 googleMap = mMap;
+                MapStateManager mapStateManager = new MapStateManager(getContext());
+                CameraPosition cameraPosition = mapStateManager.getSavedCameraPosition();
+                if(cameraPosition != null ){
+                    CameraUpdate update = CameraUpdateFactory.newCameraPosition(cameraPosition);
+                    mMap.moveCamera(update);
+                    mMap.setMapType(mapStateManager.getSavedMapType());
+                }
             }
         });
 
@@ -122,6 +135,7 @@ public class SearchFragment extends Fragment {
                 if (grantResults.length > 0
                         && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
                     Log.i("SEARCH","OK");
+                    mFloatinButton.setEnabled(true);
                 }
                 else{
                     mFloatinButton.setEnabled(false);
@@ -145,7 +159,8 @@ public class SearchFragment extends Fragment {
     @Override
     public void onPause() {
         super.onPause();
-        mMapView.onPause();
+        MapStateManager mgr = new MapStateManager(getContext());
+        mgr.saveMapState(googleMap);
     }
 
     @Override
@@ -228,12 +243,12 @@ public class SearchFragment extends Fragment {
             /* Use the LocationManager class to obtain GPS locations */
             mlocManager.requestLocationUpdates(LocationManager.NETWORK_PROVIDER , 10000, 0, locationListener);
         } catch (SecurityException e){
-
+            Log.i("SEARCH FRAGMENT", e.getMessage());
         }
 
     }
 
-    /* Class My Location Listener */
+    /* Class My Location Listener, listen for location changes */
     private class MyLocationListener implements LocationListener
     {
         @Override
@@ -248,13 +263,11 @@ public class SearchFragment extends Fragment {
         @Override
         public void onProviderDisabled(String provider)
         {
-            Toast.makeText( getContext(), "Gps Disabled", Toast.LENGTH_SHORT ).show();
         }
 
         @Override
         public void onProviderEnabled(String provider)
         {
-            Toast.makeText( getContext(), "Gps Enabled", Toast.LENGTH_SHORT).show();
         }
         @Override
         public void onStatusChanged(String provider, int status, Bundle extras)
@@ -263,27 +276,28 @@ public class SearchFragment extends Fragment {
         }
     }
 
+    // get the last known location or listen to a new location
     private void getSimpleLocation(){
 
         try{
             // STart a request Location update in case there is no last known location
             mlocListener = new MyLocationListener();
             // get the last know location from your location manager.
-            Location location= mlocManager.getLastKnownLocation(LocationManager.NETWORK_PROVIDER);
-            Location location1= mlocManager.getLastKnownLocation(LocationManager.GPS_PROVIDER);
+            Location networkLocation= mlocManager.getLastKnownLocation(LocationManager.NETWORK_PROVIDER);
+            Location gpsLocation= mlocManager.getLastKnownLocation(LocationManager.GPS_PROVIDER);
 
             // now get the lat/lon from the NETWORK PROVIDER and do something with it.
-            if(location != null){
+            if(networkLocation != null){
                 Log.i("SEARCH","NETWORK");
                 // For dropping a marker at a point on the Map
-                LatLng mPos = new LatLng(location.getLatitude(), location.getLongitude());
+                LatLng mPos = new LatLng(networkLocation.getLatitude(), networkLocation.getLongitude());
                 setOptions(mPos);
             }
             //try with the gps provider
-            else if (location1 != null){
+            else if (gpsLocation != null){
                 Log.i("SEARCH","GPS");
                 // For dropping a marker at a point on the Map
-                LatLng mPos = new LatLng(location1.getLatitude(), location1.getLongitude());
+                LatLng mPos = new LatLng(gpsLocation.getLatitude(), gpsLocation.getLongitude());
                 setOptions(mPos);
             } else {
                 //start listening for the user's position
@@ -296,6 +310,7 @@ public class SearchFragment extends Fragment {
         }
     }
 
+    // move the camera to the desired position and create a circle to show the location
     private void setOptions(LatLng latLng){
         if(circle!=null){
             circle.remove();
