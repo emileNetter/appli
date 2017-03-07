@@ -117,8 +117,8 @@ public class SearchFragment extends Fragment {
                 CameraPosition cameraPosition = mapStateManager.getSavedCameraPosition();
                 if(cameraPosition != null ){
                     CameraUpdate update = CameraUpdateFactory.newCameraPosition(cameraPosition);
-                    mMap.moveCamera(update);
-                    mMap.setMapType(mapStateManager.getSavedMapType());
+                    googleMap.moveCamera(update);
+                    googleMap.setMapType(mapStateManager.getSavedMapType());
                 }
             }
         });
@@ -160,7 +160,10 @@ public class SearchFragment extends Fragment {
     public void onPause() {
         super.onPause();
         MapStateManager mgr = new MapStateManager(getContext());
-        mgr.saveMapState(googleMap);
+        if(googleMap !=null){
+            mgr.saveMapState(googleMap);
+        }
+
     }
 
     @Override
