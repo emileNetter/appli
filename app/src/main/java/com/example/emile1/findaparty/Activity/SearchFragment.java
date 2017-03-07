@@ -8,7 +8,9 @@ import android.content.Intent;
 import android.content.IntentSender;
 import android.content.pm.PackageManager;
 import android.graphics.Color;
+import android.location.Address;
 import android.location.Criteria;
+import android.location.Geocoder;
 import android.location.Location;
 import android.location.LocationListener;
 import android.location.LocationManager;
@@ -47,6 +49,10 @@ import com.google.android.gms.maps.model.CircleOptions;
 import com.google.android.gms.maps.model.LatLng;
 import com.google.android.gms.maps.model.MapStyleOptions;
 import com.google.android.gms.maps.model.MarkerOptions;
+import com.google.android.gms.vision.barcode.Barcode;
+
+import java.util.List;
+import java.util.Locale;
 
 import static android.content.ContentValues.TAG;
 
@@ -65,6 +71,7 @@ public class SearchFragment extends Fragment {
     private Circle circle;
     private LocationManager mlocManager;
     private LocationListener mlocListener;
+    private final String ad = "39 rue marechal foch, 33200, Bordeaux, France";
 
     public SearchFragment() {
         // Required empty public constructor
@@ -119,6 +126,7 @@ public class SearchFragment extends Fragment {
                     CameraUpdate update = CameraUpdateFactory.newCameraPosition(cameraPosition);
                     googleMap.moveCamera(update);
                     googleMap.setMapType(mapStateManager.getSavedMapType());
+//                    getLatLngFromAddress(ad);
                 }
             }
         });
@@ -332,7 +340,23 @@ public class SearchFragment extends Fragment {
         googleMap.animateCamera(CameraUpdateFactory.newCameraPosition(cameraPosition));
     }
 
-    private void getLan(){
-
+    // geocoder blocks the UI, need to be done in a background thread
+    private void getLatLngFromAddress(String address){
+        Geocoder geoCoder = new Geocoder(getContext(), Locale.getDefault());
+        try
+        {
+            List<Address> addresses = geoCoder.getFromLocationName(address , 1);
+            if (addresses.size() > 0)
+            {
+                double lat = addresses.get(0).getLatitude();
+                double lng = addresses.get(0).getLongitude();
+                Log.d("Latitude", ""+lat);
+                Log.d("Longitude", ""+lng);
+            }
+        }
+        catch(Exception e)
+        {
+            e.printStackTrace();
+        }
     }
 }

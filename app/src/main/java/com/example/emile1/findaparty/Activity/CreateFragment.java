@@ -313,6 +313,7 @@ public class CreateFragment extends Fragment{
         });
     }
 
+    //retrieve the address of the user and store it in a JSON object
     public void setAddressData(){
         String json = ParseUser.getCurrentUser().getJSONObject("address").toString();
         if(json!=null){
