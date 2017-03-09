@@ -14,6 +14,7 @@ import android.location.Geocoder;
 import android.location.Location;
 import android.location.LocationListener;
 import android.location.LocationManager;
+import android.os.AsyncTask;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
 import android.support.v4.app.ActivityCompat;
@@ -128,6 +129,7 @@ public class SearchFragment extends Fragment {
                     googleMap.setMapType(mapStateManager.getSavedMapType());
 //                    getLatLngFromAddress(ad);
                 }
+                new GetLocationFromAddressTask().execute(ad);
             }
         });
 
@@ -300,14 +302,12 @@ public class SearchFragment extends Fragment {
             // now get the lat/lon from the NETWORK PROVIDER and do something with it.
             if(networkLocation != null){
                 Log.i("SEARCH","NETWORK");
-                // For dropping a marker at a point on the Map
                 LatLng mPos = new LatLng(networkLocation.getLatitude(), networkLocation.getLongitude());
                 setOptions(mPos);
             }
             //try with the gps provider
             else if (gpsLocation != null){
                 Log.i("SEARCH","GPS");
-                // For dropping a marker at a point on the Map
                 LatLng mPos = new LatLng(gpsLocation.getLatitude(), gpsLocation.getLongitude());
                 setOptions(mPos);
             } else {
@@ -357,6 +357,33 @@ public class SearchFragment extends Fragment {
         catch(Exception e)
         {
             e.printStackTrace();
+        }
+    }
+    private class GetLocationFromAddressTask extends AsyncTask<String, Void, LatLng>{
+
+        protected LatLng doInBackground (String... address){
+            Geocoder geoCoder = new Geocoder(getContext(), Locale.getDefault());
+            LatLng latLngFromAddress = new LatLng(0,0);
+            try
+            {
+                List<Address> addresses = geoCoder.getFromLocationName(address[0] , 1);
+                if (addresses.size() > 0 && addresses!=null)
+                {
+                    double lat = addresses.get(0).getLatitude();
+                    double lng = addresses.get(0).getLongitude();
+                    latLngFromAddress = new LatLng(lat,lng);
+                }
+            }
+            catch(Exception e)
+            {
+                e.printStackTrace();
+            }
+            return latLngFromAddress;
+        }
+
+        protected void onPostExecute(LatLng latLng){
+            Log.d("Latitude", ""+latLng.latitude);
+            Log.d("Longitude", ""+latLng.longitude);
         }
     }
 }
