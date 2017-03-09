@@ -52,6 +52,8 @@ import com.google.android.gms.maps.model.MapStyleOptions;
 import com.google.android.gms.maps.model.MarkerOptions;
 import com.google.android.gms.vision.barcode.Barcode;
 
+import org.json.JSONObject;
+
 import java.util.List;
 import java.util.Locale;
 
@@ -341,24 +343,6 @@ public class SearchFragment extends Fragment {
     }
 
     // geocoder blocks the UI, need to be done in a background thread
-    private void getLatLngFromAddress(String address){
-        Geocoder geoCoder = new Geocoder(getContext(), Locale.getDefault());
-        try
-        {
-            List<Address> addresses = geoCoder.getFromLocationName(address , 1);
-            if (addresses.size() > 0)
-            {
-                double lat = addresses.get(0).getLatitude();
-                double lng = addresses.get(0).getLongitude();
-                Log.d("Latitude", ""+lat);
-                Log.d("Longitude", ""+lng);
-            }
-        }
-        catch(Exception e)
-        {
-            e.printStackTrace();
-        }
-    }
     private class GetLocationFromAddressTask extends AsyncTask<String, Void, LatLng>{
 
         protected LatLng doInBackground (String... address){
@@ -385,5 +369,10 @@ public class SearchFragment extends Fragment {
             Log.d("Latitude", ""+latLng.latitude);
             Log.d("Longitude", ""+latLng.longitude);
         }
+    }
+
+    private String addressToString (JSONObject address){
+        String str = "";
+        return str;
     }
 }

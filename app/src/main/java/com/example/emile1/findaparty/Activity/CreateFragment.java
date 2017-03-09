@@ -273,6 +273,7 @@ public class CreateFragment extends Fragment{
     //Create a Lan and add it in the Database
     private void createLan(){
         ParseUser currentUser = ParseUser.getCurrentUser();
+        JSONObject address = ParseUser.getCurrentUser().getJSONObject("address");
         String firstName = currentUser.getString("firstName");
         String lastName = currentUser.getString("lastName");
         String date = dateEditText.getText().toString();
@@ -294,7 +295,6 @@ public class CreateFragment extends Fragment{
         lan.put("End",endTime);
         lan.put("MaxPeople",maxPeople);
         lan.put("Participants",0);
-        setAddressData();
         lan.put("address", address);
         lan.saveInBackground(new SaveCallback() {
             @Override
@@ -311,17 +311,5 @@ public class CreateFragment extends Fragment{
                 }
             }
         });
-    }
-
-    //retrieve the address of the user and store it in a JSON object
-    public void setAddressData(){
-        String json = ParseUser.getCurrentUser().getJSONObject("address").toString();
-        if(json!=null){
-            try{
-                address = new JSONObject(json);
-            }catch (JSONException j){
-                Toast.makeText(getContext(),"Error : "+j.toString(),Toast.LENGTH_SHORT).show();
-            }
-        }
     }
 }
