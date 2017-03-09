@@ -2,22 +2,33 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     tools:context="com.example.emile1.findaparty.Activity.RecentFragment">
 
+
     <!-- TODO: Update blank fragment layout -->
+    <ProgressBar
+        android:id="@+id/progressBar"
+        android:layout_gravity="center"
+        android:backgroundTint="@color/buttonLoginColor"
+        style="?android:attr/progressBarStyle"
+        android:layout_width="55dp"
+        android:layout_height="wrap_content" />
+
     <ListView
         android:id="@+id/listview_home"
         android:layout_width="match_parent"
-        android:listSelector="@drawable/custom_listview_selector"
-        android:clipToPadding="false"
+        android:layout_height="533dp"
         android:background="#efefef"
-        android:layout_height="match_parent"
-        android:paddingStart="10dp"
-        android:paddingEnd="10dp"
-        android:paddingTop="10dp"
-        android:paddingBottom="10dp"
+        android:clipToPadding="false"
         android:divider="@android:color/transparent"
-        android:dividerHeight="10.0sp">
-    </ListView>
+        android:dividerHeight="10.0sp"
+        android:listSelector="@drawable/custom_listview_selector"
+        android:paddingBottom="10dp"
+        android:paddingEnd="10dp"
+        android:paddingStart="10dp"
+        android:paddingTop="10dp"/>
+
+
 
 </FrameLayout>
