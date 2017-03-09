@@ -33,6 +33,7 @@ import com.google.android.gms.common.api.GoogleApiClient;
 import com.google.android.gms.common.api.PendingResult;
 import com.google.android.gms.common.api.ResultCallback;
 import com.google.android.gms.common.api.Status;
+import com.google.android.gms.drive.query.Query;
 import com.google.android.gms.location.LocationRequest;
 import com.google.android.gms.location.LocationServices;
 import com.google.android.gms.location.LocationSettingsRequest;
@@ -51,7 +52,12 @@ import com.google.android.gms.maps.model.LatLng;
 import com.google.android.gms.maps.model.MapStyleOptions;
 import com.google.android.gms.maps.model.MarkerOptions;
 import com.google.android.gms.vision.barcode.Barcode;
+import com.parse.FindCallback;
+import com.parse.ParseException;
+import com.parse.ParseObject;
+import com.parse.ParseQuery;
 
+import org.json.JSONException;
 import org.json.JSONObject;
 
 import java.util.List;
@@ -131,7 +137,7 @@ public class SearchFragment extends Fragment {
                     googleMap.setMapType(mapStateManager.getSavedMapType());
 //                    getLatLngFromAddress(ad);
                 }
-                new GetLocationFromAddressTask().execute(ad);
+                getAllLans();
             }
         });
 
@@ -211,7 +217,6 @@ public class SearchFragment extends Fragment {
                 switch (status.getStatusCode()) {
                     case LocationSettingsStatusCodes.SUCCESS:
                         Log.i(TAG, "All location settings are satisfied.");
-//                        setLocation();
                         getSimpleLocation();
 
                         break;
@@ -371,8 +376,29 @@ public class SearchFragment extends Fragment {
         }
     }
 
-    private String addressToString (JSONObject address){
+    private String addressToString(JSONObject address) {
         String str = "";
+        try {
+            str = address.getString("lane")
+                    + ", " + address.getString("zipcode")
+                    + ", " + address.getString("city")
+                    + ", " + address.getString("state");
+
+        } catch (JSONException e) {
+            Log.i("ADRESS",e.getMessage());
+        }
         return str;
+    }
+
+    private void getAllLans(){
+        ParseQuery<ParseObject> query = ParseQuery.getQuery("Lans");
+        query.findInBackground(new FindCallback<ParseObject>() {
+            @Override
+            public void done(List<ParseObject> objects, ParseException e) {
+                for(ParseObject lan : objects)
+                new GetLocationFromAddressTask().execute(addressToString(lan.getJSONObject("address")));
+
+            }
+        });
     }
 }
