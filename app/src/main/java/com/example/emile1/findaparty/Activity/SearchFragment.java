@@ -355,6 +355,7 @@ public class SearchFragment extends Fragment {
             LatLng latLngFromAddress = new LatLng(0,0);
             try
             {
+                //geocoder returns a list of addresses (here 1 address)
                 List<Address> addresses = geoCoder.getFromLocationName(address[0] , 1);
                 if (addresses.size() > 0 && addresses!=null)
                 {
@@ -373,6 +374,7 @@ public class SearchFragment extends Fragment {
         protected void onPostExecute(LatLng latLng){
             Log.d("Latitude", ""+latLng.latitude);
             Log.d("Longitude", ""+latLng.longitude);
+            googleMap.addMarker(new MarkerOptions().position(latLng));
         }
     }
 
