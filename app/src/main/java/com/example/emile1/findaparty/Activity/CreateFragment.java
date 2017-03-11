@@ -69,6 +69,7 @@ public class CreateFragment extends Fragment{
     private EditText dateEditText;
     private Button createButton;
     private RelativeLayout relativeLayout;
+    private android.support.v4.app.FragmentTransaction ft;
 
     // TODO: Rename and change types of parameters
     private String mParam1;
@@ -115,19 +116,31 @@ public class CreateFragment extends Fragment{
                     || address.getString("city").isEmpty()
                     || address.getString("state").isEmpty()){
                 android.support.v7.app.AlertDialog.Builder builder = new android.support.v7.app.AlertDialog.Builder(getContext());
-                builder.setTitle(getString(R.string.delete_title));
-                builder.setMessage(getString(R.string.delete_message));
+                builder.setTitle(getString(R.string.dialog_info_title));
+                builder.setMessage(getString(R.string.dialog_info_message));
                 builder.setPositiveButton(
-                        android.R.string.ok,
+                        R.string.dialog_button_settings_ok,
                         new DialogInterface.OnClickListener() {
                             public void onClick(DialogInterface dialog, int id) {
                                 SettingsFragment settingsFragment = SettingsFragment.newInstance();
-                                android.support.v4.app.FragmentTransaction ft = getFragmentManager().beginTransaction();
+                                ft = getFragmentManager().beginTransaction();
                                 ft.replace(R.id.content_main, settingsFragment);
                                 ft.commit();
 
                             }
                         });
+                builder.setNegativeButton(
+                        R.string.dialog_button_settings_back,
+                        new DialogInterface.OnClickListener(){
+                            @Override
+                            public void onClick(DialogInterface dialogInterface, int i) {
+                                HomeFragment homeFragment = HomeFragment.newInstance();
+                                ft = getFragmentManager().beginTransaction();
+                                ft.replace(R.id.content_main, homeFragment);
+                                ft.commit();
+                            }
+                        }
+                );
                 android.support.v7.app.AlertDialog alert1 = builder.create();
                 alert1.show();
             }
