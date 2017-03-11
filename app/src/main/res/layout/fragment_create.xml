@@ -3,7 +3,7 @@
     android:id="@+id/relativeLayout"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context="com.example.emile1.findaparty.Activity.CreateFragment">
+    tools:context="com.example.emile1.findaparty.Activity.fragment.CreateFragment">
 
     <TextView
         android:id="@+id/banner"

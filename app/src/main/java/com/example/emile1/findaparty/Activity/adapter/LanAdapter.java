@@ -1,4 +1,4 @@
-package com.example.emile1.findaparty.Activity;
+package com.example.emile1.findaparty.Activity.adapter;
 
 import android.content.Context;
 import android.content.Intent;
@@ -8,6 +8,7 @@ import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
 import android.widget.TextView;
 
+import com.example.emile1.findaparty.Activity.Lan;
 import com.example.emile1.findaparty.R;
 
 import java.util.List;

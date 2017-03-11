@@ -1,13 +1,10 @@
-package com.example.emile1.findaparty.Activity;
+package com.example.emile1.findaparty.Activity.Activity;
 
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
-import android.support.v4.app.FragmentPagerAdapter;
-import android.support.v4.app.FragmentTabHost;
 import android.support.v4.app.FragmentTransaction;
-import android.util.Log;
 import android.view.View;
 import android.support.design.widget.NavigationView;
 import android.support.v4.view.GravityCompat;
@@ -18,9 +15,12 @@ import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.widget.EditText;
-import android.widget.TabHost;
 import android.widget.TextView;
 
+import com.example.emile1.findaparty.Activity.fragment.CreateFragment;
+import com.example.emile1.findaparty.Activity.fragment.HomeFragment;
+import com.example.emile1.findaparty.Activity.fragment.SearchFragment;
+import com.example.emile1.findaparty.Activity.fragment.SettingsFragment;
 import com.example.emile1.findaparty.R;
 import com.parse.ParseUser;
 

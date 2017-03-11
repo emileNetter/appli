@@ -1,4 +1,4 @@
-package com.example.emile1.findaparty.Activity;
+package com.example.emile1.findaparty.Activity.fragment;
 
 import android.app.DatePickerDialog;
 import android.app.Dialog;

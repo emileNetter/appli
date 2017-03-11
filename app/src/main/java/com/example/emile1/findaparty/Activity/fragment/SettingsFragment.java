@@ -1,11 +1,8 @@
-package com.example.emile1.findaparty.Activity;
+package com.example.emile1.findaparty.Activity.fragment;
 
 
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
-import android.support.v4.widget.SwipeRefreshLayout;
-import android.text.TextUtils;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -14,22 +11,12 @@ import android.widget.EditText;
 import android.widget.Toast;
 
 import com.example.emile1.findaparty.R;
-import com.google.gson.Gson;
-import com.google.gson.reflect.TypeToken;
-import com.parse.GetCallback;
-import com.parse.Parse;
 import com.parse.ParseException;
-import com.parse.ParseObject;
-import com.parse.ParseQuery;
 import com.parse.ParseUser;
 import com.parse.SaveCallback;
 
-import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
-
-import java.lang.reflect.Type;
-import java.util.Date;
 
 /**
  * A simple {@link Fragment} subclass.

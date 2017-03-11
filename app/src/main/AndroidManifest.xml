@@ -25,13 +25,13 @@
         android:supportsRtl="true">
 
         <activity
-            android:name=".Activity.Login"
+            android:name=".Activity.Activity.Login"
             android:theme="@style/Theme.AppCompat.Light.NoActionBar" />
         <activity
-            android:name=".Activity.Register"
+            android:name=".Activity.Activity.Register"
             android:theme="@style/AppTheme.NoActionBar" />
         <activity
-            android:name=".Activity.DispatchActivity"
+            android:name=".Activity.Activity.DispatchActivity"
             android:theme="@style/AppTheme.NoActionBar">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
@@ -40,7 +40,7 @@
             </intent-filter>
         </activity>
         <activity
-            android:name=".Activity.MainActivity"
+            android:name=".Activity.Activity.MainActivity"
             android:label="@string/title_activity_main"
             android:theme="@style/AppTheme.NoActionBar">
             <intent-filter>
@@ -48,10 +48,10 @@
             </intent-filter>
         </activity>
         <activity
-            android:name=".Activity.Password"
+            android:name=".Activity.Activity.Password"
             android:theme="@style/AppTheme.NoActionBar" />
         <activity
-            android:name=".Activity.MyLanDetailsActivity"
+            android:name=".Activity.Activity.MyLanDetailsActivity"
             android:theme="@style/AppTheme.NoActionBar"/>
 
         <meta-data android:name="com.google.android.geo.API_KEY"

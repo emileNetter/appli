@@ -1,4 +1,4 @@
-package com.example.emile1.findaparty.Activity;
+package com.example.emile1.findaparty.Activity.fragment;
 
 
 import android.Manifest;
@@ -28,6 +28,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Toast;
 
+import com.example.emile1.findaparty.Activity.MapStateManager;
 import com.example.emile1.findaparty.R;
 import com.google.android.gms.common.api.GoogleApiClient;
 import com.google.android.gms.common.api.PendingResult;
@@ -70,7 +71,7 @@ import static android.content.ContentValues.TAG;
  */
 public class SearchFragment extends Fragment {
 
-    static final int REQUEST_CHECK_SETTINGS = 33;
+    public static final int REQUEST_CHECK_SETTINGS = 33;
     protected static final String TAG = "SearchFragment";
 
     MapView mMapView;

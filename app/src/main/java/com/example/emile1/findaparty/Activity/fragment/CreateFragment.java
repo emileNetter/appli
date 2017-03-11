@@ -1,18 +1,13 @@
-package com.example.emile1.findaparty.Activity;
+package com.example.emile1.findaparty.Activity.fragment;
 
 
 import android.app.AlertDialog;
 import android.app.DatePickerDialog;
-import android.app.Dialog;
 import android.app.DialogFragment;
-import android.app.FragmentManager;
-import android.app.ListFragment;
 import android.app.ProgressDialog;
-import android.app.TimePickerDialog;
 import android.content.DialogInterface;
 import android.graphics.Color;
 import android.os.Bundle;
-import android.support.annotation.Nullable;
 import android.support.design.widget.BaseTransientBottomBar;
 import android.support.design.widget.Snackbar;
 import android.support.v4.app.Fragment;
@@ -28,12 +23,9 @@ import android.widget.Button;
 import android.widget.DatePicker;
 import android.widget.EditText;
 import android.widget.RelativeLayout;
-import android.widget.TextView;
-import android.widget.TimePicker;
 import android.widget.Toast;
 
 import com.example.emile1.findaparty.R;
-import com.parse.DeleteCallback;
 import com.parse.ParseException;
 import com.parse.ParseObject;
 import com.parse.ParseUser;
@@ -41,9 +33,7 @@ import com.parse.SaveCallback;
 
 import org.json.JSONException;
 import org.json.JSONObject;
-import org.w3c.dom.Text;
 
-import java.sql.Time;
 import java.util.Calendar;
 import java.util.Date;
 
@@ -141,6 +131,7 @@ public class CreateFragment extends Fragment{
                             }
                         }
                 );
+                builder.setCancelable(false);
                 android.support.v7.app.AlertDialog alert1 = builder.create();
                 alert1.show();
             }

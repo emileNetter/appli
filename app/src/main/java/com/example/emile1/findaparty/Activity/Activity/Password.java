@@ -1,4 +1,4 @@
-package com.example.emile1.findaparty.Activity;
+package com.example.emile1.findaparty.Activity.Activity;
 
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;

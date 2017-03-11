@@ -4,7 +4,7 @@
     android:orientation="vertical"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context="com.example.emile1.findaparty.Activity.HomeFragment">
+    tools:context="com.example.emile1.findaparty.Activity.fragment.HomeFragment">
 
     <android.support.design.widget.TabLayout
         android:id="@+id/tab_layout"

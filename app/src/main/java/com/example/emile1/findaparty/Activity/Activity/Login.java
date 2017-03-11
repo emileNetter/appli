@@ -1,4 +1,4 @@
-package com.example.emile1.findaparty.Activity;
+package com.example.emile1.findaparty.Activity.Activity;
 
 import android.app.ProgressDialog;
 import android.content.Context;
@@ -7,7 +7,6 @@ import android.content.pm.ActivityInfo;
 import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
 import android.support.design.widget.TextInputLayout;
-import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
@@ -18,12 +17,11 @@ import android.widget.EditText;
 import android.text.TextUtils;
 import android.widget.Toast;
 
+import com.example.emile1.findaparty.Activity.CustomTextWatcher;
 import com.example.emile1.findaparty.R;
 import com.parse.LogInCallback;
 import com.parse.ParseException;
 import com.parse.ParseUser;
-
-import org.w3c.dom.Text;
 
 public class Login extends AppCompatActivity {
 

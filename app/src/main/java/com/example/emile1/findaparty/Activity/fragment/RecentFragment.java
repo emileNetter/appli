@@ -1,25 +1,20 @@
-package com.example.emile1.findaparty.Activity;
+package com.example.emile1.findaparty.Activity.fragment;
 
 
 import android.content.Intent;
-import android.graphics.Outline;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
-import android.support.v7.widget.AppCompatSpinner;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.view.ViewOutlineProvider;
 import android.widget.AdapterView;
-import android.widget.ArrayAdapter;
-import android.widget.FrameLayout;
 import android.widget.ListView;
 import android.widget.ProgressBar;
-import android.widget.RelativeLayout;
-import android.widget.Spinner;
 import android.widget.Toast;
 
+import com.example.emile1.findaparty.Activity.Activity.MyLanDetailsActivity;
+import com.example.emile1.findaparty.Activity.Lan;
+import com.example.emile1.findaparty.Activity.adapter.LanAdapter;
 import com.example.emile1.findaparty.R;
 import com.parse.FindCallback;
 import com.parse.ParseException;

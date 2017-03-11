@@ -13,7 +13,7 @@
             android:layout_width="match_parent"
             android:background="@color/buttonLoginColor"
             android:layout_height="175dp"
-            tools:context="com.example.emile1.findaparty.Activity.SettingsFragment">
+            tools:context="com.example.emile1.findaparty.Activity.fragment.SettingsFragment">
 
             <ImageView
                 android:id="@+id/profile_image"
