@@ -37,8 +37,8 @@ public class MyLanDetailsActivity extends AppCompatActivity {
             @Override
             public void onClick(View view) {
                 AlertDialog.Builder builder = new AlertDialog.Builder(MyLanDetailsActivity.this);
-                builder.setTitle("Delete");
-                builder.setMessage("Do you really want to delete this event ?");
+                builder.setTitle(getString(R.string.delete_title));
+                builder.setMessage(getString(R.string.delete_message));
                 builder.setCancelable(true);
                 builder.setPositiveButton(
                         android.R.string.yes,
@@ -48,11 +48,11 @@ public class MyLanDetailsActivity extends AppCompatActivity {
                                     @Override
                                     public void done(ParseException e) {
                                         if(e==null){
-                                            Toast.makeText(getApplicationContext(),"Lan deleted ! ",Toast.LENGTH_SHORT).show();
+                                            Toast.makeText(getApplicationContext(),getString(R.string.deleted_message),Toast.LENGTH_SHORT).show();
                                             finish();
                                         }
                                         else {
-                                            Toast.makeText(getApplicationContext(),"Error " + e,Toast.LENGTH_SHORT).show();
+                                            Toast.makeText(getApplicationContext(),getString(R.string.error) + e,Toast.LENGTH_SHORT).show();
                                         }
                                     }
                                 });

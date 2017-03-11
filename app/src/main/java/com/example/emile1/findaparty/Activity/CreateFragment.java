@@ -16,12 +16,10 @@ import android.support.annotation.Nullable;
 import android.support.design.widget.BaseTransientBottomBar;
 import android.support.design.widget.Snackbar;
 import android.support.v4.app.Fragment;
-import android.app.FragmentTransaction;
 import android.support.v4.content.ContextCompat;
 import android.text.Editable;
 import android.text.TextUtils;
 import android.text.TextWatcher;
-import android.text.format.DateFormat;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -35,6 +33,7 @@ import android.widget.TimePicker;
 import android.widget.Toast;
 
 import com.example.emile1.findaparty.R;
+import com.parse.DeleteCallback;
 import com.parse.ParseException;
 import com.parse.ParseObject;
 import com.parse.ParseUser;
@@ -101,15 +100,7 @@ public class CreateFragment extends Fragment{
             mParam1 = getArguments().getString(ARG_PARAM1);
             mParam2 = getArguments().getString(ARG_PARAM2);
         }
-        try{
-            if(address.getString("lane").isEmpty()){
-                Log.i("CREATE", "Empty");
-            } else {
-                Log.i("CREATE", "ELSE");
-            }
-        }catch(JSONException e){
-            Log.i("CRASH",e.getMessage());
-        }
+
     }
 
     @Override
@@ -118,6 +109,31 @@ public class CreateFragment extends Fragment{
         View v = inflater.inflate(R.layout.fragment_create, container, false);
         instantiateUI(v);
         showDatePicker();
+        try{
+            if(address.getString("lane").isEmpty()
+                    || address.getString("zipcode").isEmpty()
+                    || address.getString("city").isEmpty()
+                    || address.getString("state").isEmpty()){
+                android.support.v7.app.AlertDialog.Builder builder = new android.support.v7.app.AlertDialog.Builder(getContext());
+                builder.setTitle(getString(R.string.delete_title));
+                builder.setMessage(getString(R.string.delete_message));
+                builder.setPositiveButton(
+                        android.R.string.ok,
+                        new DialogInterface.OnClickListener() {
+                            public void onClick(DialogInterface dialog, int id) {
+                                SettingsFragment settingsFragment = SettingsFragment.newInstance();
+                                android.support.v4.app.FragmentTransaction ft = getFragmentManager().beginTransaction();
+                                ft.replace(R.id.content_main, settingsFragment);
+                                ft.commit();
+
+                            }
+                        });
+                android.support.v7.app.AlertDialog alert1 = builder.create();
+                alert1.show();
+            }
+        }catch(JSONException e){
+            Log.i("CRASH",e.getMessage());
+        }
         startEditText.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
