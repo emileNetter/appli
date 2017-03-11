@@ -61,8 +61,6 @@ public class CreateFragment extends Fragment{
 
     private static final int START_TIME = 0;
     private static final int END_TIME = 1;
-    private String lane, city, state;
-    private int zipcode;
     private JSONObject address;
 
 
@@ -97,9 +95,20 @@ public class CreateFragment extends Fragment{
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        address = ParseUser.getCurrentUser().getJSONObject("address");
+
         if (getArguments() != null) {
             mParam1 = getArguments().getString(ARG_PARAM1);
             mParam2 = getArguments().getString(ARG_PARAM2);
+        }
+        try{
+            if(address.getString("lane").isEmpty()){
+                Log.i("CREATE", "Empty");
+            } else {
+                Log.i("CREATE", "ELSE");
+            }
+        }catch(JSONException e){
+            Log.i("CRASH",e.getMessage());
         }
     }
 
@@ -133,6 +142,7 @@ public class CreateFragment extends Fragment{
                 createLan();
             }
         });
+
         return v;
     }
 

@@ -116,7 +116,7 @@ public class SettingsFragment extends Fragment {
 
     public void saveUserInfo(){
         final String mLane = lane.getText().toString();
-        final int mZipCode = Integer.parseInt(zipcode.getText().toString());
+        final String mZipCode = zipcode.getText().toString();
         final String mCity = city.getText().toString();
         final String mState = state.getText().toString();
         final String mFirstName = firstname.getText().toString();
