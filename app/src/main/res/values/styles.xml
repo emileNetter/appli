@@ -16,10 +16,10 @@
     </style>
 
     <style name="Theme.App.Base" parent="Theme.AppCompat.NoActionBar">
-        <item name="colorControlNormal">#55c5c5c5</item>
-        <item name="colorControlActivated">@color/accent</item>
-        <item name="colorControlHighlight">@color/accent</item>
-        <item name="android:editTextColor">#f2282727</item>
+        <item name="colorControlNormal">#c2c5c5c5</item>
+        <item name="colorControlActivated">#96c5c5c5</item>
+        <item name="colorControlHighlight">#c2c5c5c5</item>
+        <item name="android:editTextColor">#f2ffffff</item>
         <item name="colorAccent">@color/buttonLoginColor</item>
         <item name="android:maxLines">1</item>
     </style>

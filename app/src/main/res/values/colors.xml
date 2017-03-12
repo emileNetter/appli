@@ -10,9 +10,6 @@
     <color name="editTexts">#9d9f9f</color>
     <color name="password_toggle">#b1aeae</color>
     <color name="datepicker">#7986cb</color>
-    <color name="nav_header">#636ea6</color>
-    <color name="color_navigation_list_background">#d8d8d9</color>
-    <color name="color_selector_navigation_item">#1b1b1b</color>
     <color name="et_shape">#72799b</color>
     <color name="btn_create">#7b8aae</color>
     <color name="icon_tint">#616161</color>
@@ -21,4 +18,9 @@
     <color name="light_grey">#dfdede</color>
     <color name="pressed_state">#dedede</color>
     <color name="tab_background">#9fa8da</color>
+
+    <!-- Nav Drawer style-->
+    <color name="nav_header">#263238</color>
+    <color name="color_navigation_list_background">#37474F</color>
+    <color name="color_selector_navigation_item">#1b1b1b</color>
 </resources>
