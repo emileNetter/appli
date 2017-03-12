@@ -48,4 +48,8 @@
 
     <style name="AppTheme.PopupOverlay" parent="ThemeOverlay.AppCompat.Light" />
 
+    <style name="TextAppearance44" parent="TextAppearance.AppCompat">
+        <item name="android:textColor">@color/color_navigation_item</item>
+        <item name="android:textSize">20sp</item>
+    </style>
 </resources>

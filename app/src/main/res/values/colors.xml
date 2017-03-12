@@ -20,7 +20,9 @@
     <color name="tab_background">#9fa8da</color>
 
     <!-- Nav Drawer style-->
-    <color name="nav_header">#263238</color>
-    <color name="color_navigation_list_background">#37474F</color>
-    <color name="color_selector_navigation_item">#1b1b1b</color>
+    <color name="nav_header">#5c6bc0</color>
+    <color name="color_navigation_list_background">#ffffff</color>
+    <color name="color_selector_navigation_item">#e57373</color>
+    <color name="color_navigation_item">#757575</color>
+    <color name="color_navigation_icon">#757575</color>
 </resources>

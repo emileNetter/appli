@@ -5,6 +5,8 @@ import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentTransaction;
+import android.text.SpannableString;
+import android.text.style.TextAppearanceSpan;
 import android.view.View;
 import android.support.design.widget.NavigationView;
 import android.support.v4.view.GravityCompat;
@@ -55,8 +57,13 @@ public class MainActivity extends AppCompatActivity
         toggle.syncState();
 
         NavigationView navigationView = (NavigationView) findViewById(R.id.nav_view);
+
         navigationView.setNavigationItemSelectedListener(this);
         navigationView.getMenu().getItem(0).setChecked(true);
+        MenuItem menu = navigationView.getMenu().findItem(R.id.menu);
+        SpannableString s = new SpannableString(menu.getTitle());
+        s.setSpan(new TextAppearanceSpan(this, R.style.TextAppearance44), 0, s.length(), 0);
+        menu.setTitle(s);
         //allow to find nav header textview and instantiate it
         View header=navigationView.getHeaderView(0);
         textView = (TextView) header.findViewById(R.id.tvUserName);
