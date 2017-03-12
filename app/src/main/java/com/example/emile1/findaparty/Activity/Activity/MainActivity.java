@@ -34,12 +34,6 @@ public class MainActivity extends AppCompatActivity
     private String firstName;
     private String lastName;
     private Toolbar toolbar;
-    private EditText startEditText;
-    private EditText endEditText;
-    private FragmentManager fm;
-    private HomeFragment homeFragment;
-    private CreateFragment createFragment;
-    private SettingsFragment settingsFragment;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -59,11 +53,11 @@ public class MainActivity extends AppCompatActivity
         NavigationView navigationView = (NavigationView) findViewById(R.id.nav_view);
 
         navigationView.setNavigationItemSelectedListener(this);
-        navigationView.getMenu().getItem(0).setChecked(true);
         MenuItem menu = navigationView.getMenu().findItem(R.id.menu);
         SpannableString s = new SpannableString(menu.getTitle());
         s.setSpan(new TextAppearanceSpan(this, R.style.TextAppearance44), 0, s.length(), 0);
         menu.setTitle(s);
+        navigationView.getMenu().getItem(0).setChecked(true);
         //allow to find nav header textview and instantiate it
         View header=navigationView.getHeaderView(0);
         textView = (TextView) header.findViewById(R.id.tvUserName);

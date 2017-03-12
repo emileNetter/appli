@@ -22,7 +22,6 @@
     <!-- Nav Drawer style-->
     <color name="nav_header">#5c6bc0</color>
     <color name="color_navigation_list_background">#ffffff</color>
-    <color name="color_selector_navigation_item">#e57373</color>
-    <color name="color_navigation_item">#757575</color>
-    <color name="color_navigation_icon">#757575</color>
+    <color name="color_navigation_item">#262e66</color>
+    <color name="color_navigation_icon">#262e66</color>
 </resources>

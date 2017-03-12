@@ -29,6 +29,7 @@
         android:layout_gravity="start"
         android:fitsSystemWindows="true"
         android:background="@color/color_navigation_list_background"
+        app:itemBackground="@drawable/custom_listview_selector"
         app:itemTextColor="@color/color_navigation_item"
         app:itemIconTint="@color/color_navigation_icon"
         app:headerLayout="@layout/nav_header_main"

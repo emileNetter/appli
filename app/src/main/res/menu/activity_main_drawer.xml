@@ -4,26 +4,29 @@
 
     <group android:checkableBehavior="single">
         <item
-            android:title="Menu"
+            android:title="@string/nav_menu_title"
             android:id="@+id/menu">
             <menu>
-                <item
-                    android:id="@+id/nav_main"
-                    android:icon="@drawable/ic_home_black_24dp"
-                    android:title="@string/nav_home"/>
-                <item
-                    android:id="@+id/nav_search"
-                    android:icon="@drawable/ic_search_black_24dp"
-                    android:title="@string/nav_search" />
-                <item
-                    android:id="@+id/nav_create"
-                    android:icon="@drawable/ic_create_black_24dp"
-                    android:title="@string/nav_create" />
+                <group android:checkableBehavior="single">
+                    <item
+                        android:id="@+id/nav_main"
+                        android:icon="@drawable/ic_home_black_24dp"
+                        android:title="@string/nav_home"/>
+                    <item
+                        android:id="@+id/nav_search"
+                        android:icon="@drawable/ic_search_black_24dp"
+                        android:title="@string/nav_search" />
+                    <item
+                        android:id="@+id/nav_create"
+                        android:icon="@drawable/ic_create_black_24dp"
+                        android:title="@string/nav_create" />
 
-                <item
-                    android:id="@+id/nav_settings"
-                    android:icon="@drawable/ic_settings"
-                    android:title="@string/nav_settings" />
+                    <item
+                        android:id="@+id/nav_settings"
+                        android:icon="@drawable/ic_settings"
+                        android:title="@string/nav_settings" />
+                </group>
+
             </menu>
 
         </item>
