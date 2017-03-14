@@ -100,9 +100,9 @@ public class SearchFragment extends Fragment {
         setHasOptionsMenu(true);
         mMapView = (MapView) v.findViewById(R.id.mapView);
         mFloatinButton = (FloatingActionButton)v.findViewById(R.id.floatingButton);
+        mFloatinButton.setImageResource(R.drawable.ic_button_location);
         mMapView.onCreate(savedInstanceState);
         mlocManager = (LocationManager) getContext().getSystemService(Context.LOCATION_SERVICE);
-
         mMapView.onResume(); // needed to get the map to display immediately
 
         try {
@@ -130,6 +130,7 @@ public class SearchFragment extends Fragment {
             @Override
             public void onMapReady(GoogleMap mMap) {
                 googleMap = mMap;
+                mMap.getUiSettings().setMapToolbarEnabled(false);
                 MapStateManager mapStateManager = new MapStateManager(getContext());
                 CameraPosition cameraPosition = mapStateManager.getSavedCameraPosition();
                 if(cameraPosition != null ){

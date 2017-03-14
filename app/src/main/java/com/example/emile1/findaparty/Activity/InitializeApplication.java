@@ -20,3 +20,4 @@ public class InitializeApplication extends Application {
         ParseUser.enableRevocableSessionInBackground();
     }
 }
+
