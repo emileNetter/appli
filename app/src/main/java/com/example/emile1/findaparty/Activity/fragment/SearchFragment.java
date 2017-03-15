@@ -7,7 +7,11 @@ import android.content.Context;
 import android.content.Intent;
 import android.content.IntentSender;
 import android.content.pm.PackageManager;
+import android.graphics.Bitmap;
+import android.graphics.Canvas;
 import android.graphics.Color;
+import android.graphics.drawable.BitmapDrawable;
+import android.graphics.drawable.Drawable;
 import android.location.Address;
 import android.location.Criteria;
 import android.location.Geocoder;
@@ -16,10 +20,14 @@ import android.location.LocationListener;
 import android.location.LocationManager;
 import android.os.AsyncTask;
 import android.os.Bundle;
+import android.support.annotation.ColorInt;
+import android.support.annotation.DrawableRes;
 import android.support.design.widget.FloatingActionButton;
 import android.support.v4.app.ActivityCompat;
 import android.support.v4.app.Fragment;
 import android.support.v4.content.ContextCompat;
+import android.support.v4.content.res.ResourcesCompat;
+import android.support.v4.graphics.drawable.DrawableCompat;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.Menu;
@@ -46,6 +54,8 @@ import com.google.android.gms.maps.GoogleMap;
 import com.google.android.gms.maps.MapView;
 import com.google.android.gms.maps.MapsInitializer;
 import com.google.android.gms.maps.OnMapReadyCallback;
+import com.google.android.gms.maps.model.BitmapDescriptor;
+import com.google.android.gms.maps.model.BitmapDescriptorFactory;
 import com.google.android.gms.maps.model.CameraPosition;
 import com.google.android.gms.maps.model.Circle;
 import com.google.android.gms.maps.model.CircleOptions;
@@ -100,7 +110,7 @@ public class SearchFragment extends Fragment {
         setHasOptionsMenu(true);
         mMapView = (MapView) v.findViewById(R.id.mapView);
         mFloatinButton = (FloatingActionButton)v.findViewById(R.id.floatingButton);
-        mFloatinButton.setImageResource(R.drawable.ic_button_location);
+        mFloatinButton.setImageResource(R.drawable.ic_location);
         mMapView.onCreate(savedInstanceState);
         mlocManager = (LocationManager) getContext().getSystemService(Context.LOCATION_SERVICE);
         mMapView.onResume(); // needed to get the map to display immediately
@@ -374,9 +384,14 @@ public class SearchFragment extends Fragment {
         }
 
         protected void onPostExecute(LatLng latLng){
+//            BitmapDrawable bitmapdraw=(BitmapDrawable)getResources().getDrawable(R.drawable.ic_marker_blue);
+//            Bitmap b=bitmapdraw.getBitmap();
+//            Bitmap smallMarker = Bitmap.createScaledBitmap(b, 75, 75, false);
             Log.d("Latitude", ""+latLng.latitude);
             Log.d("Longitude", ""+latLng.longitude);
-            googleMap.addMarker(new MarkerOptions().position(latLng));
+            googleMap.addMarker(new MarkerOptions()
+                    .position(latLng)
+                    .icon(vectorToBitmap(R.drawable.ic_marker_blue)));
         }
     }
 
@@ -404,5 +419,15 @@ public class SearchFragment extends Fragment {
 
             }
         });
+    }
+
+    private BitmapDescriptor vectorToBitmap(@DrawableRes int id) {
+        Drawable vectorDrawable = ResourcesCompat.getDrawable(getResources(), id, null);
+        Bitmap bitmap = Bitmap.createBitmap(vectorDrawable.getIntrinsicWidth(),
+                vectorDrawable.getIntrinsicHeight(), Bitmap.Config.ARGB_8888);
+        Canvas canvas = new Canvas(bitmap);
+        vectorDrawable.setBounds(0, 0, canvas.getWidth(), canvas.getHeight());
+        vectorDrawable.draw(canvas);
+        return BitmapDescriptorFactory.fromBitmap(bitmap);
     }
 }
