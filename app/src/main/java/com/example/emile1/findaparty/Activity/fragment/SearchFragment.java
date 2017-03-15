@@ -193,7 +193,12 @@ public class SearchFragment extends Fragment {
             public boolean onQueryTextSubmit(String query){
                 //get the value "query" which is entered in the search box.
                 LatLng latLng = geoLocateSearch(query);
-                goToLocationZoom(latLng.latitude,latLng.longitude,13);
+                if(latLng!=null){
+                    goToLocationZoom(latLng.latitude,latLng.longitude,13);
+                } else {
+                    Toast.makeText(getContext(),"No result for : " + query, Toast.LENGTH_LONG).show();
+                }
+
                 return true;
             }
         };
@@ -451,17 +456,17 @@ public class SearchFragment extends Fragment {
     }
 
     private LatLng geoLocateSearch( String address){
-        LatLng latLng = new LatLng(44.8637065,-0.6561811);
+        LatLng latLng = null;
         Geocoder geocoder = new Geocoder(getContext());
         try {
             List<Address> addressList = geocoder.getFromLocationName(address,1);
             if(addressList.size()!=0 && addressList != null){
                 latLng= new LatLng(addressList.get(0).getLatitude(),addressList.get(0).getLongitude());
+                Log.i(TAG,latLng.latitude + latLng.longitude +"");
             }
         } catch (IOException e){
             Toast.makeText(getContext(), "Error :" +e.getMessage(),Toast.LENGTH_LONG ).show();
         }
-
         return latLng;
     }
     private void goToLocationZoom(double lat, double lng, float zoom){
