@@ -3,6 +3,7 @@ package com.example.emile1.findaparty.Activity.fragment;
 
 import android.Manifest;
 import android.app.Activity;
+import android.app.SearchManager;
 import android.content.Context;
 import android.content.Intent;
 import android.content.IntentSender;
@@ -28,6 +29,7 @@ import android.support.v4.app.Fragment;
 import android.support.v4.content.ContextCompat;
 import android.support.v4.content.res.ResourcesCompat;
 import android.support.v4.graphics.drawable.DrawableCompat;
+import android.support.v7.widget.SearchView;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.Menu;
@@ -71,6 +73,7 @@ import com.parse.ParseQuery;
 import org.json.JSONException;
 import org.json.JSONObject;
 
+import java.io.IOException;
 import java.util.List;
 import java.util.Locale;
 
@@ -91,7 +94,7 @@ public class SearchFragment extends Fragment {
     private Circle circle;
     private LocationManager mlocManager;
     private LocationListener mlocListener;
-    private final String ad = "39 rue marechal foch, 33200, Bordeaux, France";
+    private SearchView searchView;
 
     public SearchFragment() {
         // Required empty public constructor
@@ -107,6 +110,7 @@ public class SearchFragment extends Fragment {
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
         View v = inflater.inflate(R.layout.fragment_search, container, false);
+        searchView = (SearchView)v.findViewById(R.id.search);
         setHasOptionsMenu(true);
         mMapView = (MapView) v.findViewById(R.id.mapView);
         mFloatinButton = (FloatingActionButton)v.findViewById(R.id.floatingButton);
@@ -177,6 +181,23 @@ public class SearchFragment extends Fragment {
     @Override
     public void onCreateOptionsMenu(Menu menu, MenuInflater inflater) {
         inflater.inflate(R.menu.search_menu, menu);
+
+        searchView = (SearchView) menu.findItem(R.id.search)
+                .getActionView();
+
+        SearchView.OnQueryTextListener queryTextListener = new SearchView.OnQueryTextListener() {
+            public boolean onQueryTextChange(String newText) {
+                return true;
+            }
+
+            public boolean onQueryTextSubmit(String query){
+                //get the value "query" which is entered in the search box.
+                LatLng latLng = geoLocateSearch(query);
+                goToLocationZoom(latLng.latitude,latLng.longitude,13);
+                return true;
+            }
+        };
+        searchView.setOnQueryTextListener(queryTextListener);
         super.onCreateOptionsMenu(menu,inflater);
     }
 
@@ -384,9 +405,6 @@ public class SearchFragment extends Fragment {
         }
 
         protected void onPostExecute(LatLng latLng){
-//            BitmapDrawable bitmapdraw=(BitmapDrawable)getResources().getDrawable(R.drawable.ic_marker_blue);
-//            Bitmap b=bitmapdraw.getBitmap();
-//            Bitmap smallMarker = Bitmap.createScaledBitmap(b, 75, 75, false);
             Log.d("Latitude", ""+latLng.latitude);
             Log.d("Longitude", ""+latLng.longitude);
             googleMap.addMarker(new MarkerOptions()
@@ -395,6 +413,7 @@ public class SearchFragment extends Fragment {
         }
     }
 
+    //concatenate JSON object address to a string
     private String addressToString(JSONObject address) {
         String str = "";
         try {
@@ -429,5 +448,25 @@ public class SearchFragment extends Fragment {
         vectorDrawable.setBounds(0, 0, canvas.getWidth(), canvas.getHeight());
         vectorDrawable.draw(canvas);
         return BitmapDescriptorFactory.fromBitmap(bitmap);
+    }
+
+    private LatLng geoLocateSearch( String address){
+        LatLng latLng = new LatLng(44.8637065,-0.6561811);
+        Geocoder geocoder = new Geocoder(getContext());
+        try {
+            List<Address> addressList = geocoder.getFromLocationName(address,1);
+            if(addressList.size()!=0 && addressList != null){
+                latLng= new LatLng(addressList.get(0).getLatitude(),addressList.get(0).getLongitude());
+            }
+        } catch (IOException e){
+            Toast.makeText(getContext(), "Error :" +e.getMessage(),Toast.LENGTH_LONG ).show();
+        }
+
+        return latLng;
+    }
+    private void goToLocationZoom(double lat, double lng, float zoom){
+        LatLng latLng = new LatLng(lat,lng);
+        CameraPosition cameraPosition = new CameraPosition.Builder().target(latLng).zoom(zoom).build();
+        googleMap.animateCamera(CameraUpdateFactory.newCameraPosition(cameraPosition));
     }
 }
