@@ -106,7 +106,6 @@ public class CreateFragment extends Fragment{
         View v = inflater.inflate(R.layout.fragment_create, container, false);
         instantiateUI(v);
         showDatePicker();
-        convertToDate("16/03/2017");
         try{
             if(address.getString("lane").isEmpty()
                     || address.getString("zipcode").isEmpty()
@@ -314,6 +313,7 @@ public class CreateFragment extends Fragment{
         String firstName = currentUser.getString("firstName");
         String lastName = currentUser.getString("lastName");
         String date = dateEditText.getText().toString();
+        String convertedDate = convertToDate(date);
 
         String startTime = startEditText.getText().toString();
         String endTime = endEditText.getText().toString();
@@ -327,7 +327,7 @@ public class CreateFragment extends Fragment{
         lan.put("IdOwner",ParseUser.getCurrentUser().getObjectId());
         lan.put("Owner", firstName + " " + lastName);
         lan.put("Address", "");
-        lan.put("Date",date);
+        lan.put("Date",convertedDate);
         lan.put("Start",startTime);
         lan.put("End",endTime);
         lan.put("MaxPeople",maxPeople);
