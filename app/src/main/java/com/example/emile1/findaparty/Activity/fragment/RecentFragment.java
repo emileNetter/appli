@@ -22,8 +22,11 @@ import com.parse.ParseObject;
 import com.parse.ParseQuery;
 import com.parse.ParseUser;
 
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
+import java.util.Locale;
 
 /**
  * A simple {@link Fragment} subclass.
@@ -136,5 +139,17 @@ public class RecentFragment extends Fragment {
                 }
             }
         });
+    }
+
+    public Date convertToDate(String dateString){
+        SimpleDateFormat dateFormat = new SimpleDateFormat("dd/MM/yyyy",Locale.getDefault());
+        Date convertedDate = new Date();
+        try{
+            convertedDate= dateFormat.parse(dateString);
+        } catch (java.text.ParseException e){
+            e.printStackTrace();
+        }
+        System.out.println(convertedDate);
+        return convertedDate;
     }
 }

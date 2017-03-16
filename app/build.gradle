@@ -26,12 +26,13 @@ dependencies {
     })
     compile files('libs/Parse-1.13.0.jar')
     compile 'com.android.support:appcompat-v7:25.2.0'
-    compile 'com.android.support:design:25.2.0'
+    compile 'com.android.support:design:25.3.0'
     compile 'com.mcxiaoke.volley:library-aar:1.0.0'
-    compile 'com.android.support:support-v4:25.2.0'
+    compile 'com.android.support:support-v4:25.3.0'
     compile 'com.parse.bolts:bolts-android:1.+'
     compile 'com.parse:parse-android:1.+'
+    compile 'joda-time:joda-time:2.9.7'
     testCompile 'junit:junit:4.12'
-    compile 'com.google.code.gson:gson:2.4'
+    compile 'com.google.code.gson:gson:2.7'
     compile 'com.google.android.gms:play-services:10.2.0'
 }

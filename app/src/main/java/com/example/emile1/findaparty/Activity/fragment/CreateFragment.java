@@ -31,11 +31,17 @@ import com.parse.ParseObject;
 import com.parse.ParseUser;
 import com.parse.SaveCallback;
 
+import org.joda.time.DateTime;
+import org.joda.time.LocalDate;
+import org.joda.time.format.DateTimeFormat;
+import org.joda.time.format.DateTimeFormatter;
 import org.json.JSONException;
 import org.json.JSONObject;
 
+import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.Date;
+import java.util.Locale;
 
 /**
  * A simple {@link Fragment} subclass.
@@ -100,6 +106,7 @@ public class CreateFragment extends Fragment{
         View v = inflater.inflate(R.layout.fragment_create, container, false);
         instantiateUI(v);
         showDatePicker();
+        convertToDate("16/03/2017");
         try{
             if(address.getString("lane").isEmpty()
                     || address.getString("zipcode").isEmpty()
@@ -341,5 +348,18 @@ public class CreateFragment extends Fragment{
                 }
             }
         });
+    }
+
+    public String convertToDate(String dateString){
+        // Format for input
+        DateTimeFormatter dtf = DateTimeFormat.forPattern("dd/MM/yyyy");
+        // Parsing the date
+        DateTime jodatime = dtf.parseDateTime(dateString);
+        // Format for output
+        DateTimeFormatter dtfOut = DateTimeFormat.forPattern("dd MMM yyyy");
+        // Printing the date
+        String convertedDate = dtfOut.print(jodatime);
+        Log.i("DATE",convertedDate);
+        return  convertedDate;
     }
 }
