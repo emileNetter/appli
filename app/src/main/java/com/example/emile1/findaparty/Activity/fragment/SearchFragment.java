@@ -36,6 +36,7 @@ import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.inputmethod.InputMethodManager;
 import android.widget.Toast;
 
 import com.example.emile1.findaparty.Activity.MapStateManager;
@@ -456,6 +457,8 @@ public class SearchFragment extends Fragment {
     }
 
     private LatLng geoLocateSearch( String address){
+        InputMethodManager imm = (InputMethodManager)getActivity().getSystemService(Context.INPUT_METHOD_SERVICE);
+        imm.hideSoftInputFromWindow(getView().getWindowToken(), 0);
         LatLng latLng = null;
         Geocoder geocoder = new Geocoder(getContext());
         try {
