@@ -313,7 +313,7 @@ public class CreateFragment extends Fragment{
         String firstName = currentUser.getString("firstName");
         String lastName = currentUser.getString("lastName");
         String date = dateEditText.getText().toString();
-        String convertedDate = convertToDate(date);
+        String convertedDate = changeFormat(date);
 
         String startTime = startEditText.getText().toString();
         String endTime = endEditText.getText().toString();
@@ -350,7 +350,7 @@ public class CreateFragment extends Fragment{
         });
     }
 
-    public String convertToDate(String dateString){
+    private String changeFormat(String dateString){
         // Format for input
         DateTimeFormatter dtf = DateTimeFormat.forPattern("dd/MM/yyyy");
         // Parsing the date
@@ -359,7 +359,6 @@ public class CreateFragment extends Fragment{
         DateTimeFormatter dtfOut = DateTimeFormat.forPattern("dd MMM yyyy");
         // Printing the date
         String convertedDate = dtfOut.print(jodatime);
-        Log.i("DATE",convertedDate);
         return  convertedDate;
     }
 }

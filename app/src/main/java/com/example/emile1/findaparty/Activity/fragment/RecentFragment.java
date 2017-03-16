@@ -141,15 +141,4 @@ public class RecentFragment extends Fragment {
         });
     }
 
-    public Date convertToDate(String dateString){
-        SimpleDateFormat dateFormat = new SimpleDateFormat("dd/MM/yyyy",Locale.getDefault());
-        Date convertedDate = new Date();
-        try{
-            convertedDate= dateFormat.parse(dateString);
-        } catch (java.text.ParseException e){
-            e.printStackTrace();
-        }
-        System.out.println(convertedDate);
-        return convertedDate;
-    }
 }

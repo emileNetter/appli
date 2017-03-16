@@ -439,9 +439,10 @@ public class SearchFragment extends Fragment {
         query.findInBackground(new FindCallback<ParseObject>() {
             @Override
             public void done(List<ParseObject> objects, ParseException e) {
-                for(ParseObject lan : objects)
-                new GetLocationFromAddressTask().execute(addressToString(lan.getJSONObject("address")));
-
+                if(e==null){
+                    for(ParseObject lan : objects)
+                        new GetLocationFromAddressTask().execute(addressToString(lan.getJSONObject("address")));
+                } 
             }
         });
     }
