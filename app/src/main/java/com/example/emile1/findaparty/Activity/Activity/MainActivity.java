@@ -1,12 +1,15 @@
 package com.example.emile1.findaparty.Activity.Activity;
 
 import android.content.Intent;
+import android.nfc.Tag;
 import android.os.Bundle;
+import android.provider.Settings;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentTransaction;
 import android.text.SpannableString;
 import android.text.style.TextAppearanceSpan;
+import android.util.Log;
 import android.view.View;
 import android.support.design.widget.NavigationView;
 import android.support.v4.view.GravityCompat;
@@ -38,6 +41,11 @@ public class MainActivity extends AppCompatActivity
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        if(savedInstanceState == null){
+            Log.i("MAIN","Null");
+        } else{
+            Log.i("MAIN", "Not null");
+        }
         setContentView(R.layout.activity_main);
         setUserData();
         toolbar = (Toolbar) findViewById(R.id.toolbar);
@@ -100,7 +108,6 @@ public class MainActivity extends AppCompatActivity
     @Override
     public boolean onNavigationItemSelected(MenuItem item) {
         // Handle navigation view item clicks here.
-
         displaySelectedItem(item.getItemId());
         return true;
     }

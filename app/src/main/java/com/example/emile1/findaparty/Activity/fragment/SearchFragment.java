@@ -442,7 +442,7 @@ public class SearchFragment extends Fragment {
                 if(e==null){
                     for(ParseObject lan : objects)
                         new GetLocationFromAddressTask().execute(addressToString(lan.getJSONObject("address")));
-                } 
+                }
             }
         });
     }

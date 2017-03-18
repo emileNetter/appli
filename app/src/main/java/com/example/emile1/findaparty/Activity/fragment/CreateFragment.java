@@ -93,6 +93,7 @@ public class CreateFragment extends Fragment{
         super.onCreate(savedInstanceState);
         address = ParseUser.getCurrentUser().getJSONObject("address");
 
+        setRetainInstance(true);
         if (getArguments() != null) {
             mParam1 = getArguments().getString(ARG_PARAM1);
             mParam2 = getArguments().getString(ARG_PARAM2);
