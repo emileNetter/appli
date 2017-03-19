@@ -37,6 +37,12 @@ public class MainActivity extends AppCompatActivity
     private String firstName;
     private String lastName;
     private Toolbar toolbar;
+    private HomeFragment homeFragment = HomeFragment.newInstance();
+    private SearchFragment searchFragment = new SearchFragment();
+    private CreateFragment createFragment = CreateFragment.newInstance();
+    private SettingsFragment settingsFragment = SettingsFragment.newInstance();
+    private Fragment [] fragments = new Fragment[]{homeFragment,searchFragment,createFragment,settingsFragment};
+    private String [] fragmentTags = new String[]{"homeFragment_tag","searchFragment_tag","createFragment_tag","settingsFragment_tag"};
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {

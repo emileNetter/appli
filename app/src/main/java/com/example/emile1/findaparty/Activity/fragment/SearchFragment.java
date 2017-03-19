@@ -64,6 +64,7 @@ import com.google.android.gms.maps.model.Circle;
 import com.google.android.gms.maps.model.CircleOptions;
 import com.google.android.gms.maps.model.LatLng;
 import com.google.android.gms.maps.model.MapStyleOptions;
+import com.google.android.gms.maps.model.Marker;
 import com.google.android.gms.maps.model.MarkerOptions;
 import com.google.android.gms.vision.barcode.Barcode;
 import com.parse.FindCallback;
@@ -75,6 +76,7 @@ import org.json.JSONException;
 import org.json.JSONObject;
 
 import java.io.IOException;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Locale;
 
@@ -96,6 +98,9 @@ public class SearchFragment extends Fragment {
     private LocationManager mlocManager;
     private LocationListener mlocListener;
     private SearchView searchView;
+
+    public HashMap<String, String> hashMap = new HashMap<>();
+
 
     public SearchFragment() {
         // Required empty public constructor
@@ -154,7 +159,17 @@ public class SearchFragment extends Fragment {
                     googleMap.setMapType(mapStateManager.getSavedMapType());
 //                    getLatLngFromAddress(ad);
                 }
+
                 getAllLans();
+                googleMap.setOnMarkerClickListener(new GoogleMap.OnMarkerClickListener() {
+                    @Override
+                    public boolean onMarkerClick(Marker marker) {
+                        String idOwner = hashMap.get(marker.getId());
+                        marker.setTitle(idOwner);
+                        Log.i(TAG,idOwner);
+                        return false;
+                    }
+                });
             }
         });
 
@@ -387,15 +402,17 @@ public class SearchFragment extends Fragment {
     }
 
     // geocoder blocks the UI, need to be done in a background thread
-    private class GetLocationFromAddressTask extends AsyncTask<String, Void, LatLng>{
-
-        protected LatLng doInBackground (String... address){
+    public class GetLocationFromAddressTask extends AsyncTask<ParseObject, Void, LatLng>{
+        private String idOwner;
+        protected LatLng doInBackground (ParseObject... lan){
             Geocoder geoCoder = new Geocoder(getContext(), Locale.getDefault());
+            String address = addressToString(lan[0].getJSONObject("address"));
+            idOwner = lan[0].getString("IdOwner");
             LatLng latLngFromAddress = new LatLng(0,0);
             try
             {
                 //geocoder returns a list of addresses (here 1 address)
-                List<Address> addresses = geoCoder.getFromLocationName(address[0] , 1);
+                List<Address> addresses = geoCoder.getFromLocationName(address , 1);
                 if (addresses.size() > 0 && addresses!=null)
                 {
                     double lat = addresses.get(0).getLatitude();
@@ -411,11 +428,10 @@ public class SearchFragment extends Fragment {
         }
 
         protected void onPostExecute(LatLng latLng){
-            Log.d("Latitude", ""+latLng.latitude);
-            Log.d("Longitude", ""+latLng.longitude);
-            googleMap.addMarker(new MarkerOptions()
+            Marker marker = googleMap.addMarker(new MarkerOptions()
                     .position(latLng)
                     .icon(vectorToBitmap(R.drawable.ic_marker_blue)));
+            hashMap.put(marker.getId(),idOwner);
         }
     }
 
@@ -441,7 +457,7 @@ public class SearchFragment extends Fragment {
             public void done(List<ParseObject> objects, ParseException e) {
                 if(e==null){
                     for(ParseObject lan : objects)
-                        new GetLocationFromAddressTask().execute(addressToString(lan.getJSONObject("address")));
+                        new GetLocationFromAddressTask().execute(lan);
                 }
             }
         });
@@ -473,9 +489,11 @@ public class SearchFragment extends Fragment {
         }
         return latLng;
     }
+
     private void goToLocationZoom(double lat, double lng, float zoom){
         LatLng latLng = new LatLng(lat,lng);
         CameraPosition cameraPosition = new CameraPosition.Builder().target(latLng).zoom(zoom).build();
         googleMap.animateCamera(CameraUpdateFactory.newCameraPosition(cameraPosition));
     }
+
 }
