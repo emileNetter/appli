@@ -23,6 +23,7 @@ import android.os.AsyncTask;
 import android.os.Bundle;
 import android.support.annotation.ColorInt;
 import android.support.annotation.DrawableRes;
+import android.support.design.widget.BottomSheetBehavior;
 import android.support.design.widget.FloatingActionButton;
 import android.support.v4.app.ActivityCompat;
 import android.support.v4.app.Fragment;
@@ -37,6 +38,7 @@ import android.view.MenuInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.view.inputmethod.InputMethodManager;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.example.emile1.findaparty.Activity.MapStateManager;
@@ -100,7 +102,8 @@ public class SearchFragment extends Fragment {
     private LocationListener mlocListener;
     private SearchView searchView;
 
-    private BottomSheetLayout bottomSheet;
+    private BottomSheetBehavior mBottomSheetBehavior;
+    private TextView tv;
 
     public HashMap<String, String> hashMap = new HashMap<>();
 
@@ -119,8 +122,11 @@ public class SearchFragment extends Fragment {
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
         View v = inflater.inflate(R.layout.fragment_search, container, false);
+        View bottomSheet = v.findViewById(R.id.bottom_sheet);
+
+        mBottomSheetBehavior = BottomSheetBehavior.from(bottomSheet);
+        tv = (TextView)v.findViewById(R.id.text_bottom_sheet);
         searchView = (SearchView)v.findViewById(R.id.search);
-        bottomSheet = (BottomSheetLayout)v.findViewById(R.id.bottomsheet);
         setHasOptionsMenu(true);
         mMapView = (MapView) v.findViewById(R.id.mapView);
         mFloatinButton = (FloatingActionButton)v.findViewById(R.id.floatingButton);
@@ -168,10 +174,10 @@ public class SearchFragment extends Fragment {
                 googleMap.setOnMarkerClickListener(new GoogleMap.OnMarkerClickListener() {
                     @Override
                     public boolean onMarkerClick(Marker marker) {
-                        bottomSheet.showWithSheetView(LayoutInflater.from(getContext()).inflate(R.layout.bottom_sheet_layout, bottomSheet, false));
+                        mBottomSheetBehavior.setState(BottomSheetBehavior.STATE_COLLAPSED);
+                        mBottomSheetBehavior.setPeekHeight(300);
                         String idOwner = hashMap.get(marker.getId());
-                        marker.setTitle(idOwner);
-                        Log.i(TAG,idOwner);
+                        tv.setText(idOwner);
                         return false;
                     }
                 });
