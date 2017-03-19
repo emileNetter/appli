@@ -41,6 +41,7 @@ import android.widget.Toast;
 
 import com.example.emile1.findaparty.Activity.MapStateManager;
 import com.example.emile1.findaparty.R;
+import com.flipboard.bottomsheet.BottomSheetLayout;
 import com.google.android.gms.common.api.GoogleApiClient;
 import com.google.android.gms.common.api.PendingResult;
 import com.google.android.gms.common.api.ResultCallback;
@@ -99,6 +100,8 @@ public class SearchFragment extends Fragment {
     private LocationListener mlocListener;
     private SearchView searchView;
 
+    private BottomSheetLayout bottomSheet;
+
     public HashMap<String, String> hashMap = new HashMap<>();
 
 
@@ -117,6 +120,7 @@ public class SearchFragment extends Fragment {
         // Inflate the layout for this fragment
         View v = inflater.inflate(R.layout.fragment_search, container, false);
         searchView = (SearchView)v.findViewById(R.id.search);
+        bottomSheet = (BottomSheetLayout)v.findViewById(R.id.bottomsheet);
         setHasOptionsMenu(true);
         mMapView = (MapView) v.findViewById(R.id.mapView);
         mFloatinButton = (FloatingActionButton)v.findViewById(R.id.floatingButton);
@@ -157,13 +161,14 @@ public class SearchFragment extends Fragment {
                     CameraUpdate update = CameraUpdateFactory.newCameraPosition(cameraPosition);
                     googleMap.moveCamera(update);
                     googleMap.setMapType(mapStateManager.getSavedMapType());
-//                    getLatLngFromAddress(ad);
                 }
 
                 getAllLans();
+                //Marker Click Event
                 googleMap.setOnMarkerClickListener(new GoogleMap.OnMarkerClickListener() {
                     @Override
                     public boolean onMarkerClick(Marker marker) {
+                        bottomSheet.showWithSheetView(LayoutInflater.from(getContext()).inflate(R.layout.bottom_sheet_layout, bottomSheet, false));
                         String idOwner = hashMap.get(marker.getId());
                         marker.setTitle(idOwner);
                         Log.i(TAG,idOwner);
@@ -206,6 +211,7 @@ public class SearchFragment extends Fragment {
                 return true;
             }
 
+            // When the search Button is clicked, move the camera
             public boolean onQueryTextSubmit(String query){
                 //get the value "query" which is entered in the search box.
                 LatLng latLng = geoLocateSearch(query);
@@ -402,7 +408,9 @@ public class SearchFragment extends Fragment {
     }
 
     // geocoder blocks the UI, need to be done in a background thread
+    //We pass a ParseOject because we need both the address and the idOwner
     public class GetLocationFromAddressTask extends AsyncTask<ParseObject, Void, LatLng>{
+
         private String idOwner;
         protected LatLng doInBackground (ParseObject... lan){
             Geocoder geoCoder = new Geocoder(getContext(), Locale.getDefault());
@@ -427,6 +435,7 @@ public class SearchFragment extends Fragment {
             return latLngFromAddress;
         }
 
+        // create a Marker at latLng and Map the idOwner to the marker we created
         protected void onPostExecute(LatLng latLng){
             Marker marker = googleMap.addMarker(new MarkerOptions()
                     .position(latLng)
