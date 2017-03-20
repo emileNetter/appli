@@ -157,6 +157,7 @@ public class SearchFragment extends Fragment {
                 displayLocationSettingsRequest(getContext());
             }
         });
+
         mMapView.getMapAsync(new OnMapReadyCallback() {
             @Override
             public void onMapReady(GoogleMap mMap) {
@@ -183,6 +184,15 @@ public class SearchFragment extends Fragment {
                         return false;
                     }
                 });
+                googleMap.setOnMapClickListener(new GoogleMap.OnMapClickListener() {
+                    @Override
+                    public void onMapClick(LatLng latLng) {
+                        if(mBottomSheetBehavior.getState()== BottomSheetBehavior.STATE_COLLAPSED
+                                ||  mBottomSheetBehavior.getState()== BottomSheetBehavior.STATE_EXPANDED){
+                            mBottomSheetBehavior.setState(BottomSheetBehavior.STATE_HIDDEN);
+                        }
+                    }
+                });
                 mBottomSheetBehavior.setBottomSheetCallback(new BottomSheetBehavior.BottomSheetCallback() {
                     @Override
                     public void onStateChanged(@NonNull View bottomSheet, int newState) {
@@ -198,6 +208,7 @@ public class SearchFragment extends Fragment {
 
                     }
                 });
+
             }
 
         });
