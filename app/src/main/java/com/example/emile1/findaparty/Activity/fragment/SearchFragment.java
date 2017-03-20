@@ -23,6 +23,7 @@ import android.os.AsyncTask;
 import android.os.Bundle;
 import android.support.annotation.ColorInt;
 import android.support.annotation.DrawableRes;
+import android.support.annotation.NonNull;
 import android.support.design.widget.BottomSheetBehavior;
 import android.support.design.widget.FloatingActionButton;
 import android.support.v4.app.ActivityCompat;
@@ -177,8 +178,24 @@ public class SearchFragment extends Fragment {
                         mBottomSheetBehavior.setState(BottomSheetBehavior.STATE_COLLAPSED);
                         mBottomSheetBehavior.setPeekHeight(300);
                         String idOwner = hashMap.get(marker.getId());
+                        Log.i(TAG,idOwner);
                         tv.setText(idOwner);
                         return false;
+                    }
+                });
+                mBottomSheetBehavior.setBottomSheetCallback(new BottomSheetBehavior.BottomSheetCallback() {
+                    @Override
+                    public void onStateChanged(@NonNull View bottomSheet, int newState) {
+                        if (BottomSheetBehavior.STATE_EXPANDED == newState) {
+                            mFloatinButton.animate().scaleX(0).scaleY(0).setDuration(300).start();
+                        } else if (BottomSheetBehavior.STATE_COLLAPSED == newState || BottomSheetBehavior.STATE_HIDDEN == newState) {
+                            mFloatinButton.animate().scaleX(1).scaleY(1).setDuration(300).start();
+                        }
+                    }
+
+                    @Override
+                    public void onSlide(@NonNull View bottomSheet, float slideOffset) {
+
                     }
                 });
             }
