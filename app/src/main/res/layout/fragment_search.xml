@@ -35,7 +35,7 @@
             android:orientation="vertical">
             <de.hdodenhof.circleimageview.CircleImageView
                 android:id="@+id/circle_picture"
-                android:src="@mipmap/ic_launcher"
+                android:src="@mipmap/login_background"
                 android:layout_margin="10dp"
                 android:layout_width="50dp"
                 android:layout_height="50dp" />
