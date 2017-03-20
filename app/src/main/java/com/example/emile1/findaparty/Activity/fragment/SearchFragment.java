@@ -38,6 +38,7 @@ import android.view.MenuInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.view.inputmethod.InputMethodManager;
+import android.widget.RelativeLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -153,7 +154,6 @@ public class SearchFragment extends Fragment {
             @Override
             public void onClick(View view) {
                 displayLocationSettingsRequest(getContext());
-
             }
         });
         mMapView.getMapAsync(new OnMapReadyCallback() {
@@ -182,6 +182,7 @@ public class SearchFragment extends Fragment {
                     }
                 });
             }
+
         });
 
         return v;
