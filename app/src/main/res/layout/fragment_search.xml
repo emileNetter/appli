@@ -29,17 +29,34 @@
         app:behavior_peekHeight="0dp"
         app:layout_behavior="@string/bottom_sheet_behavior">
 
-        <LinearLayout
+        <RelativeLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:orientation="vertical">
+            <de.hdodenhof.circleimageview.CircleImageView
+                android:id="@+id/circle_picture"
+                android:src="@mipmap/ic_launcher"
+                android:layout_margin="10dp"
+                android:layout_width="50dp"
+                android:layout_height="50dp" />
             <TextView
-                android:id="@+id/text_bottom_sheet"
+                android:id="@+id/name_bottom_sheet"
+                android:layout_toEndOf="@id/circle_picture"
                 android:text="Title"
                 android:textColor="@color/buttonLoginColor"
-                android:layout_width="94dp"
-                android:layout_height="58dp" />
-        </LinearLayout>
+                android:layout_margin="10dp"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content" />
+            <TextView
+                android:id="@+id/address_bottom_sheet"
+                android:layout_below="@id/name_bottom_sheet"
+                android:layout_toEndOf="@id/circle_picture"
+                android:layout_marginStart="10dp"
+                android:textColor="@color/btn_create"
+                android:text="39 rue maréchal foch"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content" />
+        </RelativeLayout>
     </android.support.v4.widget.NestedScrollView>
 
     <android.support.design.widget.FloatingActionButton

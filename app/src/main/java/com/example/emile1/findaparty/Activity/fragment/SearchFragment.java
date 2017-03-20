@@ -127,7 +127,7 @@ public class SearchFragment extends Fragment {
         View bottomSheet = v.findViewById(R.id.bottom_sheet);
 
         mBottomSheetBehavior = BottomSheetBehavior.from(bottomSheet);
-        tv = (TextView)v.findViewById(R.id.text_bottom_sheet);
+        tv = (TextView)v.findViewById(R.id.name_bottom_sheet);
         searchView = (SearchView)v.findViewById(R.id.search);
         setHasOptionsMenu(true);
         mMapView = (MapView) v.findViewById(R.id.mapView);
