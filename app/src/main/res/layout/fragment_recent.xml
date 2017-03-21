@@ -14,18 +14,11 @@
         android:layout_width="55dp"
         android:layout_height="wrap_content" />
 
-    <ListView
-        android:id="@+id/listview_home"
-        android:layout_width="match_parent"
-        android:layout_height="533dp"
-        android:background="#efefef"
-        android:clipToPadding="false"
-        android:divider="@android:color/transparent"
-        android:dividerHeight="10.0sp"
-        android:listSelector="@drawable/custom_listview_selector"
-        android:paddingBottom="10dp"
-        android:paddingEnd="10dp"
-        android:paddingStart="10dp"
-        android:paddingTop="10dp"/>
+    <android.support.v7.widget.RecyclerView
+        android:id="@+id/recent_recycler_view"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content">
+
+    </android.support.v7.widget.RecyclerView>
 
 </FrameLayout>

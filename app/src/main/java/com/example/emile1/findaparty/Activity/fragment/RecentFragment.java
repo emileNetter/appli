@@ -4,6 +4,8 @@ package com.example.emile1.findaparty.Activity.fragment;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
+import android.support.v7.widget.LinearLayoutManager;
+import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -14,6 +16,7 @@ import android.widget.Toast;
 
 import com.example.emile1.findaparty.Activity.Activity.MyLanDetailsActivity;
 import com.example.emile1.findaparty.Activity.Lan;
+import com.example.emile1.findaparty.Activity.adapter.CardViewAdapter;
 import com.example.emile1.findaparty.Activity.adapter.LanAdapter;
 import com.example.emile1.findaparty.R;
 import com.parse.FindCallback;
@@ -37,6 +40,9 @@ public class RecentFragment extends Fragment {
     private List<Lan> lans;
     private LanAdapter lanAdapter;
     private ProgressBar progressBar;
+    private RecyclerView mRecyclerView;
+    private LinearLayoutManager mLinearLayoutManager;
+    private CardViewAdapter mAdapter;
 
     public RecentFragment() {
         // Required empty public constructor
@@ -56,20 +62,28 @@ public class RecentFragment extends Fragment {
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
         View v = inflater.inflate(R.layout.fragment_recent, container, false);
+        mRecyclerView = (RecyclerView) v.findViewById(R.id.recent_recycler_view);
+        mLinearLayoutManager = new LinearLayoutManager(getContext());
+        mRecyclerView.setHasFixedSize(true);
+        mLinearLayoutManager.setOrientation(LinearLayoutManager.VERTICAL);
+        mRecyclerView.setLayoutManager(mLinearLayoutManager);
+
         progressBar = (ProgressBar) v.findViewById(R.id.progressBar);
         progressBar.bringToFront();
-        mListView = (ListView) v.findViewById(R.id.listview_home);
+
+//        mListView = (ListView) v.findViewById(R.id.listview_home);
         lans = new ArrayList<>();
         getLans();
-        lanAdapter= new LanAdapter(getActivity(),lans);
-        mListView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
-            @Override
-            public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
-                Intent intent = new Intent(getActivity(),MyLanDetailsActivity.class);
-                intent.putExtra("Lan",lans.get(i));
-                startActivity(intent);
-            }
-        });
+        mAdapter = new CardViewAdapter(lans);
+//        lanAdapter= new LanAdapter(getActivity(),lans);
+//        mListView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+//            @Override
+//            public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
+//                Intent intent = new Intent(getActivity(),MyLanDetailsActivity.class);
+//                intent.putExtra("Lan",lans.get(i));
+//                startActivity(intent);
+//            }
+//        });
         return v;
     }
 
@@ -111,7 +125,8 @@ public class RecentFragment extends Fragment {
                                 lan.getInt("MaxPeople"),
                                 lan.getInt("Remaining_Places")));
                     }
-                    mListView.setAdapter(lanAdapter);
+//                    mListView.setAdapter(lanAdapter);
+                    mRecyclerView.setAdapter(mAdapter);
                 } else {
                     progressBar.setVisibility(View.VISIBLE);
                 }
