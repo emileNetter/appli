@@ -16,7 +16,7 @@
     <color name="snackbar_warning">#e64545</color>
     <color name="banner">#333c70</color>
     <color name="light_grey">#dfdede</color>
-    <color name="pressed_state">#dedede</color>
+    <color name="pressed_state">#dcdbdb</color>
     <color name="tab_background">#9fa8da</color>
 
     <!-- Nav Drawer style-->
