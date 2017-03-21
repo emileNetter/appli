@@ -6,6 +6,7 @@ import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -34,7 +35,7 @@ import java.util.Locale;
 /**
  * A simple {@link Fragment} subclass.
  */
-public class RecentFragment extends Fragment {
+public class RecentFragment extends Fragment implements CardViewAdapter.OnCardClickListener{
 
     private ListView mListView;
     private List<Lan> lans;
@@ -42,7 +43,7 @@ public class RecentFragment extends Fragment {
     private ProgressBar progressBar;
     private RecyclerView mRecyclerView;
     private LinearLayoutManager mLinearLayoutManager;
-    private CardViewAdapter mAdapter;
+    private CardViewAdapter mCardViewAdapter;
 
     public RecentFragment() {
         // Required empty public constructor
@@ -71,12 +72,12 @@ public class RecentFragment extends Fragment {
         progressBar = (ProgressBar) v.findViewById(R.id.progressBar);
         progressBar.bringToFront();
 
-//        mListView = (ListView) v.findViewById(R.id.listview_home);
         lans = new ArrayList<>();
         getLans();
-        mAdapter = new CardViewAdapter(lans);
-//        lanAdapter= new LanAdapter(getActivity(),lans);
-//        mListView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+        mCardViewAdapter = new CardViewAdapter(lans);
+        mCardViewAdapter.setOnCardClickListener(this);
+
+//        mRecyclerView.setOnClickListener(new View.OnClickListener(){
 //            @Override
 //            public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
 //                Intent intent = new Intent(getActivity(),MyLanDetailsActivity.class);
@@ -85,6 +86,14 @@ public class RecentFragment extends Fragment {
 //            }
 //        });
         return v;
+    }
+
+    @Override
+    public void OnCardClicked(View view, int position) {
+        Log.d("ONCLICK",position +"");
+        Intent intent = new Intent(getActivity(),MyLanDetailsActivity.class);
+        intent.putExtra("Lan",lans.get(position));
+        startActivity(intent);
     }
 
     @Override
@@ -125,8 +134,7 @@ public class RecentFragment extends Fragment {
                                 lan.getInt("MaxPeople"),
                                 lan.getInt("Remaining_Places")));
                     }
-//                    mListView.setAdapter(lanAdapter);
-                    mRecyclerView.setAdapter(mAdapter);
+                    mRecyclerView.setAdapter(mCardViewAdapter);
                 } else {
                     progressBar.setVisibility(View.VISIBLE);
                 }
