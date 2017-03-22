@@ -474,10 +474,19 @@ public class SearchFragment extends Fragment {
         // create a Marker at latLng and Map the idOwner to the marker we created
         protected void onPostExecute(LatLng latLng){
             if(isAdded()){
-                Marker marker = googleMap.addMarker(new MarkerOptions()
-                        .position(latLng)
-                        .icon(vectorToBitmap(R.drawable.ic_marker_blue)));
-                hashMap.put(marker.getId(),idOwner);
+                if(!idOwner.equals(ParseUser.getCurrentUser().getObjectId()) ){
+                    Marker marker = googleMap.addMarker(new MarkerOptions()
+                            .position(latLng)
+                            .icon(vectorToBitmap(R.drawable.ic_marker_blue)));
+                    hashMap.put(marker.getId(),idOwner);
+                }
+                else {
+                    Marker marker = googleMap.addMarker(new MarkerOptions()
+                            .position(latLng)
+                            .icon(vectorToBitmap(R.drawable.ic_marker_red)));
+                    hashMap.put(marker.getId(),idOwner);
+                }
+
             }
         }
     }
