@@ -73,9 +73,11 @@ import com.google.android.gms.maps.model.Marker;
 import com.google.android.gms.maps.model.MarkerOptions;
 import com.google.android.gms.vision.barcode.Barcode;
 import com.parse.FindCallback;
+import com.parse.GetCallback;
 import com.parse.ParseException;
 import com.parse.ParseObject;
 import com.parse.ParseQuery;
+import com.parse.ParseUser;
 
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -103,6 +105,7 @@ public class SearchFragment extends Fragment {
     private LocationManager mlocManager;
     private LocationListener mlocListener;
     private SearchView searchView;
+    private ParseObject parseObject;
 
     private BottomSheetBehavior mBottomSheetBehavior;
     private TextView tv;
@@ -178,9 +181,7 @@ public class SearchFragment extends Fragment {
                     public boolean onMarkerClick(Marker marker) {
                         mBottomSheetBehavior.setState(BottomSheetBehavior.STATE_COLLAPSED);
                         mBottomSheetBehavior.setPeekHeight(300);
-                        String idOwner = hashMap.get(marker.getId());
-                        Log.i(TAG,idOwner);
-                        tv.setText(idOwner);
+                        getLanInfo(marker);
                         return false;
                     }
                 });
@@ -540,6 +541,19 @@ public class SearchFragment extends Fragment {
         LatLng latLng = new LatLng(lat,lng);
         CameraPosition cameraPosition = new CameraPosition.Builder().target(latLng).zoom(zoom).build();
         googleMap.animateCamera(CameraUpdateFactory.newCameraPosition(cameraPosition));
+    }
+
+    private void getLanInfo(Marker marker){
+        ParseQuery<ParseObject> query = ParseQuery.getQuery("Lans");
+        query.whereContains("IdOwner", hashMap.get(marker.getId()));
+        query.getFirstInBackground(new GetCallback<ParseObject>() {
+            @Override
+            public void done(ParseObject parseObject, ParseException e) {
+                if (e==null){
+                    tv.setText(parseObject.getString("Owner"));
+                }
+            }
+        });
     }
 
 }
