@@ -107,6 +107,7 @@ public class RecentFragment extends Fragment implements CardViewAdapter.OnCardCl
     public void getLans(){
         ParseQuery<ParseObject> query = ParseQuery.getQuery("Lans");
         query.whereContains("IdOwner", ParseUser.getCurrentUser().getObjectId());
+        query.orderByDescending("Address");
         query.findInBackground(new FindCallback<ParseObject>() {
             public void done(List<ParseObject> objects, ParseException e) {
                 if (e == null) {

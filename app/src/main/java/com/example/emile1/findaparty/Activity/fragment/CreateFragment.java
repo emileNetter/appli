@@ -327,13 +327,12 @@ public class CreateFragment extends Fragment{
         ParseObject lan = new ParseObject("Lans");
         lan.put("IdOwner",ParseUser.getCurrentUser().getObjectId());
         lan.put("Owner", firstName + " " + lastName);
-        lan.put("Address", "");
         lan.put("Date",convertedDate);
         lan.put("Start",startTime);
         lan.put("End",endTime);
         lan.put("MaxPeople",maxPeople);
         lan.put("Participants",0);
-        lan.put("address", address);
+        lan.put("Address", address);
         lan.saveInBackground(new SaveCallback() {
             @Override
             public void done(ParseException e) {
