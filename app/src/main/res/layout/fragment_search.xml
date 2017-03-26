@@ -22,7 +22,7 @@
     <android.support.v4.widget.NestedScrollView
         android:id="@+id/bottom_sheet"
         android:layout_width="match_parent"
-        android:layout_height="300dp"
+        android:layout_height="400dp"
         android:background="@android:color/white"
         android:elevation="1dp"
         app:behavior_hideable="true"
@@ -30,6 +30,7 @@
         app:layout_behavior="@string/bottom_sheet_behavior">
 
         <RelativeLayout
+            android:id="@+id/bottom_sheet_relative_layout"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:orientation="vertical">

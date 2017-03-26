@@ -107,6 +107,8 @@ public class SearchFragment extends Fragment {
     private SearchView searchView;
     public GetLocationFromAddressTask myTask= null;
 
+    private RelativeLayout mRelativeLayout;
+    private RelativeLayout relativeLayout;
     private BottomSheetBehavior mBottomSheetBehavior;
     private TextView tv;
 
@@ -121,7 +123,6 @@ public class SearchFragment extends Fragment {
     @Override
     public void onCreate(Bundle savedInstanceState){
         super.onCreate(savedInstanceState);
-        Log.i("Create","Create");
     }
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -130,6 +131,8 @@ public class SearchFragment extends Fragment {
         View v = inflater.inflate(R.layout.fragment_search, container, false);
         View bottomSheet = v.findViewById(R.id.bottom_sheet);
 
+        relativeLayout = (RelativeLayout)v.findViewById(R.id.search_relativeLayout);
+        mRelativeLayout = (RelativeLayout) v.findViewById(R.id.bottom_sheet_relative_layout);
         mBottomSheetBehavior = BottomSheetBehavior.from(bottomSheet);
         tv = (TextView)v.findViewById(R.id.name_bottom_sheet);
         searchView = (SearchView)v.findViewById(R.id.search);
@@ -162,6 +165,15 @@ public class SearchFragment extends Fragment {
             }
         });
 
+        mRelativeLayout.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                if(mBottomSheetBehavior.getState() == BottomSheetBehavior.STATE_COLLAPSED){
+                    mBottomSheetBehavior.setState(BottomSheetBehavior.STATE_EXPANDED);
+                }
+            }
+        });
+
         mMapView.getMapAsync(new OnMapReadyCallback() {
             @Override
             public void onMapReady(GoogleMap mMap) {
@@ -186,15 +198,7 @@ public class SearchFragment extends Fragment {
                         return false;
                     }
                 });
-                googleMap.setOnMapClickListener(new GoogleMap.OnMapClickListener() {
-                    @Override
-                    public void onMapClick(LatLng latLng) {
-                        if(mBottomSheetBehavior.getState()== BottomSheetBehavior.STATE_COLLAPSED
-                                ||  mBottomSheetBehavior.getState()== BottomSheetBehavior.STATE_EXPANDED){
-                            mBottomSheetBehavior.setState(BottomSheetBehavior.STATE_HIDDEN);
-                        }
-                    }
-                });
+
                 mBottomSheetBehavior.setBottomSheetCallback(new BottomSheetBehavior.BottomSheetCallback() {
                     @Override
                     public void onStateChanged(@NonNull View bottomSheet, int newState) {
@@ -269,7 +273,6 @@ public class SearchFragment extends Fragment {
     public void onResume() {
         super.onResume();
         mMapView.onResume();
-        Log.i("Resume","resume");
     }
 
     @Override
@@ -278,9 +281,7 @@ public class SearchFragment extends Fragment {
         MapStateManager mgr = new MapStateManager(getContext());
         if(myTask!=null){
             myTask.cancel(true);
-            Log.i("mytask",String.valueOf(myTask.isCancelled()));
         }
-        Log.i("PAUSE","pause");
         //check if the map is null otherwise it crashes the first time we open the app
         if(googleMap !=null){
             mgr.saveMapState(googleMap);
@@ -458,7 +459,6 @@ public class SearchFragment extends Fragment {
         LatLng latLngFromAddress;
         protected void onPreExecute(){
             if(myTask.isCancelled()){
-                Log.i("CANCELLED","isCANCEL");
             }
         }
         protected LatLng doInBackground (ParseObject... lan){
