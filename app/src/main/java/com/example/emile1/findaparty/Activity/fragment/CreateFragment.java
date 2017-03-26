@@ -359,6 +359,15 @@ public class CreateFragment extends Fragment{
         DateTimeFormatter dtfOut = DateTimeFormat.forPattern("dd MMM yyyy");
         // Printing the date
         String convertedDate = dtfOut.print(jodatime);
+//        SimpleDateFormat dateFormat = new SimpleDateFormat("dd MMM yyyy");
+//        Date date = new Date();
+//        try{
+//            date = dateFormat.parse(convertedDate);
+//            Log.i("DATE",date.toString());
+//        } catch (java.text.ParseException e){
+//            e.printStackTrace();
+//        }
+
         return  convertedDate;
     }
 }

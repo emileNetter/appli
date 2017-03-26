@@ -105,7 +105,7 @@ public class SearchFragment extends Fragment {
     private LocationManager mlocManager;
     private LocationListener mlocListener;
     private SearchView searchView;
-    private ParseObject parseObject;
+    public GetLocationFromAddressTask myTask= null;
 
     private BottomSheetBehavior mBottomSheetBehavior;
     private TextView tv;
@@ -121,6 +121,7 @@ public class SearchFragment extends Fragment {
     @Override
     public void onCreate(Bundle savedInstanceState){
         super.onCreate(savedInstanceState);
+        Log.i("Create","Create");
     }
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -268,12 +269,18 @@ public class SearchFragment extends Fragment {
     public void onResume() {
         super.onResume();
         mMapView.onResume();
+        Log.i("Resume","resume");
     }
 
     @Override
     public void onPause() {
         super.onPause();
         MapStateManager mgr = new MapStateManager(getContext());
+        if(myTask!=null){
+            myTask.cancel(true);
+            Log.i("mytask",String.valueOf(myTask.isCancelled()));
+        }
+        Log.i("PAUSE","pause");
         //check if the map is null otherwise it crashes the first time we open the app
         if(googleMap !=null){
             mgr.saveMapState(googleMap);
@@ -448,26 +455,35 @@ public class SearchFragment extends Fragment {
     public class GetLocationFromAddressTask extends AsyncTask<ParseObject, Void, LatLng>{
 
         private String idOwner;
+        LatLng latLngFromAddress;
+        protected void onPreExecute(){
+            if(myTask.isCancelled()){
+                Log.i("CANCELLED","isCANCEL");
+            }
+        }
         protected LatLng doInBackground (ParseObject... lan){
-            Geocoder geoCoder = new Geocoder(getContext(), Locale.getDefault());
-            String address = addressToString(lan[0].getJSONObject("address"));
-            idOwner = lan[0].getString("IdOwner");
-            LatLng latLngFromAddress = new LatLng(0,0);
-            try
-            {
-                //geocoder returns a list of addresses (here 1 address)
-                List<Address> addresses = geoCoder.getFromLocationName(address , 1);
-                if (addresses.size() > 0 && addresses!=null)
+            if(!myTask.isCancelled()){
+                Geocoder geoCoder = new Geocoder(getContext(), Locale.getDefault());
+                String address = addressToString(lan[0].getJSONObject("Address"));
+                idOwner = lan[0].getString("IdOwner");
+                latLngFromAddress = new LatLng(0,0);
+                try
                 {
-                    double lat = addresses.get(0).getLatitude();
-                    double lng = addresses.get(0).getLongitude();
-                    latLngFromAddress = new LatLng(lat,lng);
+                    //geocoder returns a list of addresses (here 1 address)
+                    List<Address> addresses = geoCoder.getFromLocationName(address , 1);
+                    if (addresses.size() > 0 && addresses!=null)
+                    {
+                        double lat = addresses.get(0).getLatitude();
+                        double lng = addresses.get(0).getLongitude();
+                        latLngFromAddress = new LatLng(lat,lng);
+                    }
+                }
+                catch(Exception e)
+                {
+                    e.printStackTrace();
                 }
             }
-            catch(Exception e)
-            {
-                e.printStackTrace();
-            }
+
             return latLngFromAddress;
         }
 
@@ -512,8 +528,10 @@ public class SearchFragment extends Fragment {
             @Override
             public void done(List<ParseObject> objects, ParseException e) {
                 if(e==null){
-                    for(ParseObject lan : objects)
-                        new GetLocationFromAddressTask().execute(lan);
+                    for(ParseObject lan : objects) {
+                        myTask = new GetLocationFromAddressTask();
+                        myTask.execute(lan);
+                    }
                 }
             }
         });

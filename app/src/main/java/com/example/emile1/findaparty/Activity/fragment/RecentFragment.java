@@ -23,7 +23,9 @@ import com.parse.ParseObject;
 import com.parse.ParseQuery;
 import com.parse.ParseUser;
 
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 
 /**
@@ -150,4 +152,11 @@ public class RecentFragment extends Fragment implements CardViewAdapter.OnCardCl
         });
     }
 
+    public void compareDates() throws java.text.ParseException{
+        String date1 = "20 03 2017";
+        String date2 = "22 03 2017";
+        SimpleDateFormat sdf = new SimpleDateFormat("dd MM yyyy");
+        Date date = sdf.parse(date1);
+        Log.i("compare",String.valueOf(date));
+    }
 }
