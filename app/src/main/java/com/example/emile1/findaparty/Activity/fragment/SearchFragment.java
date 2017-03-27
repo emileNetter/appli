@@ -8,6 +8,7 @@ import android.content.Context;
 import android.content.Intent;
 import android.content.IntentSender;
 import android.content.pm.PackageManager;
+import android.content.res.Resources;
 import android.graphics.Bitmap;
 import android.graphics.Canvas;
 import android.graphics.Color;
@@ -108,7 +109,6 @@ public class SearchFragment extends Fragment {
     public GetLocationFromAddressTask myTask= null;
 
     private RelativeLayout mRelativeLayout;
-    private RelativeLayout relativeLayout;
     private BottomSheetBehavior mBottomSheetBehavior;
     private TextView tv;
 
@@ -131,7 +131,6 @@ public class SearchFragment extends Fragment {
         View v = inflater.inflate(R.layout.fragment_search, container, false);
         View bottomSheet = v.findViewById(R.id.bottom_sheet);
 
-        relativeLayout = (RelativeLayout)v.findViewById(R.id.search_relativeLayout);
         mRelativeLayout = (RelativeLayout) v.findViewById(R.id.bottom_sheet_relative_layout);
         mBottomSheetBehavior = BottomSheetBehavior.from(bottomSheet);
         tv = (TextView)v.findViewById(R.id.name_bottom_sheet);
@@ -204,6 +203,7 @@ public class SearchFragment extends Fragment {
                     public void onStateChanged(@NonNull View bottomSheet, int newState) {
                         if (BottomSheetBehavior.STATE_EXPANDED == newState) {
                             mFloatinButton.animate().scaleX(0).scaleY(0).setDuration(300).start();
+                            mRelativeLayout.setBackgroundColor(getResources().getColor(R.color.buttonLoginColor));
                         } else if (BottomSheetBehavior.STATE_COLLAPSED == newState || BottomSheetBehavior.STATE_HIDDEN == newState) {
                             mFloatinButton.animate().scaleX(1).scaleY(1).setDuration(300).start();
                         }

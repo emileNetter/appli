@@ -32,7 +32,7 @@
         <RelativeLayout
             android:id="@+id/bottom_sheet_relative_layout"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
+            android:layout_height="match_parent"
             android:orientation="vertical">
             <de.hdodenhof.circleimageview.CircleImageView
                 android:id="@+id/circle_picture"
