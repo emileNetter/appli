@@ -18,7 +18,7 @@
     <color name="light_grey">#dfdede</color>
     <color name="pressed_state">#dcdbdb</color>
     <color name="tab_background">#9fa8da</color>
-
+    <color name="banner_details">#00c853</color>
     <!-- Nav Drawer style-->
     <color name="nav_header">#5c6bc0</color>
     <color name="color_navigation_list_background">#ffffff</color>

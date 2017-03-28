@@ -9,13 +9,111 @@
     <include
         layout="@layout/app_bar_main"
         android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:id="@+id/include" />
+    <TextView
+        android:id="@+id/banner_organizer"
+        android:layout_marginTop="55dp"
+        android:text="Infos organisateur"
+        android:padding="15dp"
+        android:layout_width="match_parent"
+        android:layout_height="50dp" />
+    <de.hdodenhof.circleimageview.CircleImageView
+        android:id="@+id/owner_circle_pp"
+        android:layout_below="@id/banner_organizer"
+        android:background="@drawable/amumu460"
+        android:layout_margin="15dp"
+        android:layout_width="50dp"
+        android:layout_height="50dp" />
+    <TextView
+        android:id="@+id/owner_name"
+        android:text="Emile NETTER"
+        android:layout_alignTop="@id/owner_circle_pp"
+        android:layout_toEndOf="@id/owner_circle_pp"
+        android:layout_marginStart="5dp"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content" />
+    <TextView
+        android:id="@+id/owner_address"
+        android:layout_below="@id/owner_name"
+        android:text="39 rue maréchal foch"
+        android:layout_toEndOf="@id/owner_circle_pp"
+        android:layout_margin="5dp"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content" />
+    <View
+        android:id="@+id/divider1"
+        android:layout_below="@id/owner_circle_pp"
+        android:layout_width="fill_parent"
+        android:layout_height="1dip"
+        android:background="@color/password_toggle" />
+    <TextView
+        android:id="@+id/banner_date"
+        android:layout_below="@id/divider1"
+        android:padding="15dp"
+        android:text="Infos date"
+        android:layout_width="match_parent"
+        android:layout_height="50dp" />
+
+    <TextView
+        android:id="@+id/event_date"
+        android:layout_below="@id/banner_date"
+        android:text="23 JAN 2017"
+        android:layout_marginStart="20dp"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content" />
+    <ImageView
+        android:id="@+id/circle1"
+        android:layout_marginStart="15dp"
+        android:layout_marginTop="10dp"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/event_date"
+        android:background="@drawable/ic_cardview_time" />
+    <TextView
+        android:id="@+id/event_start"
+        android:layout_toEndOf="@id/circle1"
+        android:text="36:115"
+        android:layout_below="@id/event_date"
+        android:layout_marginStart="15dp"
+        android:layout_marginTop="13dp"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content" />
+    <ImageView
+        android:id="@+id/dot"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/circle1"
+        android:layout_marginStart="15dp"
+        android:layout_marginTop="10dp"
+        android:background="@drawable/ic_dots_24dp" />
+
+    <ImageView
+        android:id="@+id/circle2"
+        android:layout_marginStart="15dp"
+        android:layout_marginTop="10dp"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/dot"
+        android:background="@drawable/ic_cardview_time" />
+
+    <TextView
+        android:id="@+id/event_end"
+        android:layout_toEndOf="@id/circle2"
+        android:text="36:115"
+        android:layout_below="@id/dot"
+        android:layout_marginStart="15dp"
+        android:layout_marginTop="13dp"
+        android:layout_width="wrap_content"
         android:layout_height="wrap_content" />
 
     <Button
-        android:layout_marginTop="100dp"
         android:id="@+id/button_delete"
         android:text="DELETE"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content" />
+        android:layout_height="wrap_content"
+        android:layout_alignBottom="@+id/include"
+        android:layout_alignParentStart="true"
+        android:layout_marginStart="7dp" />
 
 </RelativeLayout>
