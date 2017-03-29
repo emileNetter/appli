@@ -92,6 +92,7 @@
         android:id="@+id/circle2"
         android:layout_marginStart="15dp"
         android:layout_marginTop="10dp"
+        android:layout_marginBottom="15dp"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_below="@+id/dot"
@@ -106,6 +107,12 @@
         android:layout_marginTop="13dp"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content" />
+    <View
+        android:id="@+id/divider2"
+        android:layout_below="@id/circle2"
+        android:layout_width="fill_parent"
+        android:layout_height="1dip"
+        android:background="@color/password_toggle" />
 
     <Button
         android:id="@+id/button_delete"
