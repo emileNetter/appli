@@ -52,4 +52,9 @@
         <item name="android:textColor">@color/color_navigation_item</item>
         <item name="android:textSize">20sp</item>
     </style>
+
+    <style name="LanDetails" parent="AppTheme.NoActionBar">
+        <item name="android:textColor">@android:color/black</item>
+        <item name="android:textSize">18sp</item>
+    </style>
 </resources>
