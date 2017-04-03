@@ -6,149 +6,168 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:context="com.example.emile1.findaparty.Activity.Activity.MyLanDetailsActivity">
-
-    <include
-        layout="@layout/app_bar_main"
+    <android.support.design.widget.AppBarLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:id="@+id/include" />
-    <TextView
-        android:id="@+id/banner_organizer"
-        android:layout_marginTop="80dp"
-        android:text="Infos organisateur"
-        style="@style/LanDetails"
-        android:padding="10dp"
-        android:layout_marginStart="10dp"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content" />
-    <de.hdodenhof.circleimageview.CircleImageView
-        android:id="@+id/owner_circle_pp"
-        android:layout_below="@id/banner_organizer"
-        android:background="@drawable/amumu460"
-        app:civ_border_color="@android:color/black"
-        app:civ_border_width="1dp"
-        android:layout_margin="15dp"
-        android:layout_width="50dp"
-        android:layout_height="50dp" />
-    <TextView
-        android:id="@+id/owner_name"
-        android:text="Emile NETTER"
-        android:layout_alignTop="@id/owner_circle_pp"
-        android:layout_toEndOf="@id/owner_circle_pp"
-        android:layout_marginStart="5dp"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content" />
-    <TextView
-        android:id="@+id/owner_address"
-        android:layout_below="@id/owner_name"
-        android:text="39 rue maréchal foch"
-        android:layout_toEndOf="@id/owner_circle_pp"
-        android:layout_margin="5dp"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content" />
-    <View
-        android:id="@+id/divider1"
-        android:layout_below="@id/owner_circle_pp"
-        android:layout_width="fill_parent"
-        android:layout_height="1dip"
-        android:background="@color/password_toggle" />
-    <TextView
-        android:id="@+id/banner_infos"
-        android:padding="10dp"
-        android:text="Infos"
-        style="@style/LanDetails"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_below="@+id/divider1"
-        android:layout_alignStart="@id/banner_organizer" />
+        android:theme="@style/AppTheme.AppBarOverlay">
 
-    <TextView
-        android:id="@+id/event_date"
-        android:layout_below="@id/banner_infos"
-        android:text="23 JAN 2017"
-        android:layout_marginStart="20dp"
-        android:layout_alignStart="@id/banner_organizer"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content" />
-    <ImageView
-        android:id="@+id/circle1"
-        android:layout_marginStart="15dp"
-        android:layout_marginTop="10dp"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignStart="@id/banner_organizer"
-        android:backgroundTint="@android:color/holo_green_light"
-        android:layout_below="@+id/event_date"
-        android:background="@drawable/ic_cardview_time" />
-    <TextView
-        android:id="@+id/event_start"
-        android:layout_toEndOf="@id/circle1"
-        android:text="36:115"
-        android:layout_below="@id/event_date"
-        android:layout_marginStart="15dp"
-        android:layout_marginTop="13dp"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content" />
-    <ImageView
-        android:id="@+id/dot"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_below="@id/circle1"
-        android:layout_marginStart="15dp"
-        android:layout_marginTop="10dp"
-        android:layout_alignStart="@id/banner_organizer"
-        android:background="@drawable/ic_dots_24dp" />
+        <android.support.v7.widget.Toolbar
+            android:id="@+id/toolbar_lanDetails"
+            android:layout_width="match_parent"
+            android:layout_height="?attr/actionBarSize"
+            android:background="@color/buttonLoginColor"
+            app:popupTheme="@style/AppTheme.PopupOverlay" />
 
-    <ImageView
-        android:id="@+id/circle2"
-        android:layout_marginStart="15dp"
-        android:layout_marginTop="10dp"
-        android:layout_marginBottom="15dp"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_below="@+id/dot"
-        android:backgroundTint="@android:color/holo_red_light"
-        android:layout_alignStart="@id/banner_organizer"
-        android:background="@drawable/ic_cardview_time" />
+    </android.support.design.widget.AppBarLayout>
 
-    <TextView
-        android:id="@+id/event_end"
-        android:layout_toEndOf="@id/circle2"
-        android:text="36:115"
-        android:layout_below="@id/dot"
-        android:layout_marginStart="15dp"
-        android:layout_marginTop="13dp"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content" />
-    <View
-        android:id="@+id/divider2"
-        android:layout_below="@id/circle2"
-        android:layout_width="fill_parent"
-        android:layout_height="1dip"
-        android:background="@color/password_toggle" />
-
-    <TextView
-        android:id="@+id/banner_participants"
-        android:layout_below="@id/divider2"
-        android:layout_alignStart="@id/banner_organizer"
-        android:padding="10dp"
-        style="@style/LanDetails"
-        android:text="Participants"
+    <ScrollView
         android:layout_width="match_parent"
-        android:layout_height="wrap_content" />
-    <ListView
-        android:id="@+id/listview_participants"
-        android:layout_below="@id/banner_participants"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent">
-    </ListView>
+        android:layout_height="wrap_content">
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
 
-    <Button
-        android:id="@+id/button_delete"
-        android:text="DELETE"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_alignParentStart="true"
-        android:layout_alignParentBottom="true"
-        android:layout_below="@id/listview_participants"/>
+            <TextView
+                android:id="@+id/banner_organizer"
+                android:layout_marginTop="80dp"
+                android:text="Infos organisateur"
+                style="@style/LanDetails"
+                android:padding="10dp"
+                android:layout_marginStart="10dp"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content" />
+            <de.hdodenhof.circleimageview.CircleImageView
+                android:id="@+id/owner_circle_pp"
+                android:layout_below="@id/banner_organizer"
+                android:background="@drawable/amumu460"
+                app:civ_border_color="@android:color/black"
+                app:civ_border_width="1dp"
+                android:layout_margin="15dp"
+                android:layout_width="50dp"
+                android:layout_height="50dp" />
+            <TextView
+                android:id="@+id/owner_name"
+                android:text="Emile NETTER"
+                android:layout_alignTop="@id/owner_circle_pp"
+                android:layout_toEndOf="@id/owner_circle_pp"
+                android:layout_marginStart="5dp"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content" />
+            <TextView
+                android:id="@+id/owner_address"
+                android:layout_below="@id/owner_name"
+                android:text="39 rue maréchal foch"
+                android:layout_toEndOf="@id/owner_circle_pp"
+                android:layout_margin="5dp"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content" />
+            <View
+                android:id="@+id/divider1"
+                android:layout_below="@id/owner_circle_pp"
+                android:layout_width="fill_parent"
+                android:layout_height="1dip"
+                android:background="@color/password_toggle" />
+            <TextView
+                android:id="@+id/banner_infos"
+                android:padding="10dp"
+                android:text="Infos"
+                style="@style/LanDetails"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/divider1"
+                android:layout_alignStart="@id/banner_organizer" />
+
+            <TextView
+                android:id="@+id/event_date"
+                android:layout_below="@id/banner_infos"
+                android:text="23 JAN 2017"
+                android:layout_marginStart="20dp"
+                android:layout_alignStart="@id/banner_organizer"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content" />
+            <ImageView
+                android:id="@+id/circle1"
+                android:layout_marginStart="15dp"
+                android:layout_marginTop="10dp"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignStart="@id/banner_organizer"
+                android:backgroundTint="@android:color/holo_green_light"
+                android:layout_below="@+id/event_date"
+                android:background="@drawable/ic_cardview_time" />
+            <TextView
+                android:id="@+id/event_start"
+                android:layout_toEndOf="@id/circle1"
+                android:text="36:115"
+                android:layout_below="@id/event_date"
+                android:layout_marginStart="15dp"
+                android:layout_marginTop="13dp"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content" />
+            <ImageView
+                android:id="@+id/dot"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_below="@id/circle1"
+                android:layout_marginStart="15dp"
+                android:layout_marginTop="10dp"
+                android:layout_alignStart="@id/banner_organizer"
+                android:background="@drawable/ic_dots_24dp" />
+
+            <ImageView
+                android:id="@+id/circle2"
+                android:layout_marginStart="15dp"
+                android:layout_marginTop="10dp"
+                android:layout_marginBottom="15dp"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/dot"
+                android:backgroundTint="@android:color/holo_red_light"
+                android:layout_alignStart="@id/banner_organizer"
+                android:background="@drawable/ic_cardview_time" />
+
+            <TextView
+                android:id="@+id/event_end"
+                android:layout_toEndOf="@id/circle2"
+                android:text="36:115"
+                android:layout_below="@id/dot"
+                android:layout_marginStart="15dp"
+                android:layout_marginTop="13dp"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content" />
+            <View
+                android:id="@+id/divider2"
+                android:layout_below="@id/circle2"
+                android:layout_width="fill_parent"
+                android:layout_height="1dip"
+                android:background="@color/password_toggle" />
+
+            <TextView
+                android:id="@+id/banner_participants"
+                android:layout_below="@id/divider2"
+                android:layout_alignStart="@id/banner_organizer"
+                android:padding="10dp"
+                style="@style/LanDetails"
+                android:text="Participants"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content" />
+            <LinearLayout
+                android:id="@+id/linearLayoutList"
+                android:orientation="vertical"
+                android:layout_below="@id/banner_participants"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+
+            </LinearLayout>
+
+            <Button
+                android:id="@+id/button_delete"
+                android:text="DELETE"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_alignParentStart="true"
+                android:layout_below="@id/linearLayoutList"/>
+        </RelativeLayout>
+    </ScrollView>
+
 </RelativeLayout>
