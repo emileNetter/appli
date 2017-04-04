@@ -54,6 +54,8 @@
                 android:layout_alignTop="@id/owner_avatar"
                 android:layout_toEndOf="@id/owner_avatar"
                 android:layout_marginStart="5dp"
+                android:textSize="15dp"
+                android:textColor="@android:color/black"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content" />
             <TextView
@@ -91,61 +93,68 @@
             <TextView
                 android:id="@+id/event_date"
                 android:layout_below="@id/banner_infos"
+                android:textAllCaps="true"
+                android:textSize="16dp"
                 android:layout_marginStart="20dp"
                 android:layout_alignStart="@id/banner_organizer"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content" />
-            <ImageView
-                android:id="@+id/circle1"
-                android:layout_marginStart="15dp"
-                android:layout_marginTop="10dp"
+            <LinearLayout
+                android:id="@+id/linear_layout_details"
+                android:layout_below="@id/event_date"
+                android:orientation="vertical"
+                android:layout_marginTop="15dp"
+                android:layout_marginBottom="15dp"
+                android:layout_marginEnd="15dp"
+                android:gravity="center_horizontal"
+                android:layout_alignStart="@id/event_date"
                 android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_alignStart="@id/banner_organizer"
-                android:backgroundTint="@android:color/holo_green_light"
-                android:layout_below="@+id/event_date"
-                android:background="@drawable/ic_cardview_time" />
+                android:layout_height="wrap_content">
+
+                <ImageView
+                    android:id="@+id/circle1"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:backgroundTint="@color/circle_start"
+                    android:background="@drawable/ic_cardview_time" />
+                <View
+                    android:id="@+id/dot"
+                    android:layout_width="2dip"
+                    android:layout_height="50dip"
+                    android:layout_marginTop="10dp"
+                    android:layout_marginBottom="10dp"
+                    android:background="@color/password_toggle"
+                    />
+
+                <ImageView
+                    android:id="@+id/circle2"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:backgroundTint="@color/circle_end"
+                    android:background="@drawable/ic_cardview_time" />
+
+            </LinearLayout>
+
             <TextView
                 android:id="@+id/event_start"
-                android:layout_toEndOf="@id/circle1"
+                android:layout_toEndOf="@id/linear_layout_details"
+                android:layout_alignTop="@id/linear_layout_details"
+                android:layout_marginTop="5dp"
+                android:text="HELLO"
                 android:layout_below="@id/event_date"
-                android:layout_marginStart="15dp"
-                android:layout_marginTop="13dp"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content" />
-            <ImageView
-                android:id="@+id/dot"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_below="@id/circle1"
-                android:layout_marginStart="15dp"
-                android:layout_marginTop="10dp"
-                android:layout_alignStart="@id/banner_organizer"
-                android:background="@drawable/ic_dots_24dp" />
-
-            <ImageView
-                android:id="@+id/circle2"
-                android:layout_marginStart="15dp"
-                android:layout_marginTop="10dp"
-                android:layout_marginBottom="15dp"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_below="@+id/dot"
-                android:backgroundTint="@android:color/holo_red_light"
-                android:layout_alignStart="@id/banner_organizer"
-                android:background="@drawable/ic_cardview_time" />
 
             <TextView
                 android:id="@+id/event_end"
-                android:layout_toEndOf="@id/circle2"
-                android:layout_below="@id/dot"
-                android:layout_marginStart="15dp"
-                android:layout_marginTop="13dp"
+                android:layout_toEndOf="@id/linear_layout_details"
+                android:layout_alignBottom="@id/linear_layout_details"
+                android:layout_marginBottom="5dp"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content" />
             <View
                 android:id="@+id/divider2"
-                android:layout_below="@id/circle2"
+                android:layout_below="@id/linear_layout_details"
                 android:layout_width="fill_parent"
                 android:layout_height="1dip"
                 android:background="@color/password_toggle" />
