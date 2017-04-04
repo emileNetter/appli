@@ -52,11 +52,11 @@ public class MainActivity extends AppCompatActivity
         } else{
             Log.i("MAIN", "Not null");
         }
+        ParseUser.getCurrentUser().pinInBackground();
         setContentView(R.layout.activity_main);
         setUserData();
         toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
-
         displaySelectedItem(R.id.nav_main);
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
         ActionBarDrawerToggle toggle = new ActionBarDrawerToggle(

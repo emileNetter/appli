@@ -18,6 +18,7 @@ import com.example.emile1.findaparty.Activity.Lan;
 import com.example.emile1.findaparty.Activity.adapter.CardViewAdapter;
 import com.example.emile1.findaparty.R;
 import com.parse.FindCallback;
+import com.parse.GetCallback;
 import com.parse.ParseException;
 import com.parse.ParseObject;
 import com.parse.ParseQuery;
@@ -60,6 +61,7 @@ public class RecentFragment extends Fragment implements CardViewAdapter.OnCardCl
         // Inflate the layout for this fragment
         View v = inflater.inflate(R.layout.fragment_recent, container, false);
         getLans();
+        getUserInfo();
         mLinearLayoutManager = new LinearLayoutManager(getContext());
         mLinearLayoutManager.setOrientation(LinearLayoutManager.VERTICAL);
 
@@ -159,4 +161,5 @@ public class RecentFragment extends Fragment implements CardViewAdapter.OnCardCl
         Date date = sdf.parse(date1);
         Log.i("compare",String.valueOf(date));
     }
+    
 }
