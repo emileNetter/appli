@@ -139,7 +139,7 @@
                 android:id="@+id/event_start"
                 android:layout_toEndOf="@id/linear_layout_details"
                 android:layout_alignTop="@id/linear_layout_details"
-                android:layout_marginTop="5dp"
+                android:layout_marginTop="3dp"
                 android:text="HELLO"
                 android:layout_below="@id/event_date"
                 android:layout_width="wrap_content"
@@ -149,7 +149,7 @@
                 android:id="@+id/event_end"
                 android:layout_toEndOf="@id/linear_layout_details"
                 android:layout_alignBottom="@id/linear_layout_details"
-                android:layout_marginBottom="5dp"
+                android:layout_marginBottom="3dp"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content" />
             <View
