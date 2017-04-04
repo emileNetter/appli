@@ -5,6 +5,7 @@
     android:id="@+id/activity_my_lan_details"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:fitsSystemWindows="true"
     tools:context="com.example.emile1.findaparty.Activity.Activity.MyLanDetailsActivity">
 
     <android.support.design.widget.AppBarLayout
@@ -39,7 +40,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content" />
             <de.hdodenhof.circleimageview.CircleImageView
-                android:id="@+id/owner_circle_pp"
+                android:id="@+id/owner_avatar"
                 android:layout_below="@id/banner_organizer"
                 android:background="@drawable/amumu460"
                 app:civ_border_color="@android:color/black"
@@ -49,23 +50,31 @@
                 android:layout_height="50dp" />
             <TextView
                 android:id="@+id/owner_name"
-                android:text="Emile NETTER"
-                android:layout_alignTop="@id/owner_circle_pp"
-                android:layout_toEndOf="@id/owner_circle_pp"
+                android:text="E"
+                android:layout_alignTop="@id/owner_avatar"
+                android:layout_toEndOf="@id/owner_avatar"
                 android:layout_marginStart="5dp"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content" />
             <TextView
                 android:id="@+id/owner_address"
                 android:layout_below="@id/owner_name"
-                android:text="39 rue maréchal foch"
-                android:layout_toEndOf="@id/owner_circle_pp"
+                android:text="3"
+                android:layout_toEndOf="@id/owner_avatar"
                 android:layout_margin="5dp"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content" />
+            <TextView
+                android:id="@+id/owner_city"
+                android:layout_below="@id/owner_address"
+                android:layout_toEndOf="@id/owner_avatar"
+                android:layout_marginStart="5dp"
+                android:layout_marginBottom="15dp"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content" />
             <View
                 android:id="@+id/divider1"
-                android:layout_below="@id/owner_circle_pp"
+                android:layout_below="@id/owner_city"
                 android:layout_width="fill_parent"
                 android:layout_height="1dip"
                 android:background="@color/password_toggle" />
@@ -82,7 +91,6 @@
             <TextView
                 android:id="@+id/event_date"
                 android:layout_below="@id/banner_infos"
-                android:text="23 JAN 2017"
                 android:layout_marginStart="20dp"
                 android:layout_alignStart="@id/banner_organizer"
                 android:layout_width="wrap_content"
@@ -100,7 +108,6 @@
             <TextView
                 android:id="@+id/event_start"
                 android:layout_toEndOf="@id/circle1"
-                android:text="36:115"
                 android:layout_below="@id/event_date"
                 android:layout_marginStart="15dp"
                 android:layout_marginTop="13dp"
@@ -131,7 +138,6 @@
             <TextView
                 android:id="@+id/event_end"
                 android:layout_toEndOf="@id/circle2"
-                android:text="36:115"
                 android:layout_below="@id/dot"
                 android:layout_marginStart="15dp"
                 android:layout_marginTop="13dp"

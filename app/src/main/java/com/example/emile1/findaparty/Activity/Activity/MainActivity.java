@@ -7,6 +7,7 @@ import android.provider.Settings;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentTransaction;
+import android.support.v4.content.ContextCompat;
 import android.text.SpannableString;
 import android.text.style.TextAppearanceSpan;
 import android.util.Log;
@@ -19,6 +20,8 @@ import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.view.Window;
+import android.view.WindowManager;
 import android.widget.EditText;
 import android.widget.TextView;
 
@@ -52,9 +55,12 @@ public class MainActivity extends AppCompatActivity
         } else{
             Log.i("MAIN", "Not null");
         }
-        ParseUser.getCurrentUser().pinInBackground();
         setContentView(R.layout.activity_main);
         setUserData();
+        Window window = this.getWindow();
+        window.addFlags(WindowManager.LayoutParams.FLAG_DRAWS_SYSTEM_BAR_BACKGROUNDS);
+        window.clearFlags(WindowManager.LayoutParams.FLAG_TRANSLUCENT_STATUS);
+        window.setStatusBarColor(ContextCompat.getColor(this, R.color.material_indigo_500));
         toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
         displaySelectedItem(R.id.nav_main);

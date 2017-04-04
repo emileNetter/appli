@@ -2,26 +2,34 @@ package com.example.emile1.findaparty.Activity.Activity;
 
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.support.v4.content.ContextCompat;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.Toolbar;
-import android.view.MotionEvent;
+import android.util.Log;
 import android.view.View;
-import android.view.ViewGroup;
+import android.view.Window;
+import android.view.WindowManager;
 import android.widget.Button;
 import android.widget.LinearLayout;
-import android.widget.ListAdapter;
-import android.widget.ListView;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.example.emile1.findaparty.Activity.Lan;
 import com.example.emile1.findaparty.Activity.Participant;
 import com.example.emile1.findaparty.Activity.adapter.ParticipantAdapter;
 import com.example.emile1.findaparty.R;
+import com.google.android.gms.vision.text.Text;
 import com.parse.DeleteCallback;
+import com.parse.GetCallback;
 import com.parse.ParseException;
 import com.parse.ParseObject;
+import com.parse.ParseQuery;
+import com.parse.ParseUser;
+
+import org.json.JSONException;
+import org.json.JSONObject;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -29,35 +37,39 @@ import java.util.List;
 import de.hdodenhof.circleimageview.CircleImageView;
 
 public class MyLanDetailsActivity extends AppCompatActivity {
-    Toolbar toolbar;
+    private Toolbar toolbar;
     private Button btn_delete;
-    Participant p1;
-    Participant p2;
-    CircleImageView c;
-    List<Participant> participantList;
-    ListView lv;
-    LinearLayout linearLayout;
+    private CircleImageView c;
+    private List<Participant> participantList;
+    private LinearLayout linearLayout;
+    private Window window;
+
+    private TextView ownerName;
+    private TextView ownerAddress;
+    private TextView ownerCity;
+    private TextView date;
+    private TextView start;
+    private TextView end;
+    private CircleImageView avatar;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_my_lan_details);
-
-        linearLayout = (LinearLayout) findViewById(R.id.linearLayoutList);
-        participantList = genereParticipant();
+        instantiateUI();
+        Intent intent= getIntent();
+        final Lan mLan = (Lan)intent.getSerializableExtra("Lan");
+        final ParseObject lan = ParseObject.createWithoutData("Lans",mLan.getIdLan());
+        setUIText(mLan);
+        participantList = getParticipant();
         ParticipantAdapter participantAdapter = new ParticipantAdapter(this,participantList);
         for (int i =0;i<participantAdapter.getCount();i++){
             View view = participantAdapter.getView(i,null,linearLayout);
             linearLayout.addView(view);
         }
-        toolbar = (android.support.v7.widget.Toolbar)findViewById(R.id.toolbar_lanDetails);
-        btn_delete = (Button) findViewById(R.id.button_delete);
         setSupportActionBar(toolbar);
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         getSupportActionBar().setDisplayShowHomeEnabled(true);
-        Intent intent= getIntent();
-        final Lan mLan = (Lan)intent.getSerializableExtra("Lan");
-        final ParseObject lan = ParseObject.createWithoutData("Lans",mLan.getIdLan());
 
         btn_delete.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -106,7 +118,8 @@ public class MyLanDetailsActivity extends AppCompatActivity {
         });
     }
 
-    private List<Participant> genereParticipant(){
+    private List<Participant> getParticipant(){
+        //On récupère les participants d'une LAN
         List<Participant> list = new ArrayList<>();
         list.add(new Participant("Emile N",c));
         list.add(new Participant("Jean",c));
@@ -114,24 +127,36 @@ public class MyLanDetailsActivity extends AppCompatActivity {
         return list;
     }
 
-    public static void setListViewHeightBasedOnChildren(ListView listView) {
-        ListAdapter listAdapter = listView.getAdapter();
-        if (listAdapter == null)
-            return;
+    private void instantiateUI(){
+        ownerName =(TextView) findViewById(R.id.owner_name);
+        ownerAddress = (TextView) findViewById(R.id.owner_address);
+        ownerCity =(TextView) findViewById(R.id.owner_city);
+        date = (TextView) findViewById(R.id.event_date);
+        start = (TextView) findViewById(R.id.event_start);
+        end = (TextView) findViewById(R.id.event_end);
+        avatar = (CircleImageView) findViewById(R.id.owner_avatar);
+        window = this.getWindow();
+        toolbar = (android.support.v7.widget.Toolbar)findViewById(R.id.toolbar_lanDetails);
+        btn_delete = (Button) findViewById(R.id.button_delete);
 
-        int desiredWidth = View.MeasureSpec.makeMeasureSpec(listView.getWidth(), View.MeasureSpec.UNSPECIFIED);
-        int totalHeight = 0;
-        View view = null;
-        for (int i = 0; i < listAdapter.getCount(); i++) {
-            view = listAdapter.getView(i, view, listView);
-            if (i == 0)
-                view.setLayoutParams(new ViewGroup.LayoutParams(desiredWidth, Toolbar.LayoutParams.WRAP_CONTENT));
+        window.addFlags(WindowManager.LayoutParams.FLAG_DRAWS_SYSTEM_BAR_BACKGROUNDS);
+        window.clearFlags(WindowManager.LayoutParams.FLAG_TRANSLUCENT_STATUS);
+        window.setStatusBarColor(ContextCompat.getColor(this, R.color.material_indigo_500));
+        linearLayout = (LinearLayout) findViewById(R.id.linearLayoutList);
+    }
 
-            view.measure(desiredWidth, View.MeasureSpec.UNSPECIFIED);
-            totalHeight += view.getMeasuredHeight();
+    private void setUIText(Lan lan){
+        try{
+            JSONObject address = ParseUser.getCurrentUser().getJSONObject("address");
+            ownerName.setText(ParseUser.getCurrentUser().getString("firstName") + " " + ParseUser.getCurrentUser().getString("lastName"));
+            ownerAddress.setText(address.getString("lane"));
+            ownerCity.setText(address.getString("zipcode")+ " " + address.getString("city").toUpperCase());
+            date.setText(lan.getDate());
+            start.setText(lan.getStartTime());
+            end.setText(lan.getEndTime());
+        } catch (JSONException e){
+            e.printStackTrace();
         }
-        ViewGroup.LayoutParams params = listView.getLayoutParams();
-        params.height = totalHeight + (listView.getDividerHeight() * (listAdapter.getCount() - 1));
-        listView.setLayoutParams(params);
+
     }
 }
