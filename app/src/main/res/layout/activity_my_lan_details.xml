@@ -54,7 +54,7 @@
                 android:layout_alignTop="@id/owner_avatar"
                 android:layout_toEndOf="@id/owner_avatar"
                 android:layout_marginStart="5dp"
-                android:textSize="15dp"
+                android:textSize="16sp"
                 android:textColor="@android:color/black"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content" />
@@ -94,7 +94,8 @@
                 android:id="@+id/event_date"
                 android:layout_below="@id/banner_infos"
                 android:textAllCaps="true"
-                android:textSize="16dp"
+                android:textSize="16sp"
+                android:textColor="@android:color/black"
                 android:layout_marginStart="20dp"
                 android:layout_alignStart="@id/banner_organizer"
                 android:layout_width="wrap_content"
@@ -141,6 +142,8 @@
                 android:layout_alignTop="@id/linear_layout_details"
                 android:layout_marginTop="3dp"
                 android:text="HELLO"
+                android:textSize="15sp"
+                android:textColor="@android:color/black"
                 android:layout_below="@id/event_date"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content" />
@@ -149,6 +152,8 @@
                 android:id="@+id/event_end"
                 android:layout_toEndOf="@id/linear_layout_details"
                 android:layout_alignBottom="@id/linear_layout_details"
+                android:textColor="@android:color/black"
+                android:textSize="15sp"
                 android:layout_marginBottom="3dp"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content" />
