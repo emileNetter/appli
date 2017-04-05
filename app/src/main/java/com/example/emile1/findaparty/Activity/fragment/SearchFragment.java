@@ -26,13 +26,19 @@ import android.support.annotation.ColorInt;
 import android.support.annotation.DrawableRes;
 import android.support.annotation.NonNull;
 import android.support.design.widget.BottomSheetBehavior;
+import android.support.design.widget.CollapsingToolbarLayout;
 import android.support.design.widget.FloatingActionButton;
 import android.support.v4.app.ActivityCompat;
 import android.support.v4.app.Fragment;
 import android.support.v4.content.ContextCompat;
 import android.support.v4.content.res.ResourcesCompat;
 import android.support.v4.graphics.drawable.DrawableCompat;
+import android.support.v4.widget.DrawerLayout;
+import android.support.v7.app.ActionBarDrawerToggle;
+import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.SearchView;
+import android.support.v7.widget.Toolbar;
+import android.util.DisplayMetrics;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.Menu;
@@ -108,11 +114,16 @@ public class SearchFragment extends Fragment {
     private SearchView searchView;
     public GetLocationFromAddressTask myTask= null;
 
+    private View bottomSheet;
+
     private RelativeLayout mRelativeLayout;
     private BottomSheetBehavior mBottomSheetBehavior;
     private TextView tv;
 
+    private Toolbar toolbar;
+    private CollapsingToolbarLayout collapsingToolbar;
     public HashMap<String, String> hashMap = new HashMap<>();
+
 
 
     public SearchFragment() {
@@ -129,7 +140,17 @@ public class SearchFragment extends Fragment {
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
         View v = inflater.inflate(R.layout.fragment_search, container, false);
-        View bottomSheet = v.findViewById(R.id.bottom_sheet);
+        bottomSheet = v.findViewById(R.id.bottom_sheet);
+
+        toolbar = (Toolbar) v.findViewById(R.id.toolbar_bottomSheet);
+        AppCompatActivity activity = (AppCompatActivity) getActivity();
+//        activity.setSupportActionBar(toolbar);
+//        activity.getSupportActionBar().setDisplayShowHomeEnabled(true);
+//        activity.getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+
+        collapsingToolbar = (CollapsingToolbarLayout) v.findViewById(R.id.collapsing_toolbar);
+        collapsingToolbar.setTitle("Test");
+        collapsingToolbar.setExpandedTitleColor(getResources().getColor(android.R.color.transparent));
 
         mRelativeLayout = (RelativeLayout) v.findViewById(R.id.bottom_sheet_relative_layout);
         mBottomSheetBehavior = BottomSheetBehavior.from(bottomSheet);
@@ -154,8 +175,6 @@ public class SearchFragment extends Fragment {
 
             requestPermissions(new String[]{Manifest.permission.ACCESS_FINE_LOCATION},
                     MY_PERMISSIONS_REQUEST_ACCESS_FINE_LOCATION);
-        } else {
-
         }
         mFloatinButton.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -192,7 +211,7 @@ public class SearchFragment extends Fragment {
                     @Override
                     public boolean onMarkerClick(Marker marker) {
                         mBottomSheetBehavior.setState(BottomSheetBehavior.STATE_COLLAPSED);
-                        mBottomSheetBehavior.setPeekHeight(300);
+                        mBottomSheetBehavior.setPeekHeight(mRelativeLayout.getHeight());
                         getLanInfo(marker);
                         return false;
                     }
@@ -202,10 +221,15 @@ public class SearchFragment extends Fragment {
                     @Override
                     public void onStateChanged(@NonNull View bottomSheet, int newState) {
                         if (BottomSheetBehavior.STATE_EXPANDED == newState) {
+                            int height = bottomSheet.getLayoutParams().height;
+                            Log.i("Height",String.valueOf(height));
                             mFloatinButton.animate().scaleX(0).scaleY(0).setDuration(300).start();
-                            mRelativeLayout.setBackgroundColor(getResources().getColor(R.color.buttonLoginColor));
+                            mRelativeLayout.setBackgroundColor(ContextCompat.getColor(getContext(),R.color.buttonLoginColor));
                         } else if (BottomSheetBehavior.STATE_COLLAPSED == newState || BottomSheetBehavior.STATE_HIDDEN == newState) {
+                            int height = bottomSheet.getLayoutParams().height;
+                            Log.i("Height",String.valueOf(height));
                             mFloatinButton.animate().scaleX(1).scaleY(1).setDuration(300).start();
+                            mRelativeLayout.setBackgroundColor(Color.WHITE);
                         }
                     }
 
@@ -214,7 +238,6 @@ public class SearchFragment extends Fragment {
 
                     }
                 });
-
             }
 
         });
@@ -257,7 +280,7 @@ public class SearchFragment extends Fragment {
                 //get the value "query" which is entered in the search box.
                 LatLng latLng = geoLocateSearch(query);
                 if(latLng!=null){
-                    goToLocationZoom(latLng.latitude,latLng.longitude,13);
+                    goToLocationZoom(latLng.latitude,latLng.longitude,15);
                 } else {
                     Toast.makeText(getContext(),"No result for : " + query, Toast.LENGTH_LONG).show();
                 }
@@ -522,6 +545,7 @@ public class SearchFragment extends Fragment {
         return str;
     }
 
+    //get all the lans from the db and for each lan, execute a new async task (display it on the map)
     private void getAllLans(){
         ParseQuery<ParseObject> query = ParseQuery.getQuery("Lans");
         query.findInBackground(new FindCallback<ParseObject>() {
@@ -537,6 +561,7 @@ public class SearchFragment extends Fragment {
         });
     }
 
+    //convert a vector to a bitmap (markers don't support vector drawable as background)
     private BitmapDescriptor vectorToBitmap(@DrawableRes int id) {
         Drawable vectorDrawable = ResourcesCompat.getDrawable(getResources(), id, null);
         Bitmap bitmap = Bitmap.createBitmap(vectorDrawable.getIntrinsicWidth(),
@@ -547,6 +572,7 @@ public class SearchFragment extends Fragment {
         return BitmapDescriptorFactory.fromBitmap(bitmap);
     }
 
+    //returns a LatLng from the string entered in the search bar
     private LatLng geoLocateSearch( String address){
         InputMethodManager imm = (InputMethodManager)getActivity().getSystemService(Context.INPUT_METHOD_SERVICE);
         imm.hideSoftInputFromWindow(getView().getWindowToken(), 0);
@@ -564,12 +590,14 @@ public class SearchFragment extends Fragment {
         return latLng;
     }
 
+    //moves the camera to the desired latLng and zoom
     private void goToLocationZoom(double lat, double lng, float zoom){
         LatLng latLng = new LatLng(lat,lng);
         CameraPosition cameraPosition = new CameraPosition.Builder().target(latLng).zoom(zoom).build();
         googleMap.animateCamera(CameraUpdateFactory.newCameraPosition(cameraPosition));
     }
 
+    //get info about the owner with the data passed by the marker
     private void getLanInfo(Marker marker){
         ParseQuery<ParseObject> query = ParseQuery.getQuery("Lans");
         query.whereContains("IdOwner", hashMap.get(marker.getId()));
