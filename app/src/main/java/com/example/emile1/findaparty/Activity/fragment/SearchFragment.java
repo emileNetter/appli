@@ -26,6 +26,7 @@ import android.support.annotation.ColorInt;
 import android.support.annotation.DrawableRes;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
+import android.support.design.widget.AppBarLayout;
 import android.support.design.widget.BottomSheetBehavior;
 import android.support.design.widget.CollapsingToolbarLayout;
 import android.support.design.widget.CoordinatorLayout;
@@ -53,7 +54,9 @@ import android.widget.RelativeLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.example.emile1.findaparty.Activity.BottomSheetBehaviorGoogleMapsLike;
 import com.example.emile1.findaparty.Activity.MapStateManager;
+import com.example.emile1.findaparty.Activity.MergedAppBarLayoutBehavior;
 import com.example.emile1.findaparty.R;
 import com.flipboard.bottomsheet.BottomSheetLayout;
 import com.google.android.gms.common.api.GoogleApiClient;
@@ -129,6 +132,7 @@ public class SearchFragment extends Fragment {
     CoordinatorLayout coordinatorLayout;
     private int expandedHeight;
 
+    AppBarLayout mergedAppBarLayout;
 
     public SearchFragment() {
         // Required empty public constructor
@@ -149,8 +153,9 @@ public class SearchFragment extends Fragment {
         toolbar = (Toolbar) v.findViewById(R.id.toolbar_bottomSheet);
         activity = (AppCompatActivity) getActivity();
 
+        final BottomSheetBehaviorGoogleMapsLike behavior = BottomSheetBehaviorGoogleMapsLike.from(bottomSheet);
         mRelativeLayout = (RelativeLayout) v.findViewById(R.id.bottom_sheet_relative_layout);
-        mBottomSheetBehavior = BottomSheetBehavior.from(bottomSheet);
+//        mBottomSheetBehavior = BottomSheetBehavior.from(bottomSheet);
         tv = (TextView)v.findViewById(R.id.name_bottom_sheet);
         searchView = (SearchView)v.findViewById(R.id.search);
         setHasOptionsMenu(true);
@@ -180,11 +185,20 @@ public class SearchFragment extends Fragment {
             }
         });
 
+//        mRelativeLayout.setOnClickListener(new View.OnClickListener() {
+//            @Override
+//            public void onClick(View v) {
+//                if(mBottomSheetBehavior.getState() == BottomSheetBehavior.STATE_COLLAPSED){
+//                    mBottomSheetBehavior.setState(BottomSheetBehavior.STATE_EXPANDED);
+//                    activity.getSupportActionBar().hide();
+//                }
+//            }
+//        });
         mRelativeLayout.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                if(mBottomSheetBehavior.getState() == BottomSheetBehavior.STATE_COLLAPSED){
-                    mBottomSheetBehavior.setState(BottomSheetBehavior.STATE_EXPANDED);
+                if(behavior.getState() == BottomSheetBehaviorGoogleMapsLike.STATE_COLLAPSED){
+                    behavior.setState(BottomSheetBehaviorGoogleMapsLike.STATE_EXPANDED);
                     activity.getSupportActionBar().hide();
                 }
             }
@@ -208,32 +222,68 @@ public class SearchFragment extends Fragment {
                 googleMap.setOnMarkerClickListener(new GoogleMap.OnMarkerClickListener() {
                     @Override
                     public boolean onMarkerClick(Marker marker) {
-                        mBottomSheetBehavior.setState(BottomSheetBehavior.STATE_COLLAPSED);
-                        mBottomSheetBehavior.setPeekHeight(mRelativeLayout.getHeight());
+                        behavior.setState(BottomSheetBehaviorGoogleMapsLike.STATE_COLLAPSED);
+                        behavior.setPeekHeight(mRelativeLayout.getHeight());
                         getLanInfo(marker);
                         return false;
                     }
                 });
 
-                mBottomSheetBehavior.setBottomSheetCallback(new BottomSheetBehavior.BottomSheetCallback() {
+                MergedAppBarLayoutBehavior mergedAppBarLayoutBehavior = MergedAppBarLayoutBehavior.from(mergedAppBarLayout);
+                mergedAppBarLayoutBehavior.setToolbarTitle("Title Dummy");
+                mergedAppBarLayoutBehavior.setNavigationOnClickListener(new View.OnClickListener() {
                     @Override
-                    public void onStateChanged(@NonNull View bottomSheet, int newState) {
-                        if (BottomSheetBehavior.STATE_EXPANDED == newState) {
+                    public void onClick(View v) {
+                        behavior.setState(BottomSheetBehaviorGoogleMapsLike.STATE_COLLAPSED);
+                    }
+                });
+//                mBottomSheetBehavior.setBottomSheetCallback(new BottomSheetBehavior.BottomSheetCallback() {
+//                    @Override
+//                    public void onStateChanged(@NonNull View bottomSheet, int newState) {
+//                        if (BottomSheetBehavior.STATE_EXPANDED == newState) {
+//                            expandedHeight = coordinatorLayout.getHeight()-toolbar.getHeight();
+//                            mFloatinButton.animate().scaleX(0).scaleY(0).setDuration(300).start();
+//                            mRelativeLayout.setBackgroundColor(ContextCompat.getColor(getContext(),R.color.buttonLoginColor));
+//                            toolbar.setVisibility(View.VISIBLE);
+////                            activity.setSupportActionBar(toolbar);
+////                            activity.getSupportActionBar().setDisplayShowHomeEnabled(true);
+////                            activity.getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+//                            tv.setTextColor(ContextCompat.getColor(getContext(),R.color.buttonLoginColor));
+//                        } else if (BottomSheetBehavior.STATE_COLLAPSED == newState || BottomSheetBehavior.STATE_HIDDEN == newState) {
+//                            toolbar.setVisibility(View.GONE);
+//                            activity.getSupportActionBar().show();
+//                            int height = bottomSheet.getLayoutParams().height;
+//                            mFloatinButton.animate().scaleX(1).scaleY(1).setDuration(300).start();
+//                            mRelativeLayout.setBackgroundColor(Color.WHITE);
+//                        } else if(BottomSheetBehavior.STATE_DRAGGING == newState){
+//                            activity.getSupportActionBar().hide();
+//                        }
+//                    }
+//
+//                    @Override
+//                    public void onSlide(@NonNull View bottomSheet, float slideOffset) {
+//
+//                    }
+//                });
+                behavior.addBottomSheetCallback(new BottomSheetBehaviorGoogleMapsLike.BottomSheetCallback() {
+                    @Override
+                    public void onStateChanged(@NonNull View bottomSheet, @BottomSheetBehaviorGoogleMapsLike.State int newState) {
+                        if (BottomSheetBehaviorGoogleMapsLike.STATE_EXPANDED == newState) {
                             expandedHeight = coordinatorLayout.getHeight()-toolbar.getHeight();
                             mFloatinButton.animate().scaleX(0).scaleY(0).setDuration(300).start();
-                            mRelativeLayout.setBackgroundColor(ContextCompat.getColor(getContext(),R.color.buttonLoginColor));
-                            toolbar.setVisibility(View.VISIBLE);
-//                            activity.setSupportActionBar(toolbar);
+                           mRelativeLayout.setBackgroundColor(ContextCompat.getColor(getContext(),R.color.buttonLoginColor));
+                           toolbar.setVisibility(View.VISIBLE);
+//                           activity.setSupportActionBar(toolbar);
 //                            activity.getSupportActionBar().setDisplayShowHomeEnabled(true);
 //                            activity.getSupportActionBar().setDisplayHomeAsUpEnabled(true);
                             tv.setTextColor(ContextCompat.getColor(getContext(),R.color.buttonLoginColor));
-                        } else if (BottomSheetBehavior.STATE_COLLAPSED == newState || BottomSheetBehavior.STATE_HIDDEN == newState) {
-                            toolbar.setVisibility(View.GONE);
+                        } else if (BottomSheetBehaviorGoogleMapsLike.STATE_COLLAPSED == newState || BottomSheetBehaviorGoogleMapsLike.STATE_HIDDEN == newState) {
+                           toolbar.setVisibility(View.GONE);
                             activity.getSupportActionBar().show();
                             int height = bottomSheet.getLayoutParams().height;
                             mFloatinButton.animate().scaleX(1).scaleY(1).setDuration(300).start();
-                            mRelativeLayout.setBackgroundColor(Color.WHITE);
-                        } else if(BottomSheetBehavior.STATE_DRAGGING == newState){
+                           mRelativeLayout.setBackgroundColor(Color.WHITE);
+                        } else if(BottomSheetBehaviorGoogleMapsLike.STATE_DRAGGING == newState){
                             activity.getSupportActionBar().hide();
                         }
                     }
