@@ -35,17 +35,15 @@
                 android:fitsSystemWindows="true"
                 app:layout_collapseMode="pin" />
         </android.support.design.widget.AppBarLayout>
-
-        <android.support.v4.widget.NestedScrollView
-            android:id="@+id/bottom_sheet"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:background="@android:color/white"
-            app:behavior_hideable="true"
-            app:behavior_peekHeight="0dp"
-            app:anchorPoint="200dp"
-            app:layout_behavior="@string/BottomSheetBehaviorGoogleMapsLike">
-
+    <android.support.v4.widget.NestedScrollView
+        android:id="@+id/bottom_sheet"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="@android:color/white"
+        android:elevation="20dp"
+        app:behavior_hideable="true"
+        app:behavior_peekHeight="0dp"
+        app:layout_behavior="@string/bottom_sheet_behavior">
             <RelativeLayout
                 android:id="@+id/bottom_sheet_relative_layout"
                 android:layout_width="match_parent"
@@ -117,31 +115,4 @@
         app:elevation="6dp"
         app:layout_anchor="@id/fab2"
         app:layout_anchorGravity="top"/>
-
-    <android.support.design.widget.AppBarLayout
-        android:id="@+id/merged_appbarlayout"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:background="@android:color/transparent"
-        android:theme="@style/AppTheme.AppBarOverlay"
-        android:tag="modal-appbar"
-        app:layout_behavior="@string/MergedAppBarLayoutBehavior">
-        <FrameLayout
-            android:layout_width="match_parent"
-            android:layout_height="match_parent">
-            <View
-                android:id="@+id/background"
-                android:layout_width="match_parent"
-                android:layout_height="0dp"
-                android:background="@color/colorPrimary"
-                android:layout_gravity="bottom"/>
-            <android.support.v7.widget.Toolbar
-                android:id="@+id/expanded_toolbar"
-                android:layout_width="match_parent"
-                android:layout_height="?attr/actionBarSize"
-                app:popupTheme="@style/AppTheme.PopupOverlay"
-                app:title="HELLO"
-                app:navigationIcon="@drawable/ic_settings"/>
-        </FrameLayout>
-    </android.support.design.widget.AppBarLayout>
 </android.support.design.widget.CoordinatorLayout>

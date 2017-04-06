@@ -87,6 +87,9 @@ public class RecentFragment extends Fragment implements CardViewAdapter.OnCardCl
     @Override
     public void onResume(){
         super.onResume();
+//        lans.clear();
+//        Log.i("Size",String.valueOf(lans.size()));
+//        getLans();
     }
 
     @Override
