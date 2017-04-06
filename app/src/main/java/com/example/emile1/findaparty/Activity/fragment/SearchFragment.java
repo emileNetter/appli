@@ -25,8 +25,10 @@ import android.os.Bundle;
 import android.support.annotation.ColorInt;
 import android.support.annotation.DrawableRes;
 import android.support.annotation.NonNull;
+import android.support.annotation.Nullable;
 import android.support.design.widget.BottomSheetBehavior;
 import android.support.design.widget.CollapsingToolbarLayout;
+import android.support.design.widget.CoordinatorLayout;
 import android.support.design.widget.FloatingActionButton;
 import android.support.v4.app.ActivityCompat;
 import android.support.v4.app.Fragment;
@@ -34,6 +36,7 @@ import android.support.v4.content.ContextCompat;
 import android.support.v4.content.res.ResourcesCompat;
 import android.support.v4.graphics.drawable.DrawableCompat;
 import android.support.v4.widget.DrawerLayout;
+import android.support.v4.widget.NestedScrollView;
 import android.support.v7.app.ActionBarDrawerToggle;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.SearchView;
@@ -114,6 +117,7 @@ public class SearchFragment extends Fragment {
     private SearchView searchView;
     public GetLocationFromAddressTask myTask= null;
 
+    private AppCompatActivity activity;
     private View bottomSheet;
 
     private RelativeLayout mRelativeLayout;
@@ -121,9 +125,9 @@ public class SearchFragment extends Fragment {
     private TextView tv;
 
     private Toolbar toolbar;
-    private CollapsingToolbarLayout collapsingToolbar;
     public HashMap<String, String> hashMap = new HashMap<>();
-
+    CoordinatorLayout coordinatorLayout;
+    private int expandedHeight;
 
 
     public SearchFragment() {
@@ -141,16 +145,9 @@ public class SearchFragment extends Fragment {
         // Inflate the layout for this fragment
         View v = inflater.inflate(R.layout.fragment_search, container, false);
         bottomSheet = v.findViewById(R.id.bottom_sheet);
-
+        coordinatorLayout = (CoordinatorLayout)v.findViewById(R.id.coordinator);
         toolbar = (Toolbar) v.findViewById(R.id.toolbar_bottomSheet);
-        AppCompatActivity activity = (AppCompatActivity) getActivity();
-//        activity.setSupportActionBar(toolbar);
-//        activity.getSupportActionBar().setDisplayShowHomeEnabled(true);
-//        activity.getSupportActionBar().setDisplayHomeAsUpEnabled(true);
-
-        collapsingToolbar = (CollapsingToolbarLayout) v.findViewById(R.id.collapsing_toolbar);
-        collapsingToolbar.setTitle("Test");
-        collapsingToolbar.setExpandedTitleColor(getResources().getColor(android.R.color.transparent));
+        activity = (AppCompatActivity) getActivity();
 
         mRelativeLayout = (RelativeLayout) v.findViewById(R.id.bottom_sheet_relative_layout);
         mBottomSheetBehavior = BottomSheetBehavior.from(bottomSheet);
@@ -188,6 +185,7 @@ public class SearchFragment extends Fragment {
             public void onClick(View v) {
                 if(mBottomSheetBehavior.getState() == BottomSheetBehavior.STATE_COLLAPSED){
                     mBottomSheetBehavior.setState(BottomSheetBehavior.STATE_EXPANDED);
+                    activity.getSupportActionBar().hide();
                 }
             }
         });
@@ -221,15 +219,22 @@ public class SearchFragment extends Fragment {
                     @Override
                     public void onStateChanged(@NonNull View bottomSheet, int newState) {
                         if (BottomSheetBehavior.STATE_EXPANDED == newState) {
-                            int height = bottomSheet.getLayoutParams().height;
-                            Log.i("Height",String.valueOf(height));
+                            expandedHeight = coordinatorLayout.getHeight()-toolbar.getHeight();
                             mFloatinButton.animate().scaleX(0).scaleY(0).setDuration(300).start();
                             mRelativeLayout.setBackgroundColor(ContextCompat.getColor(getContext(),R.color.buttonLoginColor));
+                            toolbar.setVisibility(View.VISIBLE);
+//                            activity.setSupportActionBar(toolbar);
+//                            activity.getSupportActionBar().setDisplayShowHomeEnabled(true);
+//                            activity.getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+                            tv.setTextColor(ContextCompat.getColor(getContext(),R.color.buttonLoginColor));
                         } else if (BottomSheetBehavior.STATE_COLLAPSED == newState || BottomSheetBehavior.STATE_HIDDEN == newState) {
+                            toolbar.setVisibility(View.GONE);
+                            activity.getSupportActionBar().show();
                             int height = bottomSheet.getLayoutParams().height;
-                            Log.i("Height",String.valueOf(height));
                             mFloatinButton.animate().scaleX(1).scaleY(1).setDuration(300).start();
                             mRelativeLayout.setBackgroundColor(Color.WHITE);
+                        } else if(BottomSheetBehavior.STATE_DRAGGING == newState){
+                            activity.getSupportActionBar().hide();
                         }
                     }
 
@@ -297,6 +302,12 @@ public class SearchFragment extends Fragment {
         super.onResume();
         mMapView.onResume();
     }
+
+    @Override
+    public void onActivityCreated(@Nullable Bundle savedInstanceState) {
+        super.onActivityCreated(savedInstanceState);
+    }
+
 
     @Override
     public void onPause() {
@@ -610,5 +621,6 @@ public class SearchFragment extends Fragment {
             }
         });
     }
+
 
 }

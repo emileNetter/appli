@@ -67,6 +67,10 @@ public class CardViewAdapter extends RecyclerView.Adapter<CardViewAdapter.LanVie
         this.onCardClickListener = onCardClickListener;
     }
 
+    public void clearAdapter(){
+        lans.clear();
+        notifyDataSetChanged();
+    }
     public static class LanViewHolder extends RecyclerView.ViewHolder {
         public TextView date;
         public TextView startTime;

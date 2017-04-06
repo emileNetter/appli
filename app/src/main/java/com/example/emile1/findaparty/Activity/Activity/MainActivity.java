@@ -125,22 +125,27 @@ public class MainActivity extends AppCompatActivity
     }
     private void displaySelectedItem(int itemId){
         Fragment fragment = null;
+        String tag ="";
 
         switch (itemId){
             case R.id.nav_main:
                 fragment= new HomeFragment();
+                tag="nav_home";
                 toolbar.setTitle(getString(R.string.nav_home));
                 break;
             case R.id.nav_search:
                 fragment= new SearchFragment();
+                tag="nav_search";
                 toolbar.setTitle(getString(R.string.search));
                 break;
             case R.id.nav_create:
                 fragment = new CreateFragment();
+                tag="nav_create";
                 toolbar.setTitle(getString(R.string.create));
                 break;
             case R.id.nav_settings:
                 fragment= new SettingsFragment();
+                tag="nav_settings";
                 setTitle(getString(R.string.nav_settings));
                 break;
             case R.id.nav_logOut:
@@ -150,7 +155,7 @@ public class MainActivity extends AppCompatActivity
         //replacing the fragment
         if (fragment != null) {
             FragmentTransaction ft = getSupportFragmentManager().beginTransaction();
-            ft.replace(R.id.content_main, fragment);
+            ft.replace(R.id.content_main, fragment,tag);
             ft.commit();
         }
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);

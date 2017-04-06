@@ -2,6 +2,8 @@ package com.example.emile1.findaparty.Activity.Activity;
 
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.support.v4.app.Fragment;
+import android.support.v4.app.FragmentTransaction;
 import android.support.v4.content.ContextCompat;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
@@ -19,6 +21,7 @@ import android.widget.Toast;
 import com.example.emile1.findaparty.Activity.Lan;
 import com.example.emile1.findaparty.Activity.Participant;
 import com.example.emile1.findaparty.Activity.adapter.ParticipantAdapter;
+import com.example.emile1.findaparty.Activity.fragment.HomeFragment;
 import com.example.emile1.findaparty.R;
 import com.google.android.gms.vision.text.Text;
 import com.parse.DeleteCallback;
@@ -87,7 +90,7 @@ public class MyLanDetailsActivity extends AppCompatActivity {
                                     public void done(ParseException e) {
                                         if(e==null){
                                             Toast.makeText(getApplicationContext(),getString(R.string.deleted_message),Toast.LENGTH_SHORT).show();
-                                            finish();
+                                                finish();
                                         }
                                         else {
                                             Toast.makeText(getApplicationContext(),getString(R.string.error) + e,Toast.LENGTH_SHORT).show();
