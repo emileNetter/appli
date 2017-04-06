@@ -145,8 +145,8 @@ public class MergedAppBarLayoutBehavior extends AppBarLayout.ScrollingViewBehavi
             appBarLayout.setOutlineProvider(ViewOutlineProvider.BACKGROUND);
         }
 
-        mToolbar = (Toolbar) appBarLayout.findViewById(R.id.expanded_toolbar);
-        mBackground = appBarLayout.findViewById(R.id.background);
+//        mToolbar = (Toolbar) appBarLayout.findViewById(R.id.expanded_toolbar);
+//        mBackground = appBarLayout.findViewById(R.id.background);
         mBackGroundLayoutParams = (FrameLayout.LayoutParams) mBackground.getLayoutParams();
         getBottomSheetBehavior(parent);
 
