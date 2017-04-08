@@ -19,7 +19,7 @@
         </RelativeLayout>
 
     <android.support.design.widget.AppBarLayout
-            android:id="@+id/appbar"
+            android:id="@+id/appbar_bottomsheet"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:fitsSystemWindows="true"
@@ -30,7 +30,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="?attr/actionBarSize"
                 android:visibility="gone"
-                app:layout_scrollFlags="enterAlways|scroll"
+                app:layout_scrollFlags="enterAlways|scroll|exitUntilCollapsed"
                 android:background="@color/buttonLoginColor"
                 android:fitsSystemWindows="true"
                 app:layout_collapseMode="pin" />
@@ -43,12 +43,21 @@
         android:elevation="20dp"
         app:behavior_hideable="true"
         app:behavior_peekHeight="0dp"
-        app:layout_behavior="@string/bottom_sheet_behavior">
+        app:layout_behavior="com.example.emile1.findaparty.Activity.LockableBottomSheetBehavior">
             <RelativeLayout
                 android:id="@+id/bottom_sheet_relative_layout"
                 android:layout_width="match_parent"
                 android:layout_height="100dp"
                 android:orientation="vertical">
+                <ImageView
+                    android:id="@+id/close_bottomSheet"
+                    android:layout_alignParentEnd="true"
+                    android:layout_margin="15dp"
+                    android:background="@drawable/ic_close_black_24dp"
+                    android:visibility="invisible"
+                    android:backgroundTint="@android:color/white"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content" />
 
                 <de.hdodenhof.circleimageview.CircleImageView
                     android:id="@+id/circle_picture"
@@ -99,7 +108,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:visibility="invisible"
-        android:layout_margin="15dp"
+        android:layout_margin="5dp"
         app:layout_anchor="@id/bottom_sheet"
         app:layout_anchorGravity="top|end"/>
 
@@ -109,7 +118,7 @@
         android:layout_height="wrap_content"
         android:padding="15dp"
         android:layout_marginBottom="50dp"
-        android:layout_marginEnd="15dp"
+        android:layout_marginEnd="5dp"
         app:backgroundTint="@color/buttonLoginColor"
         app:borderWidth="0dp"
         app:elevation="6dp"

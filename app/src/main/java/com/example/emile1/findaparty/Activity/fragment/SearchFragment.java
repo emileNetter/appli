@@ -26,6 +26,7 @@ import android.support.annotation.ColorInt;
 import android.support.annotation.DrawableRes;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
+import android.support.design.widget.AppBarLayout;
 import android.support.design.widget.BottomSheetBehavior;
 import android.support.design.widget.CollapsingToolbarLayout;
 import android.support.design.widget.CoordinatorLayout;
@@ -37,6 +38,7 @@ import android.support.v4.content.res.ResourcesCompat;
 import android.support.v4.graphics.drawable.DrawableCompat;
 import android.support.v4.widget.DrawerLayout;
 import android.support.v4.widget.NestedScrollView;
+import android.support.v7.app.ActionBar;
 import android.support.v7.app.ActionBarDrawerToggle;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.SearchView;
@@ -49,10 +51,13 @@ import android.view.MenuInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.view.inputmethod.InputMethodManager;
+import android.widget.ImageView;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.example.emile1.findaparty.Activity.BottomSheetBehaviorGoogleMapsLike;
+import com.example.emile1.findaparty.Activity.LockableBottomSheetBehavior;
 import com.example.emile1.findaparty.Activity.MapStateManager;
 import com.example.emile1.findaparty.R;
 import com.flipboard.bottomsheet.BottomSheetLayout;
@@ -123,11 +128,12 @@ public class SearchFragment extends Fragment {
     private RelativeLayout mRelativeLayout;
     private BottomSheetBehavior mBottomSheetBehavior;
     private TextView tv;
+    private ImageView close;
 
     private Toolbar toolbar;
     public HashMap<String, String> hashMap = new HashMap<>();
     CoordinatorLayout coordinatorLayout;
-    private int expandedHeight;
+    ActionBar actionBar;
 
 
     public SearchFragment() {
@@ -148,9 +154,12 @@ public class SearchFragment extends Fragment {
         coordinatorLayout = (CoordinatorLayout)v.findViewById(R.id.coordinator);
         toolbar = (Toolbar) v.findViewById(R.id.toolbar_bottomSheet);
         activity = (AppCompatActivity) getActivity();
-
+        actionBar = activity.getSupportActionBar();
+        actionBar.setShowHideAnimationEnabled(true);
+        close = (ImageView)v.findViewById(R.id.close_bottomSheet);
         mRelativeLayout = (RelativeLayout) v.findViewById(R.id.bottom_sheet_relative_layout);
         mBottomSheetBehavior = BottomSheetBehavior.from(bottomSheet);
+        mBottomSheetBehavior.setBottomSheetCallback(new MyBottomSheetCallback());
         tv = (TextView)v.findViewById(R.id.name_bottom_sheet);
         searchView = (SearchView)v.findViewById(R.id.search);
         setHasOptionsMenu(true);
@@ -215,34 +224,35 @@ public class SearchFragment extends Fragment {
                     }
                 });
 
-                mBottomSheetBehavior.setBottomSheetCallback(new BottomSheetBehavior.BottomSheetCallback() {
+                close.setOnClickListener(new View.OnClickListener() {
                     @Override
-                    public void onStateChanged(@NonNull View bottomSheet, int newState) {
-                        if (BottomSheetBehavior.STATE_EXPANDED == newState) {
-                            expandedHeight = coordinatorLayout.getHeight()-toolbar.getHeight();
-                            mFloatinButton.animate().scaleX(0).scaleY(0).setDuration(300).start();
-                            mRelativeLayout.setBackgroundColor(ContextCompat.getColor(getContext(),R.color.buttonLoginColor));
-                            toolbar.setVisibility(View.VISIBLE);
-//                            activity.setSupportActionBar(toolbar);
-//                            activity.getSupportActionBar().setDisplayShowHomeEnabled(true);
-//                            activity.getSupportActionBar().setDisplayHomeAsUpEnabled(true);
-                            tv.setTextColor(ContextCompat.getColor(getContext(),R.color.buttonLoginColor));
-                        } else if (BottomSheetBehavior.STATE_COLLAPSED == newState || BottomSheetBehavior.STATE_HIDDEN == newState) {
-                            toolbar.setVisibility(View.GONE);
-                            activity.getSupportActionBar().show();
-                            int height = bottomSheet.getLayoutParams().height;
-                            mFloatinButton.animate().scaleX(1).scaleY(1).setDuration(300).start();
-                            mRelativeLayout.setBackgroundColor(Color.WHITE);
-                        } else if(BottomSheetBehavior.STATE_DRAGGING == newState){
-                            activity.getSupportActionBar().hide();
-                        }
-                    }
-
-                    @Override
-                    public void onSlide(@NonNull View bottomSheet, float slideOffset) {
-
+                    public void onClick(View v) {
+                        mBottomSheetBehavior.setState(BottomSheetBehavior.STATE_HIDDEN);
                     }
                 });
+                mBottomSheetBehavior.setBottomSheetCallback(new MyBottomSheetCallback());
+
+//                mBottomSheetBehavior.setBottomSheetCallback(new BottomSheetBehavior.BottomSheetCallback() {
+//                    @Override
+//                    public void onStateChanged(@NonNull View bottomSheet, int newState) {
+//                        if (BottomSheetBehavior.STATE_EXPANDED == newState) {
+//                            mFloatinButton.animate().scaleX(0).scaleY(0).setDuration(300).start();
+//                            mRelativeLayout.setBackgroundColor(ContextCompat.getColor(getContext(),R.color.buttonLoginColor));
+//                            close.setVisibility(View.VISIBLE);
+//                            tv.setTextColor(ContextCompat.getColor(getContext(),R.color.buttonLoginColor));
+//                        } else if (BottomSheetBehavior.STATE_COLLAPSED == newState || BottomSheetBehavior.STATE_HIDDEN == newState) {
+//                            toolbar.setVisibility(View.GONE);
+//                            actionBar.show();
+//                            mFloatinButton.animate().scaleX(1).scaleY(1).setDuration(300).start();
+//                            mRelativeLayout.setBackgroundColor(Color.WHITE);
+//                        }
+//                    }
+//
+//                    @Override
+//                    public void onSlide(@NonNull View bottomSheet, float slideOffset) {
+//                        actionBar.hide();
+//                    }
+//                });
             }
 
         });
@@ -250,6 +260,34 @@ public class SearchFragment extends Fragment {
         return v;
     }
 
+    private class MyBottomSheetCallback extends BottomSheetBehavior.BottomSheetCallback{
+
+        @Override
+        public void onStateChanged(@NonNull View bottomSheet, int newState) {
+            if (BottomSheetBehavior.STATE_EXPANDED == newState) {
+                if (mBottomSheetBehavior instanceof LockableBottomSheetBehavior) {
+                    ((LockableBottomSheetBehavior) mBottomSheetBehavior).setLocked(true);
+                }
+                mFloatinButton.animate().scaleX(0).scaleY(0).setDuration(300).start();
+                mRelativeLayout.setBackgroundColor(ContextCompat.getColor(getContext(),R.color.buttonLoginColor));
+                close.setVisibility(View.VISIBLE);
+                tv.setTextColor(ContextCompat.getColor(getContext(),R.color.buttonLoginColor));
+            } else if (BottomSheetBehavior.STATE_COLLAPSED == newState || BottomSheetBehavior.STATE_HIDDEN == newState) {
+                if (mBottomSheetBehavior instanceof LockableBottomSheetBehavior) {
+                    ((LockableBottomSheetBehavior) mBottomSheetBehavior).setLocked(false);
+                }
+                toolbar.setVisibility(View.GONE);
+                actionBar.show();
+                mFloatinButton.animate().scaleX(1).scaleY(1).setDuration(300).start();
+                mRelativeLayout.setBackgroundColor(Color.WHITE);
+            }
+        }
+
+        @Override
+        public void onSlide(@NonNull View bottomSheet, float slideOffset) {
+            actionBar.hide();
+        }
+    };
     @Override
     public void onRequestPermissionsResult(int requestCode,
                                            String permissions[], int[] grantResults) {
