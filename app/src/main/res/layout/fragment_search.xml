@@ -36,73 +36,90 @@
                 app:layout_collapseMode="pin" />
         </android.support.design.widget.AppBarLayout>
     <android.support.v4.widget.NestedScrollView
+        android:id="@+id/nested_scrollview"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="@android:color/transparent"
+        android:elevation="20dp"
+        app:layout_behavior="@string/appbar_scrolling_view_behavior">
+
+        </android.support.v4.widget.NestedScrollView>
+    <RelativeLayout
         android:id="@+id/bottom_sheet"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:background="@android:color/white"
         android:elevation="20dp"
         app:behavior_hideable="true"
         app:behavior_peekHeight="0dp"
-        app:layout_behavior="com.example.emile1.findaparty.Activity.LockableBottomSheetBehavior">
-            <RelativeLayout
-                android:id="@+id/bottom_sheet_relative_layout"
-                android:layout_width="match_parent"
-                android:layout_height="100dp"
-                android:orientation="vertical">
-                <ImageView
-                    android:id="@+id/close_bottomSheet"
-                    android:layout_alignParentEnd="true"
-                    android:layout_margin="15dp"
-                    android:background="@drawable/ic_close_black_24dp"
-                    android:visibility="invisible"
-                    android:backgroundTint="@android:color/white"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content" />
+        app:layout_behavior="com.example.emile1.findaparty.Activity.LockableBottomSheetBehavior"
+        android:orientation="vertical">
+        <RelativeLayout
+            android:id="@+id/bottom_sheet_relative_layout"
+            android:background="@android:color/white"
+            android:layout_width="match_parent"
+            android:layout_height="100dp">
+            <ImageView
+                android:id="@+id/close_bottomSheet"
+                android:layout_alignParentEnd="true"
+                android:layout_margin="15dp"
+                android:background="@drawable/ic_close_black_24dp"
+                android:visibility="invisible"
+                android:backgroundTint="@android:color/white"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content" />
 
-                <de.hdodenhof.circleimageview.CircleImageView
-                    android:id="@+id/circle_picture"
-                    android:layout_width="50dp"
-                    android:layout_height="50dp"
-                    android:layout_margin="10dp"
-                    android:src="@mipmap/login_background" />
+            <de.hdodenhof.circleimageview.CircleImageView
+                android:id="@+id/circle_picture"
+                android:layout_width="50dp"
+                android:layout_height="50dp"
+                android:layout_margin="10dp"
+                android:src="@mipmap/login_background" />
 
-                <TextView
-                    android:id="@+id/name_bottom_sheet"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_margin="10dp"
-                    android:layout_toEndOf="@id/circle_picture"
-                    android:text="Title"
-                    android:textColor="@color/buttonLoginColor" />
+            <TextView
+                android:id="@+id/name_bottom_sheet"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_margin="10dp"
+                android:layout_toEndOf="@id/circle_picture"
+                android:text="Title"
+                android:textColor="@color/buttonLoginColor" />
 
-                <TextView
-                    android:id="@+id/address_bottom_sheet"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_below="@id/name_bottom_sheet"
-                    android:layout_marginStart="10dp"
-                    android:layout_toEndOf="@id/circle_picture"
-                    android:text=""
-                    android:textColor="@color/btn_create" />
+            <TextView
+                android:id="@+id/address_bottom_sheet"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_below="@id/name_bottom_sheet"
+                android:layout_marginStart="10dp"
+                android:layout_toEndOf="@id/circle_picture"
+                android:text=""
+                android:textColor="@color/btn_create" />
 
-                <LinearLayout
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_below="@id/circle_picture">
+        </RelativeLayout>
+        <LinearLayout
+            android:orientation="vertical"
+            android:id="@+id/linear_layout_search"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:background="@android:color/white"
+            android:layout_below="@id/bottom_sheet_relative_layout">
+            <TextView
+                android:text="Bonsoir LES ENFANTS"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content" />
 
-                    <android.support.v7.widget.CardView
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:layout_margin="5dp"
-                        android:clickable="true"
-                        android:foreground="?android:attr/selectableItemBackground"
-                        app:cardCornerRadius="2dp">
+            <!--<android.support.v7.widget.CardView-->
+            <!--android:layout_width="match_parent"-->
+            <!--android:layout_height="wrap_content"-->
+            <!--android:layout_margin="5dp"-->
+            <!--android:clickable="true"-->
+            <!--android:foreground="?android:attr/selectableItemBackground"-->
+            <!--app:cardCornerRadius="2dp">-->
 
-                    </android.support.v7.widget.CardView>
-                </LinearLayout>
-            </RelativeLayout>
+            <!--</android.support.v7.widget.CardView>-->
+        </LinearLayout>
 
-        </android.support.v4.widget.NestedScrollView>
+    </RelativeLayout>
+
     <android.support.design.widget.FloatingActionButton
         android:id="@+id/fab2"
         android:layout_width="wrap_content"

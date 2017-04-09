@@ -52,13 +52,18 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.view.inputmethod.InputMethodManager;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
 import com.example.emile1.findaparty.Activity.BottomSheetBehaviorGoogleMapsLike;
+import com.example.emile1.findaparty.Activity.Lan;
 import com.example.emile1.findaparty.Activity.LockableBottomSheetBehavior;
 import com.example.emile1.findaparty.Activity.MapStateManager;
+import com.example.emile1.findaparty.Activity.Participant;
+import com.example.emile1.findaparty.Activity.adapter.CardViewAdapter;
+import com.example.emile1.findaparty.Activity.adapter.ParticipantAdapter;
 import com.example.emile1.findaparty.R;
 import com.flipboard.bottomsheet.BottomSheetLayout;
 import com.google.android.gms.common.api.GoogleApiClient;
@@ -98,9 +103,12 @@ import org.json.JSONException;
 import org.json.JSONObject;
 
 import java.io.IOException;
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Locale;
+
+import de.hdodenhof.circleimageview.CircleImageView;
 
 import static android.content.ContentValues.TAG;
 
@@ -125,6 +133,10 @@ public class SearchFragment extends Fragment {
     private AppCompatActivity activity;
     private View bottomSheet;
 
+    private List<Participant> mlans = new ArrayList<>();
+    private ParticipantAdapter mParticipantAdapter;
+    private LinearLayout linearLayout;
+    private CircleImageView c;
     private RelativeLayout mRelativeLayout;
     private BottomSheetBehavior mBottomSheetBehavior;
     private TextView tv;
@@ -144,6 +156,11 @@ public class SearchFragment extends Fragment {
     @Override
     public void onCreate(Bundle savedInstanceState){
         super.onCreate(savedInstanceState);
+        mlans.add(new Participant("Emile N",c));
+        mlans.add(new Participant("Paul N",c));
+        mlans.add(new Participant("Herve N",c));
+        mlans.add(new Participant("Thierry N",c));
+
     }
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -160,6 +177,14 @@ public class SearchFragment extends Fragment {
         mRelativeLayout = (RelativeLayout) v.findViewById(R.id.bottom_sheet_relative_layout);
         mBottomSheetBehavior = BottomSheetBehavior.from(bottomSheet);
         mBottomSheetBehavior.setBottomSheetCallback(new MyBottomSheetCallback());
+
+        linearLayout = (LinearLayout)v.findViewById(R.id.linear_layout_search);
+        mParticipantAdapter = new ParticipantAdapter(getContext(),mlans);
+        for(int i =0;i<mParticipantAdapter.getCount();i++){
+            View view = mParticipantAdapter.getView(i,null,linearLayout);
+            linearLayout.addView(view);
+        }
+
         tv = (TextView)v.findViewById(R.id.name_bottom_sheet);
         searchView = (SearchView)v.findViewById(R.id.search);
         setHasOptionsMenu(true);
@@ -231,28 +256,6 @@ public class SearchFragment extends Fragment {
                     }
                 });
                 mBottomSheetBehavior.setBottomSheetCallback(new MyBottomSheetCallback());
-
-//                mBottomSheetBehavior.setBottomSheetCallback(new BottomSheetBehavior.BottomSheetCallback() {
-//                    @Override
-//                    public void onStateChanged(@NonNull View bottomSheet, int newState) {
-//                        if (BottomSheetBehavior.STATE_EXPANDED == newState) {
-//                            mFloatinButton.animate().scaleX(0).scaleY(0).setDuration(300).start();
-//                            mRelativeLayout.setBackgroundColor(ContextCompat.getColor(getContext(),R.color.buttonLoginColor));
-//                            close.setVisibility(View.VISIBLE);
-//                            tv.setTextColor(ContextCompat.getColor(getContext(),R.color.buttonLoginColor));
-//                        } else if (BottomSheetBehavior.STATE_COLLAPSED == newState || BottomSheetBehavior.STATE_HIDDEN == newState) {
-//                            toolbar.setVisibility(View.GONE);
-//                            actionBar.show();
-//                            mFloatinButton.animate().scaleX(1).scaleY(1).setDuration(300).start();
-//                            mRelativeLayout.setBackgroundColor(Color.WHITE);
-//                        }
-//                    }
-//
-//                    @Override
-//                    public void onSlide(@NonNull View bottomSheet, float slideOffset) {
-//                        actionBar.hide();
-//                    }
-//                });
             }
 
         });
@@ -525,7 +528,7 @@ public class SearchFragment extends Fragment {
 
     // geocoder blocks the UI, need to be done in a background thread
     //We pass a ParseOject because we need both the address and the idOwner
-    public class GetLocationFromAddressTask extends AsyncTask<ParseObject, Void, LatLng>{
+    private class GetLocationFromAddressTask extends AsyncTask<ParseObject, Void, LatLng>{
 
         private String idOwner;
         LatLng latLngFromAddress;
