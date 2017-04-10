@@ -14,9 +14,10 @@
 
         <com.google.android.gms.maps.MapView
             android:id="@+id/mapView"
+            android:elevation="0dp"
             android:layout_width="match_parent"
             android:layout_height="match_parent" />
-        </RelativeLayout>
+    </RelativeLayout>
 
     <android.support.design.widget.AppBarLayout
             android:id="@+id/appbar_bottomsheet"
@@ -48,7 +49,7 @@
         android:id="@+id/bottom_sheet"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:elevation="20dp"
+        android:elevation="4dp"
         app:behavior_hideable="true"
         app:behavior_peekHeight="0dp"
         app:layout_behavior="com.example.emile1.findaparty.Activity.LockableBottomSheetBehavior"
@@ -95,28 +96,13 @@
                 android:textColor="@color/btn_create" />
 
         </RelativeLayout>
-        <LinearLayout
-            android:orientation="vertical"
-            android:id="@+id/linear_layout_search"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
+        <android.support.v7.widget.RecyclerView
+            android:id="@+id/search_recycler_view"
             android:background="@android:color/white"
-            android:layout_below="@id/bottom_sheet_relative_layout">
-            <TextView
-                android:text="Bonsoir LES ENFANTS"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content" />
-
-            <!--<android.support.v7.widget.CardView-->
-            <!--android:layout_width="match_parent"-->
-            <!--android:layout_height="wrap_content"-->
-            <!--android:layout_margin="5dp"-->
-            <!--android:clickable="true"-->
-            <!--android:foreground="?android:attr/selectableItemBackground"-->
-            <!--app:cardCornerRadius="2dp">-->
-
-            <!--</android.support.v7.widget.CardView>-->
-        </LinearLayout>
+            android:layout_below="@id/bottom_sheet_relative_layout"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+        </android.support.v7.widget.RecyclerView>
 
     </RelativeLayout>
 

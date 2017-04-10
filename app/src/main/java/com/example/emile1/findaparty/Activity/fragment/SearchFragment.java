@@ -41,6 +41,8 @@ import android.support.v4.widget.NestedScrollView;
 import android.support.v7.app.ActionBar;
 import android.support.v7.app.ActionBarDrawerToggle;
 import android.support.v7.app.AppCompatActivity;
+import android.support.v7.widget.LinearLayoutManager;
+import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.SearchView;
 import android.support.v7.widget.Toolbar;
 import android.util.DisplayMetrics;
@@ -51,9 +53,12 @@ import android.view.MenuInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.view.inputmethod.InputMethodManager;
+import android.widget.ArrayAdapter;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
+import android.widget.ListView;
 import android.widget.RelativeLayout;
+import android.widget.SimpleAdapter;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -133,10 +138,11 @@ public class SearchFragment extends Fragment {
     private AppCompatActivity activity;
     private View bottomSheet;
 
-    private List<Participant> mlans = new ArrayList<>();
-    private ParticipantAdapter mParticipantAdapter;
-    private LinearLayout linearLayout;
-    private CircleImageView c;
+    private List<Lan> lans;
+    private RecyclerView mRecyclerView;
+    private CardViewAdapter mCardViewAdapter;
+    private LinearLayoutManager mLinearLayoutManager;
+
     private RelativeLayout mRelativeLayout;
     private BottomSheetBehavior mBottomSheetBehavior;
     private TextView tv;
@@ -156,11 +162,8 @@ public class SearchFragment extends Fragment {
     @Override
     public void onCreate(Bundle savedInstanceState){
         super.onCreate(savedInstanceState);
-        mlans.add(new Participant("Emile N",c));
-        mlans.add(new Participant("Paul N",c));
-        mlans.add(new Participant("Herve N",c));
-        mlans.add(new Participant("Thierry N",c));
-
+        lans = new ArrayList<>();
+        mCardViewAdapter = new CardViewAdapter(lans);
     }
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -173,17 +176,18 @@ public class SearchFragment extends Fragment {
         activity = (AppCompatActivity) getActivity();
         actionBar = activity.getSupportActionBar();
         actionBar.setShowHideAnimationEnabled(true);
+
+        mLinearLayoutManager = new LinearLayoutManager(getContext());
+        mLinearLayoutManager.setOrientation(LinearLayoutManager.VERTICAL);
+
+        mRecyclerView = (RecyclerView) v.findViewById(R.id.search_recycler_view);
+        mRecyclerView.setHasFixedSize(true);
+        mRecyclerView.setLayoutManager(mLinearLayoutManager);
+
         close = (ImageView)v.findViewById(R.id.close_bottomSheet);
         mRelativeLayout = (RelativeLayout) v.findViewById(R.id.bottom_sheet_relative_layout);
         mBottomSheetBehavior = BottomSheetBehavior.from(bottomSheet);
         mBottomSheetBehavior.setBottomSheetCallback(new MyBottomSheetCallback());
-
-        linearLayout = (LinearLayout)v.findViewById(R.id.linear_layout_search);
-        mParticipantAdapter = new ParticipantAdapter(getContext(),mlans);
-        for(int i =0;i<mParticipantAdapter.getCount();i++){
-            View view = mParticipantAdapter.getView(i,null,linearLayout);
-            linearLayout.addView(view);
-        }
 
         tv = (TextView)v.findViewById(R.id.name_bottom_sheet);
         searchView = (SearchView)v.findViewById(R.id.search);
@@ -242,9 +246,11 @@ public class SearchFragment extends Fragment {
                 googleMap.setOnMarkerClickListener(new GoogleMap.OnMarkerClickListener() {
                     @Override
                     public boolean onMarkerClick(Marker marker) {
+                        lans.clear();
                         mBottomSheetBehavior.setState(BottomSheetBehavior.STATE_COLLAPSED);
                         mBottomSheetBehavior.setPeekHeight(mRelativeLayout.getHeight());
                         getLanInfo(marker);
+                        getHostLans(marker);
                         return false;
                     }
                 });
@@ -663,5 +669,27 @@ public class SearchFragment extends Fragment {
         });
     }
 
+    private void getHostLans(Marker marker){
+        ParseQuery<ParseObject> query = ParseQuery.getQuery("Lans");
+        query.whereContains("IdOwner",hashMap.get(marker.getId()));
+        query.findInBackground(new FindCallback<ParseObject>() {
+            @Override
+            public void done(List<ParseObject> objects, ParseException e) {
+                if(e==null){
+                    for(ParseObject lan : objects){
+                        lans.add(new Lan(lan.getObjectId(),
+                                lan.getString("Date"),
+                                lan.getString("Start"),
+                                lan.getString("End"),
+                                lan.getInt("MaxPeople"),
+                                lan.getInt("Remaining_Places")));
+                    }
+                    mRecyclerView.setAdapter(mCardViewAdapter);
+                } else{
+                    Log.i("Listview", "Error during parse query");
+                }
+            }
+        });
+    }
 
 }
