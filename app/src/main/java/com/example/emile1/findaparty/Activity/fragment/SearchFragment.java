@@ -26,6 +26,7 @@ import android.support.annotation.ColorInt;
 import android.support.annotation.DrawableRes;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
+import android.support.annotation.StringDef;
 import android.support.design.widget.AppBarLayout;
 import android.support.design.widget.BottomSheetBehavior;
 import android.support.design.widget.CollapsingToolbarLayout;
@@ -62,6 +63,7 @@ import android.widget.SimpleAdapter;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.example.emile1.findaparty.Activity.Activity.MyLanDetailsActivity;
 import com.example.emile1.findaparty.Activity.BottomSheetBehaviorGoogleMapsLike;
 import com.example.emile1.findaparty.Activity.Lan;
 import com.example.emile1.findaparty.Activity.LockableBottomSheetBehavior;
@@ -113,14 +115,11 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Locale;
 
-import de.hdodenhof.circleimageview.CircleImageView;
-
-import static android.content.ContentValues.TAG;
 
 /**
  * A simple {@link Fragment} subclass.
  */
-public class SearchFragment extends Fragment {
+public class SearchFragment extends Fragment implements CardViewAdapter.OnCardClickListener {
 
     public static final int REQUEST_CHECK_SETTINGS = 33;
     protected static final String TAG = "SearchFragment";
@@ -164,6 +163,7 @@ public class SearchFragment extends Fragment {
         super.onCreate(savedInstanceState);
         lans = new ArrayList<>();
         mCardViewAdapter = new CardViewAdapter(lans);
+        Log.i("CardviewAdapter size :", String.valueOf(mCardViewAdapter.getItemCount()));
     }
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -183,6 +183,8 @@ public class SearchFragment extends Fragment {
         mRecyclerView = (RecyclerView) v.findViewById(R.id.search_recycler_view);
         mRecyclerView.setHasFixedSize(true);
         mRecyclerView.setLayoutManager(mLinearLayoutManager);
+
+        mCardViewAdapter.setOnCardClickListener(this);
 
         close = (ImageView)v.findViewById(R.id.close_bottomSheet);
         mRelativeLayout = (RelativeLayout) v.findViewById(R.id.bottom_sheet_relative_layout);
@@ -669,6 +671,15 @@ public class SearchFragment extends Fragment {
         });
     }
 
+    @Override
+    public void OnCardClicked(View view, int position) {
+        Log.d("ONCLICK",position +"");
+        Intent intent = new Intent(getActivity(),MyLanDetailsActivity.class);
+        intent.putExtra("Lan",lans.get(position));
+        startActivity(intent);
+    }
+
+    //Get owner lans when clicking on a marker
     private void getHostLans(Marker marker){
         ParseQuery<ParseObject> query = ParseQuery.getQuery("Lans");
         query.whereContains("IdOwner",hashMap.get(marker.getId()));
