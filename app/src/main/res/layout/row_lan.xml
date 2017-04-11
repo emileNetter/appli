@@ -24,7 +24,8 @@
             android:layout_height="wrap_content"
             android:text="Date"
             android:textAllCaps="true"
-            android:textSize="18dp"
+            android:textSize="18sp"
+            android:textColor="@android:color/black"
             android:textStyle="bold" />
 
         <ImageView
@@ -35,6 +36,7 @@
             android:layout_marginBottom="5dp"
             android:layout_marginEnd="5dp"
             android:layout_marginTop="10dp"
+            android:backgroundTint="@color/circle_start"
             android:background="@drawable/ic_cardview_time" />
 
         <TextView
@@ -42,9 +44,9 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_alignTop="@id/textViewStart"
+            android:textColor="@color/textViews"
             android:layout_marginTop="3dp"
             android:layout_toEndOf="@id/textViewStart"
-            android:text="hello"
             android:textStyle="bold" />
 
         <ImageView
@@ -61,6 +63,7 @@
             android:layout_below="@id/dots"
             android:layout_marginEnd="5dp"
             android:layout_marginTop="5dp"
+            android:backgroundTint="@color/circle_end"
             android:background="@drawable/ic_cardview_time" />
 
         <TextView
@@ -70,7 +73,7 @@
             android:layout_alignTop="@id/textViewEnd"
             android:layout_marginTop="3dp"
             android:layout_toEndOf="@id/textViewEnd"
-            android:text="End"
+            android:textColor="@color/textViews"
             android:textStyle="bold" />
 
         <TextView
@@ -80,6 +83,7 @@
             android:layout_alignParentEnd="true"
             android:layout_centerVertical="true"
             android:layout_marginEnd="30dp"
+            android:textColor="@color/textViews"
             android:text="Max People :" />
 
         <TextView
@@ -89,7 +93,7 @@
             android:layout_alignParentEnd="true"
             android:layout_alignTop="@id/dots"
             android:layout_centerVertical="true"
-            android:text="3"
+            android:textColor="@color/textViews"
             android:textStyle="bold" />
 
         <TextView
@@ -98,6 +102,7 @@
             android:layout_height="wrap_content"
             android:layout_above="@+id/endTime"
             android:layout_alignStart="@+id/textViewMaxPlaces"
+            android:textColor="@color/textViews"
             android:text="Participants : " />
 
         <TextView
@@ -105,7 +110,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginTop="5dp"
-            android:text="4"
+            android:textColor="@color/textViews"
             android:textStyle="bold"
             android:layout_above="@id/endTime"
             android:layout_alignStart="@+id/maxSpots" />

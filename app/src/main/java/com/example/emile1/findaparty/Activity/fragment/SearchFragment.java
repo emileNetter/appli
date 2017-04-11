@@ -144,7 +144,8 @@ public class SearchFragment extends Fragment implements CardViewAdapter.OnCardCl
 
     private RelativeLayout mRelativeLayout;
     private BottomSheetBehavior mBottomSheetBehavior;
-    private TextView tv;
+    private TextView tvName;
+    private TextView tvAddress;
     private ImageView close;
 
     private Toolbar toolbar;
@@ -191,7 +192,9 @@ public class SearchFragment extends Fragment implements CardViewAdapter.OnCardCl
         mBottomSheetBehavior = BottomSheetBehavior.from(bottomSheet);
         mBottomSheetBehavior.setBottomSheetCallback(new MyBottomSheetCallback());
 
-        tv = (TextView)v.findViewById(R.id.name_bottom_sheet);
+        tvAddress = (TextView)v.findViewById(R.id.address_bottom_sheet);
+        tvName = (TextView)v.findViewById(R.id.name_bottom_sheet);
+
         searchView = (SearchView)v.findViewById(R.id.search);
         setHasOptionsMenu(true);
         mMapView = (MapView) v.findViewById(R.id.mapView);
@@ -282,11 +285,14 @@ public class SearchFragment extends Fragment implements CardViewAdapter.OnCardCl
                 mFloatinButton.animate().scaleX(0).scaleY(0).setDuration(300).start();
                 mRelativeLayout.setBackgroundColor(ContextCompat.getColor(getContext(),R.color.buttonLoginColor));
                 close.setVisibility(View.VISIBLE);
-                tv.setTextColor(ContextCompat.getColor(getContext(),R.color.buttonLoginColor));
+                tvName.setTextColor(Color.WHITE);
+                tvAddress.setTextColor(Color.WHITE);
             } else if (BottomSheetBehavior.STATE_COLLAPSED == newState || BottomSheetBehavior.STATE_HIDDEN == newState) {
                 if (mBottomSheetBehavior instanceof LockableBottomSheetBehavior) {
                     ((LockableBottomSheetBehavior) mBottomSheetBehavior).setLocked(false);
                 }
+                tvName.setTextColor(ContextCompat.getColor(getContext(),R.color.buttonLoginColor));
+                tvAddress.setTextColor(ContextCompat.getColor(getContext(),R.color.btn_create));
                 toolbar.setVisibility(View.GONE);
                 actionBar.show();
                 mFloatinButton.animate().scaleX(1).scaleY(1).setDuration(300).start();
@@ -665,7 +671,14 @@ public class SearchFragment extends Fragment implements CardViewAdapter.OnCardCl
             @Override
             public void done(ParseObject parseObject, ParseException e) {
                 if (e==null){
-                    tv.setText(parseObject.getString("Owner"));
+                    try {
+                        JSONObject address = parseObject.getJSONObject("Address");
+                        String addressToString = address.getString("lane")+", "+address.getString("zipcode")+" "+address.getString("city");
+                        tvAddress.setText(addressToString);
+                    } catch (JSONException error){
+                        error.printStackTrace();
+                    }
+                    tvName.setText(parseObject.getString("Owner"));
                 }
             }
         });
