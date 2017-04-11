@@ -38,7 +38,6 @@ public class CardViewAdapter extends RecyclerView.Adapter<CardViewAdapter.LanVie
         lanViewHolder.endTime.setText(lan.getEndTime());
         lanViewHolder.maxSpots.setText(String.format(Locale.getDefault(),"%d",lan.getMaxSpots()));
         lanViewHolder.participants.setText(String.format(Locale.getDefault(),"%d",lan.getNbrParticipants()));
-        lanViewHolder.currentLan =lans.get(position);
         lanViewHolder.cardView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -77,25 +76,17 @@ public class CardViewAdapter extends RecyclerView.Adapter<CardViewAdapter.LanVie
         public TextView maxSpots;
         public TextView participants;
         public CardView cardView;
-        public Lan currentLan;
 
         public View view;
 
         public LanViewHolder(View v) {
             super(v);
-            view = v;
             date =  (TextView) v.findViewById(R.id.date);
             startTime = (TextView)  v.findViewById(R.id.startTime);
             endTime = (TextView)  v.findViewById(R.id.endTime);
             maxSpots = (TextView) v.findViewById(R.id.maxSpots);
             participants = (TextView) v.findViewById(R.id.participants);
             cardView = (CardView) v.findViewById(R.id.cardView);
-
-            view.setOnClickListener(new View.OnClickListener() {
-                @Override public void onClick(View v) {
-                    Log.i("ItemClick","Click");
-                }
-            });
         }
 
     }
