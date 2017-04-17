@@ -216,6 +216,8 @@ public class SearchFragment extends Fragment implements CardViewAdapter.OnCardCl
             requestPermissions(new String[]{Manifest.permission.ACCESS_FINE_LOCATION},
                     MY_PERMISSIONS_REQUEST_ACCESS_FINE_LOCATION);
         }
+
+        //search user's position
         mFloatinButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -223,6 +225,7 @@ public class SearchFragment extends Fragment implements CardViewAdapter.OnCardCl
             }
         });
 
+        //Expand the collapsed bottom sheet when clicking on it
         mRelativeLayout.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -283,6 +286,7 @@ public class SearchFragment extends Fragment implements CardViewAdapter.OnCardCl
                     ((LockableBottomSheetBehavior) mBottomSheetBehavior).setLocked(true);
                 }
                 mFloatinButton.animate().scaleX(0).scaleY(0).setDuration(300).start();
+                mFloatinButton.setEnabled(false);
                 mRelativeLayout.setBackgroundColor(ContextCompat.getColor(getContext(),R.color.buttonLoginColor));
                 close.setVisibility(View.VISIBLE);
                 tvName.setTextColor(Color.WHITE);
@@ -291,6 +295,7 @@ public class SearchFragment extends Fragment implements CardViewAdapter.OnCardCl
                 if (mBottomSheetBehavior instanceof LockableBottomSheetBehavior) {
                     ((LockableBottomSheetBehavior) mBottomSheetBehavior).setLocked(false);
                 }
+                mFloatinButton.setEnabled(true);
                 tvName.setTextColor(ContextCompat.getColor(getContext(),R.color.buttonLoginColor));
                 tvAddress.setTextColor(ContextCompat.getColor(getContext(),R.color.btn_create));
                 toolbar.setVisibility(View.GONE);
@@ -702,6 +707,7 @@ public class SearchFragment extends Fragment implements CardViewAdapter.OnCardCl
                 if(e==null){
                     for(ParseObject lan : objects){
                         lans.add(new Lan(lan.getObjectId(),
+                                lan.getString("IdOwner"),
                                 lan.getString("Date"),
                                 lan.getString("Start"),
                                 lan.getString("End"),

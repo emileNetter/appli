@@ -1,0 +1,196 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:id="@+id/activity_my_lan_details"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:fitsSystemWindows="true"
+    tools:context="com.example.emile1.findaparty.Activity.Activity.MyLanDetailsActivity">
+
+    <android.support.design.widget.AppBarLayout
+        android:id="@+id/appbar"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:theme="@style/AppTheme.AppBarOverlay">
+
+        <android.support.v7.widget.Toolbar
+            android:id="@+id/toolbar_lanDetails"
+            android:layout_width="match_parent"
+            android:layout_height="?attr/actionBarSize"
+            android:background="@color/buttonLoginColor"
+            app:popupTheme="@style/AppTheme.PopupOverlay" />
+
+    </android.support.design.widget.AppBarLayout>
+
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+            <TextView
+                android:id="@+id/banner_organizer"
+                android:text="Infos organisateur"
+                style="@style/LanDetails"
+                android:padding="10dp"
+                android:layout_marginTop="65dp"
+                android:layout_marginStart="10dp"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content" />
+            <de.hdodenhof.circleimageview.CircleImageView
+                android:id="@+id/owner_avatar"
+                android:layout_below="@id/banner_organizer"
+                android:background="@drawable/amumu460"
+                app:civ_border_color="@android:color/black"
+                app:civ_border_width="1dp"
+                android:layout_margin="15dp"
+                android:layout_width="50dp"
+                android:layout_height="50dp" />
+            <TextView
+                android:id="@+id/owner_name"
+                android:text="E"
+                android:layout_alignTop="@id/owner_avatar"
+                android:layout_toEndOf="@id/owner_avatar"
+                android:layout_marginStart="5dp"
+                android:textSize="16sp"
+                android:textColor="@android:color/black"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content" />
+            <TextView
+                android:id="@+id/owner_address"
+                android:layout_below="@id/owner_name"
+                android:text="3"
+                android:layout_toEndOf="@id/owner_avatar"
+                android:layout_margin="5dp"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content" />
+            <TextView
+                android:id="@+id/owner_city"
+                android:layout_below="@id/owner_address"
+                android:layout_toEndOf="@id/owner_avatar"
+                android:layout_marginStart="5dp"
+                android:layout_marginBottom="15dp"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content" />
+            <View
+                android:id="@+id/divider1"
+                android:layout_below="@id/owner_city"
+                android:layout_width="fill_parent"
+                android:layout_height="1dip"
+                android:background="@color/password_toggle" />
+            <TextView
+                android:id="@+id/banner_infos"
+                android:padding="10dp"
+                android:text="Infos"
+                style="@style/LanDetails"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/divider1"
+                android:layout_alignStart="@id/banner_organizer" />
+
+            <TextView
+                android:id="@+id/event_date"
+                android:layout_below="@id/banner_infos"
+                android:textAllCaps="true"
+                android:textSize="16sp"
+                android:textColor="@android:color/black"
+                android:layout_marginStart="20dp"
+                android:layout_alignStart="@id/banner_organizer"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content" />
+            <LinearLayout
+                android:id="@+id/linear_layout_details"
+                android:layout_below="@id/event_date"
+                android:orientation="vertical"
+                android:layout_marginTop="15dp"
+                android:layout_marginBottom="15dp"
+                android:layout_marginEnd="15dp"
+                android:gravity="center_horizontal"
+                android:layout_alignStart="@id/event_date"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content">
+
+                <ImageView
+                    android:id="@+id/circle1"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:backgroundTint="@color/circle_start"
+                    android:background="@drawable/ic_cardview_time" />
+                <View
+                    android:id="@+id/dot"
+                    android:layout_width="2dip"
+                    android:layout_height="50dip"
+                    android:layout_marginTop="10dp"
+                    android:layout_marginBottom="10dp"
+                    android:background="@color/password_toggle"
+                    />
+
+                <ImageView
+                    android:id="@+id/circle2"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:backgroundTint="@color/circle_end"
+                    android:background="@drawable/ic_cardview_time" />
+
+            </LinearLayout>
+
+            <TextView
+                android:id="@+id/event_start"
+                android:layout_toEndOf="@id/linear_layout_details"
+                android:layout_alignTop="@id/linear_layout_details"
+                android:layout_marginTop="3dp"
+                android:text="HELLO"
+                android:textSize="15sp"
+                android:textColor="@android:color/black"
+                android:layout_below="@id/event_date"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content" />
+
+            <TextView
+                android:id="@+id/event_end"
+                android:layout_toEndOf="@id/linear_layout_details"
+                android:layout_alignBottom="@id/linear_layout_details"
+                android:textColor="@android:color/black"
+                android:textSize="15sp"
+                android:layout_marginBottom="3dp"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content" />
+            <View
+                android:id="@+id/divider2"
+                android:layout_below="@id/linear_layout_details"
+                android:layout_width="fill_parent"
+                android:layout_height="1dip"
+                android:background="@color/password_toggle" />
+
+            <TextView
+                android:id="@+id/banner_participants"
+                android:layout_below="@id/divider2"
+                android:layout_alignStart="@id/banner_organizer"
+                android:padding="10dp"
+                style="@style/LanDetails"
+                android:text="Participants"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content" />
+            <LinearLayout
+                android:id="@+id/linearLayoutList"
+                android:orientation="vertical"
+                android:layout_below="@id/banner_participants"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent">
+
+            </LinearLayout>
+
+            <Button
+                android:id="@+id/button_delete"
+                android:text="DELETE"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_alignParentStart="true"
+                android:layout_alignParentBottom="true"
+                android:layout_below="@id/linearLayoutList"/>
+        </RelativeLayout>
+    </ScrollView>
+
+</RelativeLayout>

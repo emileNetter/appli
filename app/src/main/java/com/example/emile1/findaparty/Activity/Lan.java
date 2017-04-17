@@ -13,8 +13,9 @@ public class Lan implements Serializable{
     private String nameOwner;
     private String idLan;
 
-    public Lan(String idLan,String date, String startTime, String endTime, int maxSpots, int nbrParticipants){
+    public Lan(String idLan,String idOwner,String date, String startTime, String endTime, int maxSpots, int nbrParticipants){
         this.idLan=idLan;
+        this.idOwner = idOwner;
         this.date = date;
         this.startTime = startTime;
         this.endTime = endTime;

@@ -24,6 +24,10 @@ import com.parse.ParseObject;
 import com.parse.ParseQuery;
 import com.parse.ParseUser;
 
+import org.json.JSONArray;
+import org.json.JSONException;
+import org.json.JSONObject;
+
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
@@ -60,6 +64,41 @@ public class RecentFragment extends Fragment implements CardViewAdapter.OnCardCl
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
         View v = inflater.inflate(R.layout.fragment_recent, container, false);
+//        int myNumber = 42;
+//        String myString = "the number is " + myNumber;
+//        JSONArray myArray = new JSONArray();
+//        myArray.put(myString);
+//        myArray.put(myNumber);
+//        ParseObject test = new ParseObject("test");
+//        test.put("JSONArray",myArray);
+//        test.saveInBackground();
+//        ParseQuery<ParseObject> query = ParseQuery.getQuery("test");
+        // Retrieve the object by id
+//        query.getInBackground("6FncQTslPM", new GetCallback<ParseObject>() {
+//            public void done(ParseObject test, ParseException e) {
+//                if (e == null) {
+//                    // Now let's update it with some new data. In this case, only cheatMode and score
+//                    // will get sent to the Parse Cloud. playerName hasn't changed.
+//
+//                    try{
+//                        JSONArray myArray = new JSONArray();
+//                        JSONObject jsonObject = new JSONObject();
+//                        jsonObject.put("PlayerName","Emile");
+//                        int myNumber = 42;
+//                        String myString = "the number is " + myNumber;
+//                        myArray.put(myString);
+//                        myArray.put(myNumber);
+//                        myArray.put(jsonObject);
+//                        test.put("JSONArray",myArray);
+//                        test.saveInBackground();
+//                    }catch (JSONException error){
+//
+//                    }
+//
+//                }
+//            }
+//        });
+
         getLans();
         mLinearLayoutManager = new LinearLayoutManager(getContext());
         mLinearLayoutManager.setOrientation(LinearLayoutManager.VERTICAL);
@@ -117,6 +156,7 @@ public class RecentFragment extends Fragment implements CardViewAdapter.OnCardCl
                    progressBar.setVisibility(View.INVISIBLE);
                     for(ParseObject lan : objects){
                         lans.add(new Lan(lan.getObjectId(),
+                                lan.getString("IdOwner"),
                                 lan.getString("Date"),
                                 lan.getString("Start"),
                                 lan.getString("End"),
@@ -139,6 +179,7 @@ public class RecentFragment extends Fragment implements CardViewAdapter.OnCardCl
                 if (e == null) {
                     for(ParseObject lan : objects){
                         lans.add(new Lan(lan.getObjectId(),
+                                lan.getString("IdOwner"),
                                 lan.getString("Date"),
                                 lan.getString("Start"),
                                 lan.getString("End"),

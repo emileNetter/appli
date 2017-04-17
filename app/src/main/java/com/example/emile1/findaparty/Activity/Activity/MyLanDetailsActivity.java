@@ -60,6 +60,11 @@ public class MyLanDetailsActivity extends AppCompatActivity {
         Intent intent= getIntent();
         final Lan mLan = (Lan)intent.getSerializableExtra("Lan");
         final ParseObject lan = ParseObject.createWithoutData("Lans",mLan.getIdLan());
+        Log.i("User id ",ParseUser.getCurrentUser().getObjectId());
+        Log.i("Lan owner id :",mLan.getIdOwner());
+        if(mLan.getIdOwner().equals(ParseUser.getCurrentUser().getObjectId())){
+            Toast.makeText(getApplicationContext(),"same IDS !!",Toast.LENGTH_LONG).show();
+        }
         setUIText(mLan);
         participantList = getParticipant();
         ParticipantAdapter participantAdapter = new ParticipantAdapter(this,participantList);

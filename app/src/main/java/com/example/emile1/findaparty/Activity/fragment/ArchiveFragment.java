@@ -103,6 +103,7 @@ public class ArchiveFragment extends Fragment implements CardViewAdapter.OnCardC
                     progressBar.setVisibility(View.INVISIBLE);
                     for(ParseObject lan : objects){
                         lans.add(new Lan(lan.getObjectId(),
+                                lan.getString("IdOwner"),
                                 lan.getString("Date"),
                                 lan.getString("Start"),
                                 lan.getString("End"),
