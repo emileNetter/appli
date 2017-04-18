@@ -60,10 +60,75 @@ public class MyLanDetailsActivity extends AppCompatActivity {
         Intent intent= getIntent();
         final Lan mLan = (Lan)intent.getSerializableExtra("Lan");
         final ParseObject lan = ParseObject.createWithoutData("Lans",mLan.getIdLan());
-        Log.i("User id ",ParseUser.getCurrentUser().getObjectId());
-        Log.i("Lan owner id :",mLan.getIdOwner());
-        if(mLan.getIdOwner().equals(ParseUser.getCurrentUser().getObjectId())){
-            Toast.makeText(getApplicationContext(),"same IDS !!",Toast.LENGTH_LONG).show();
+        if(!mLan.getIdOwner().equals(ParseUser.getCurrentUser().getObjectId())){
+            btn_delete.setBackground(getDrawable(R.drawable.btn_join_lan));
+            btn_delete.setText(getString(R.string.join_lan));
+            btn_delete.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View view) {
+                    AlertDialog.Builder builder = new AlertDialog.Builder(MyLanDetailsActivity.this);
+                    builder.setTitle(getString(R.string.join_title));
+                    builder.setMessage(getString(R.string.join_message));
+                    builder.setCancelable(true);
+                    builder.setPositiveButton(
+                            android.R.string.yes,
+                            new DialogInterface.OnClickListener() {
+                                public void onClick(DialogInterface dialog, int id) {
+                                    Toast.makeText(getApplicationContext(),"JOINED",Toast.LENGTH_SHORT).show();
+                                }
+                            });
+
+                    builder.setNegativeButton(
+                            android.R.string.no,
+                            new DialogInterface.OnClickListener() {
+                                public void onClick(DialogInterface dialog, int id) {
+                                    dialog.cancel();
+                                }
+                            });
+                    AlertDialog alert1 = builder.create();
+                    alert1.show();
+
+                }
+            });
+        } else {
+            btn_delete.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View view) {
+                    AlertDialog.Builder builder = new AlertDialog.Builder(MyLanDetailsActivity.this);
+                    builder.setTitle(getString(R.string.delete_title));
+                    builder.setMessage(getString(R.string.delete_message));
+                    builder.setCancelable(true);
+                    builder.setPositiveButton(
+                            android.R.string.yes,
+                            new DialogInterface.OnClickListener() {
+                                public void onClick(DialogInterface dialog, int id) {
+                                    lan.deleteInBackground(new DeleteCallback() {
+                                        @Override
+                                        public void done(ParseException e) {
+                                            if(e==null){
+                                                Toast.makeText(getApplicationContext(),getString(R.string.deleted_message),Toast.LENGTH_SHORT).show();
+                                                finish();
+                                            }
+                                            else {
+                                                Toast.makeText(getApplicationContext(),getString(R.string.error) + e,Toast.LENGTH_SHORT).show();
+                                            }
+                                        }
+                                    });
+                                }
+                            });
+
+                    builder.setNegativeButton(
+                            android.R.string.no,
+                            new DialogInterface.OnClickListener() {
+                                public void onClick(DialogInterface dialog, int id) {
+                                    dialog.cancel();
+                                }
+                            });
+                    AlertDialog alert1 = builder.create();
+                    alert1.show();
+
+                }
+            });
         }
         setUIText(mLan);
         participantList = getParticipant();
@@ -75,45 +140,6 @@ public class MyLanDetailsActivity extends AppCompatActivity {
         setSupportActionBar(toolbar);
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         getSupportActionBar().setDisplayShowHomeEnabled(true);
-
-        btn_delete.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                AlertDialog.Builder builder = new AlertDialog.Builder(MyLanDetailsActivity.this);
-                builder.setTitle(getString(R.string.delete_title));
-                builder.setMessage(getString(R.string.delete_message));
-                builder.setCancelable(true);
-                builder.setPositiveButton(
-                        android.R.string.yes,
-                        new DialogInterface.OnClickListener() {
-                            public void onClick(DialogInterface dialog, int id) {
-                                lan.deleteInBackground(new DeleteCallback() {
-                                    @Override
-                                    public void done(ParseException e) {
-                                        if(e==null){
-                                            Toast.makeText(getApplicationContext(),getString(R.string.deleted_message),Toast.LENGTH_SHORT).show();
-                                            finish();
-                                        }
-                                        else {
-                                            Toast.makeText(getApplicationContext(),getString(R.string.error) + e,Toast.LENGTH_SHORT).show();
-                                        }
-                                    }
-                                });
-                            }
-                        });
-
-                builder.setNegativeButton(
-                        android.R.string.no,
-                        new DialogInterface.OnClickListener() {
-                            public void onClick(DialogInterface dialog, int id) {
-                                dialog.cancel();
-                            }
-                        });
-                AlertDialog alert1 = builder.create();
-                alert1.show();
-
-            }
-        });
 
         toolbar.setNavigationOnClickListener(new View.OnClickListener() {
             @Override

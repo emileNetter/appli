@@ -21,6 +21,7 @@
     <color name="tab_background">#9fa8da</color>
     <color name="circle_start">#4fca82</color>
     <color name="circle_end">#d32f2f</color>
+
     <!-- Nav Drawer style-->
     <color name="nav_header">#5c6bc0</color>
     <color name="color_navigation_list_background">#ffffff</color>
