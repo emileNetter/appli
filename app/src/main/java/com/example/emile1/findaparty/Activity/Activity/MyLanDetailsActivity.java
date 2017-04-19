@@ -28,6 +28,7 @@ import com.parse.ParseObject;
 import com.parse.ParseQuery;
 import com.parse.ParseUser;
 
+import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
@@ -63,6 +64,7 @@ public class MyLanDetailsActivity extends AppCompatActivity {
         if(!mLan.getIdOwner().equals(ParseUser.getCurrentUser().getObjectId())){
             btn_delete.setBackground(getDrawable(R.drawable.btn_join_lan));
             btn_delete.setText(getString(R.string.join_lan));
+            Log.i("Lan id",mLan.getIdLan());
             btn_delete.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View view) {
@@ -74,7 +76,34 @@ public class MyLanDetailsActivity extends AppCompatActivity {
                             android.R.string.yes,
                             new DialogInterface.OnClickListener() {
                                 public void onClick(DialogInterface dialog, int id) {
-                                    Toast.makeText(getApplicationContext(),"JOINED",Toast.LENGTH_SHORT).show();
+                                    ParseQuery<ParseObject> query = ParseQuery.getQuery("Lans");
+                                    query.getInBackground(mLan.getIdLan(), new GetCallback<ParseObject>() {
+                                        @Override
+                                        public void done(ParseObject lan, ParseException e) {
+                                            if(e==null){
+                                                try {
+                                                    JSONArray jsonArray = new JSONArray();
+                                                    JSONObject jsonObject = new JSONObject();
+                                                    String firstName = ParseUser.getCurrentUser().getString("firstName");
+                                                    String lastName = ParseUser.getCurrentUser().getString("lastName");
+                                                    Log.i("firstname",firstName);
+                                                    String id = ParseUser.getCurrentUser().getObjectId();
+                                                    jsonObject.put("Name",firstName + lastName);
+                                                    jsonObject.put("Participant_ID",id);
+                                                    jsonArray.put(jsonObject);
+                                                    lan.put("Participants",jsonArray);
+                                                    lan.increment("Number");
+                                                    lan.saveInBackground();
+                                                }catch (JSONException er){
+
+                                                }
+                                                Toast.makeText(getApplicationContext(),"JOINED",Toast.LENGTH_SHORT).show();
+                                            }else{
+                                                Log.i("Parse Error","error");
+                                            }
+                                        }
+
+                                    });
                                 }
                             });
 

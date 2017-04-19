@@ -35,6 +35,7 @@ import org.joda.time.DateTime;
 import org.joda.time.LocalDate;
 import org.joda.time.format.DateTimeFormat;
 import org.joda.time.format.DateTimeFormatter;
+import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
@@ -309,45 +310,47 @@ public class CreateFragment extends Fragment{
 
     //Create a Lan and add it in the Database
     private void createLan(){
-        ParseUser currentUser = ParseUser.getCurrentUser();
-        JSONObject address = ParseUser.getCurrentUser().getJSONObject("address");
-        String firstName = currentUser.getString("firstName");
-        String lastName = currentUser.getString("lastName");
-        String date = dateEditText.getText().toString();
-        String convertedDate = changeFormat(date);
+            ParseUser currentUser = ParseUser.getCurrentUser();
+            JSONObject address = ParseUser.getCurrentUser().getJSONObject("address");
+            JSONArray participants = new JSONArray();
+            String firstName = currentUser.getString("firstName");
+            String lastName = currentUser.getString("lastName");
+            String date = dateEditText.getText().toString();
+            String convertedDate = changeFormat(date);
 
-        String startTime = startEditText.getText().toString();
-        String endTime = endEditText.getText().toString();
-        int maxPeople = Integer.parseInt(nbrPeopleEditText.getText().toString());
+            String startTime = startEditText.getText().toString();
+            String endTime = endEditText.getText().toString();
+            int maxPeople = Integer.parseInt(nbrPeopleEditText.getText().toString());
 
-        final ProgressDialog dialog = new ProgressDialog(getActivity());
-        dialog.setMessage(getString(R.string.progress_dialog_create));
-        dialog.show();
+            final ProgressDialog dialog = new ProgressDialog(getActivity());
+            dialog.setMessage(getString(R.string.progress_dialog_create));
+            dialog.show();
 
-        ParseObject lan = new ParseObject("Lans");
-        lan.put("IdOwner",ParseUser.getCurrentUser().getObjectId());
-        lan.put("Owner", firstName + " " + lastName);
-        lan.put("Date",convertedDate);
-        lan.put("Start",startTime);
-        lan.put("End",endTime);
-        lan.put("MaxPeople",maxPeople);
-        lan.put("Participants",0);
-        lan.put("Address", address);
-        lan.saveInBackground(new SaveCallback() {
-            @Override
-            public void done(ParseException e) {
-                dialog.dismiss();
-                if (e !=null){
-                    //Error Message
-                    Toast.makeText(getActivity(),
-                            "There was an error : " +e.getMessage(),
-                            Toast.LENGTH_LONG)
-                            .show();
-                } else {
-                    Toast.makeText(getActivity(),"Lan created !",Toast.LENGTH_SHORT).show();
+            ParseObject lan = new ParseObject("Lans");
+            lan.put("IdOwner",ParseUser.getCurrentUser().getObjectId());
+            lan.put("Owner", firstName + " " + lastName);
+            lan.put("Date",convertedDate);
+            lan.put("Start",startTime);
+            lan.put("End",endTime);
+            lan.put("MaxPeople",maxPeople);
+            lan.put("Number",0);
+            lan.put("Participants",participants);
+            lan.put("Address", address);
+            lan.saveInBackground(new SaveCallback() {
+                @Override
+                public void done(ParseException e) {
+                    dialog.dismiss();
+                    if (e !=null){
+                        //Error Message
+                        Toast.makeText(getActivity(),
+                                "There was an error : " +e.getMessage(),
+                                Toast.LENGTH_LONG)
+                                .show();
+                    } else {
+                        Toast.makeText(getActivity(),"Lan created !",Toast.LENGTH_SHORT).show();
+                    }
                 }
-            }
-        });
+            });
     }
 
     private String changeFormat(String dateString){

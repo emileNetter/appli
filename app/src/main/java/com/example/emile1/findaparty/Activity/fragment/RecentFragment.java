@@ -166,6 +166,7 @@ public class RecentFragment extends Fragment implements CardViewAdapter.OnCardCl
                     mRecyclerView.setAdapter(mCardViewAdapter);
                 } else {
                     progressBar.setVisibility(View.VISIBLE);
+                    Log.i("error",e.getMessage());
                 }
             }
         });
