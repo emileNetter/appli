@@ -222,17 +222,24 @@ public class MyLanDetailsActivity extends AppCompatActivity{
     }
 
     private void setUIText(Lan lan){
-        try{
-            JSONObject address = ParseUser.getCurrentUser().getJSONObject("address");
-            ownerName.setText(ParseUser.getCurrentUser().getString("firstName") + " " + ParseUser.getCurrentUser().getString("lastName"));
-            ownerAddress.setText(address.getString("lane"));
-            ownerCity.setText(address.getString("zipcode")+ " " + address.getString("city").toUpperCase());
-            date.setText(lan.getDate());
-            start.setText(lan.getStartTime());
-            end.setText(lan.getEndTime());
-        } catch (JSONException e){
-            e.printStackTrace();
-        }
-
+        date.setText(lan.getDate());
+        start.setText(lan.getStartTime());
+        end.setText(lan.getEndTime());
+        ParseQuery<ParseUser> query = ParseQuery.getQuery("_User");
+        query.getInBackground(mLan.getIdOwner(), new GetCallback<ParseUser>() {
+            @Override
+            public void done(ParseUser parseUser, ParseException e) {
+                if (e==null){
+                    JSONObject address = parseUser.getJSONObject("address");
+                    try{
+                        ownerName.setText(parseUser.getString("firstName") + " " + parseUser.getString("lastName"));
+                        ownerAddress.setText(address.getString("lane"));
+                        ownerCity.setText(address.getString("zipcode")+ " " + address.getString("city").toUpperCase());
+                    }catch (JSONException error){
+                        e.printStackTrace();
+                    }
+                }
+            }
+        });
     }
 }
