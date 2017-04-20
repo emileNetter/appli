@@ -83,12 +83,23 @@ public class MyLanDetailsActivity extends AppCompatActivity{
                                         public void done(ParseObject lan, ParseException e) {
                                             if(e==null){
                                                 JSONObject object = new JSONObject();
+                                                String firstName = ParseUser.getCurrentUser().getString("firstName");
+                                                String lastName = ParseUser.getCurrentUser().getString("lastName");
+                                                String fullName = firstName + " " + lastName;
+                                                String id = ParseUser.getCurrentUser().getObjectId();
                                                 try{
-                                                    object.put("PlayerName","John");
-                                                    object.put("ID",514145);
-                                                    lan.add("Participants",object.toString());
+                                                    object.put("Name",fullName);
+                                                    object.put("ID",id);
+                                                    JSONArray jsonArray = lan.getJSONArray("Participants"); //get the JSONArray
+                                                    //loop through all the objects
+                                                    for(int i =0; i<jsonArray.length();i++){
+                                                        JSONObject obj = new JSONObject(jsonArray.getString(i)); //create a new JSONObject from a string
+                                                        String name = obj.getString("Name");
+                                                        Log.i("JSON",name);
+                                                    }
+                                                    lan.add("Participants",object.toString()); //need to convert to string before sending to the db
                                                 }catch (JSONException error){
-
+                                                    Log.i("JSON ERROR",error.getMessage());
                                                 }
 
                                                 lan.increment("Number");
