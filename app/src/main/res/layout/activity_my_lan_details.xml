@@ -32,7 +32,7 @@
 
             <TextView
                 android:id="@+id/banner_organizer"
-                android:text="Infos organisateur"
+                android:text="Host Infos"
                 style="@style/LanDetails"
                 android:padding="10dp"
                 android:layout_marginTop="65dp"
@@ -50,7 +50,7 @@
                 android:layout_height="50dp" />
             <TextView
                 android:id="@+id/owner_name"
-                android:text="E"
+                android:text=""
                 android:layout_alignTop="@id/owner_avatar"
                 android:layout_toEndOf="@id/owner_avatar"
                 android:layout_marginStart="5dp"
@@ -83,7 +83,7 @@
             <TextView
                 android:id="@+id/banner_infos"
                 android:padding="10dp"
-                android:text="Infos"
+                android:text="Date"
                 style="@style/LanDetails"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
@@ -121,7 +121,7 @@
                 <View
                     android:id="@+id/dot"
                     android:layout_width="2dip"
-                    android:layout_height="50dip"
+                    android:layout_height="30dip"
                     android:layout_marginTop="10dp"
                     android:layout_marginBottom="10dp"
                     android:background="@color/password_toggle"

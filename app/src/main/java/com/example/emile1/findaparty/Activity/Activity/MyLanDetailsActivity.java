@@ -2,10 +2,10 @@ package com.example.emile1.findaparty.Activity.Activity;
 
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.os.Bundle;
 import android.support.v4.content.ContextCompat;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
-import android.os.Bundle;
 import android.support.v7.widget.Toolbar;
 import android.util.Log;
 import android.view.View;
@@ -20,7 +20,6 @@ import com.example.emile1.findaparty.Activity.Lan;
 import com.example.emile1.findaparty.Activity.Participant;
 import com.example.emile1.findaparty.Activity.adapter.ParticipantAdapter;
 import com.example.emile1.findaparty.R;
-import com.google.android.gms.vision.text.Text;
 import com.parse.DeleteCallback;
 import com.parse.GetCallback;
 import com.parse.ParseException;
@@ -33,7 +32,6 @@ import org.json.JSONException;
 import org.json.JSONObject;
 
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.List;
 
 import de.hdodenhof.circleimageview.CircleImageView;
@@ -53,6 +51,7 @@ public class MyLanDetailsActivity extends AppCompatActivity{
     private TextView start;
     private TextView end;
     private CircleImageView avatar;
+    private Lan mLan;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -60,12 +59,23 @@ public class MyLanDetailsActivity extends AppCompatActivity{
         setContentView(R.layout.activity_my_lan_details);
         instantiateUI();
         Intent intent= getIntent();
-        final Lan mLan = (Lan)intent.getSerializableExtra("Lan");
+        mLan = (Lan)intent.getSerializableExtra("Lan");
         final ParseObject lan = ParseObject.createWithoutData("Lans",mLan.getIdLan());
+        setUIText(mLan);
+        getParticipant();
+        setSupportActionBar(toolbar);
+        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+        getSupportActionBar().setDisplayShowHomeEnabled(true);
+        toolbar.setNavigationOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                finish();
+            }
+        });
+        //change Button if it is not our lan
         if(!mLan.getIdOwner().equals(ParseUser.getCurrentUser().getObjectId())){
             btn_delete.setBackground(getDrawable(R.drawable.btn_join_lan));
             btn_delete.setText(getString(R.string.join_lan));
-            Log.i("Lan id",mLan.getIdLan());
             btn_delete.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View view) {
@@ -89,36 +99,16 @@ public class MyLanDetailsActivity extends AppCompatActivity{
                                                 String id = ParseUser.getCurrentUser().getObjectId();
                                                 try{
                                                     object.put("Name",fullName);
-                                                    object.put("ID",id);
-                                                    JSONArray jsonArray = lan.getJSONArray("Participants"); //get the JSONArray
-                                                    //loop through all the objects
-                                                    for(int i =0; i<jsonArray.length();i++){
-                                                        JSONObject obj = new JSONObject(jsonArray.getString(i)); //create a new JSONObject from a string
-                                                        String name = obj.getString("Name");
-                                                        Log.i("JSON",name);
-                                                    }
+                                                    object.put("Id",id);
                                                     lan.add("Participants",object.toString()); //need to convert to string before sending to the db
                                                 }catch (JSONException error){
                                                     Log.i("JSON ERROR",error.getMessage());
                                                 }
-
                                                 lan.increment("Number");
                                                 lan.saveInBackground();
-//                                                try {
-//                                                    JSONArray jsonArray = new JSONArray();
-//                                                    JSONObject jsonObject = new JSONObject();
-//                                                    String firstName = ParseUser.getCurrentUser().getString("firstName");
-//                                                    String lastName = ParseUser.getCurrentUser().getString("lastName");
-//                                                    Log.i("firstname",firstName);
-//                                                    String id = ParseUser.getCurrentUser().getObjectId();
-//                                                    jsonObject.put("Name",firstName + lastName);
-//                                                    jsonObject.put("Participant_ID",id);
-//                                                    jsonArray.put(jsonObject);
-//
-//                                                }catch (JSONException er){
-//                                                    Log.i("JSON ERROR",er.getMessage());
-//
-//                                                }
+                                                //to refresh the activity
+                                                finish();
+                                                startActivity(getIntent());
                                                 Toast.makeText(getApplicationContext(),"JOINED",Toast.LENGTH_SHORT).show();
                                             }else{
                                                 Log.i("Parse Error","error");
@@ -138,7 +128,6 @@ public class MyLanDetailsActivity extends AppCompatActivity{
                             });
                     AlertDialog alert1 = builder.create();
                     alert1.show();
-
                 }
             });
         } else {
@@ -181,32 +170,37 @@ public class MyLanDetailsActivity extends AppCompatActivity{
                 }
             });
         }
-        setUIText(mLan);
-        participantList = getParticipant();
-        ParticipantAdapter participantAdapter = new ParticipantAdapter(this,participantList);
-        for (int i =0;i<participantAdapter.getCount();i++){
-            View view = participantAdapter.getView(i,null,linearLayout);
-            linearLayout.addView(view);
-        }
-        setSupportActionBar(toolbar);
-        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
-        getSupportActionBar().setDisplayShowHomeEnabled(true);
-
-        toolbar.setNavigationOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                finish();
-            }
-        });
     }
 
-    private List<Participant> getParticipant(){
+    private void getParticipant(){
         //On récupère les participants d'une LAN
-        List<Participant> list = new ArrayList<>();
-        list.add(new Participant("Emile N",c));
-        list.add(new Participant("Jean",c));
-        list.add(new Participant("Paul p",c));
-        return list;
+        final List<Participant> list = new ArrayList<>();
+        list.clear();
+        ParseQuery<ParseObject> query = ParseQuery.getQuery("Lans");
+        query.getInBackground(mLan.getIdLan(), new GetCallback<ParseObject>() {
+            @Override
+            public void done(ParseObject lan, ParseException e) {
+                if(e==null){
+                    try{
+                        JSONArray jsonArray = lan.getJSONArray("Participants"); //get the JSONArray
+                        //loop through all the objects
+                        for(int i =0; i<jsonArray.length();i++){
+                            JSONObject obj = new JSONObject(jsonArray.getString(i)); //create a new JSONObject from a string
+                            list.add(new Participant(obj.getString("Name"),c));
+                        }
+                        ParticipantAdapter participantAdapter = new ParticipantAdapter(getApplicationContext(),list);
+                        for (int i =0;i<participantAdapter.getCount();i++){
+                            View view = participantAdapter.getView(i,null,linearLayout);
+                            linearLayout.addView(view);
+                        }
+                    }catch (JSONException error){
+                        Log.i("JSON ERROR",error.getMessage());
+                    }
+                }else{
+                    Log.i("Parse Error","error");
+                }
+            }
+        });
     }
 
     private void instantiateUI(){
