@@ -33,11 +33,12 @@ import org.json.JSONException;
 import org.json.JSONObject;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 
 import de.hdodenhof.circleimageview.CircleImageView;
 
-public class MyLanDetailsActivity extends AppCompatActivity {
+public class MyLanDetailsActivity extends AppCompatActivity{
     private Toolbar toolbar;
     private Button btn_delete;
     private CircleImageView c;
@@ -81,22 +82,32 @@ public class MyLanDetailsActivity extends AppCompatActivity {
                                         @Override
                                         public void done(ParseObject lan, ParseException e) {
                                             if(e==null){
-                                                try {
-                                                    JSONArray jsonArray = new JSONArray();
-                                                    JSONObject jsonObject = new JSONObject();
-                                                    String firstName = ParseUser.getCurrentUser().getString("firstName");
-                                                    String lastName = ParseUser.getCurrentUser().getString("lastName");
-                                                    Log.i("firstname",firstName);
-                                                    String id = ParseUser.getCurrentUser().getObjectId();
-                                                    jsonObject.put("Name",firstName + lastName);
-                                                    jsonObject.put("Participant_ID",id);
-                                                    jsonArray.put(jsonObject);
-                                                    lan.put("Participants",jsonArray);
-                                                    lan.increment("Number");
-                                                    lan.saveInBackground();
-                                                }catch (JSONException er){
+                                                JSONObject object = new JSONObject();
+                                                try{
+                                                    object.put("PlayerName","John");
+                                                    object.put("ID",514145);
+                                                    lan.add("Participants",object.toString());
+                                                }catch (JSONException error){
 
                                                 }
+
+                                                lan.increment("Number");
+                                                lan.saveInBackground();
+//                                                try {
+//                                                    JSONArray jsonArray = new JSONArray();
+//                                                    JSONObject jsonObject = new JSONObject();
+//                                                    String firstName = ParseUser.getCurrentUser().getString("firstName");
+//                                                    String lastName = ParseUser.getCurrentUser().getString("lastName");
+//                                                    Log.i("firstname",firstName);
+//                                                    String id = ParseUser.getCurrentUser().getObjectId();
+//                                                    jsonObject.put("Name",firstName + lastName);
+//                                                    jsonObject.put("Participant_ID",id);
+//                                                    jsonArray.put(jsonObject);
+//
+//                                                }catch (JSONException er){
+//                                                    Log.i("JSON ERROR",er.getMessage());
+//
+//                                                }
                                                 Toast.makeText(getApplicationContext(),"JOINED",Toast.LENGTH_SHORT).show();
                                             }else{
                                                 Log.i("Parse Error","error");
