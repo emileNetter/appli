@@ -87,94 +87,8 @@ public class MyLanDetailsActivity extends AppCompatActivity{
                             android.R.string.yes,
                             new DialogInterface.OnClickListener() {
                                 public void onClick(DialogInterface dialog, int id) {
-                                    //checks if the user has already joinded this lan
-                                    ParseQuery<ParseObject> query = ParseQuery.getQuery("Lans");
-                                    query.getInBackground(mLan.getIdLan(), new GetCallback<ParseObject>() {
-                                        @Override
-                                        public void done(ParseObject lan, ParseException e) {
-                                            if(e==null){
-                                                try{
-                                                    JSONArray jsonArray = lan.getJSONArray("Participants"); //get the JSONArray
-                                                    if(jsonArray.length()==0){
-                                                        ParseQuery<ParseObject> query = ParseQuery.getQuery("Lans");
-                                                        query.getInBackground(mLan.getIdLan(), new GetCallback<ParseObject>() {
-                                                            @Override
-                                                            public void done(ParseObject lan, ParseException e) {
-                                                                if(e==null){
-                                                                    Log.d("Done","Parse query done");
-                                                                    JSONObject object = new JSONObject();
-                                                                    String firstName = ParseUser.getCurrentUser().getString("firstName");
-                                                                    String lastName = ParseUser.getCurrentUser().getString("lastName");
-                                                                    String fullName = firstName + " " + lastName;
-                                                                    String id = ParseUser.getCurrentUser().getObjectId();
-                                                                    try{
-                                                                        object.put("Name",fullName);
-                                                                        object.put("Id",id);
-                                                                        lan.add("Participants",object.toString()); //need to convert to string before sending to the db
-                                                                    }catch (JSONException error){
-                                                                        Log.i("JSON ERROR",error.getMessage());
-                                                                    }
-                                                                    lan.increment("Number");
-                                                                    lan.saveInBackground();
-                                                                    //to refresh the activity
-                                                                    finish();
-                                                                    startActivity(getIntent());
-                                                                    Toast.makeText(getApplicationContext(),"JOINED",Toast.LENGTH_SHORT).show();
-                                                                }else{
-                                                                    Log.i("Parse Error","error");
-                                                                }
-                                                            }
-
-                                                        });
-
-                                                    }else {
-                                                        for (int i = 0; i < jsonArray.length(); i++) {
-                                                            JSONObject obj = new JSONObject(jsonArray.getString(i)); //create a new JSONObject from a
-                                                            //if the user has already joinded this lan
-                                                            if (ParseUser.getCurrentUser().getObjectId().equals(obj.getString("Id"))) {
-                                                                Toast.makeText(getApplicationContext(), "You already joined this LAN !", Toast.LENGTH_SHORT).show();
-                                                            } else {
-                                                                ParseQuery<ParseObject> query = ParseQuery.getQuery("Lans");
-                                                                query.getInBackground(mLan.getIdLan(), new GetCallback<ParseObject>() {
-                                                                    @Override
-                                                                    public void done(ParseObject lan, ParseException e) {
-                                                                        if (e == null) {
-                                                                            Log.d("Done", "Parse query done");
-                                                                            JSONObject object = new JSONObject();
-                                                                            String firstName = ParseUser.getCurrentUser().getString("firstName");
-                                                                            String lastName = ParseUser.getCurrentUser().getString("lastName");
-                                                                            String fullName = firstName + " " + lastName;
-                                                                            String id = ParseUser.getCurrentUser().getObjectId();
-                                                                            try {
-                                                                                object.put("Name", fullName);
-                                                                                object.put("Id", id);
-                                                                                lan.add("Participants", object.toString()); //need to convert to string before sending to the db
-                                                                            } catch (JSONException error) {
-                                                                                Log.i("JSON ERROR", error.getMessage());
-                                                                            }
-                                                                            lan.increment("Number");
-                                                                            lan.saveInBackground();
-                                                                            //to refresh the activity
-                                                                            finish();
-                                                                            startActivity(getIntent());
-                                                                            Toast.makeText(getApplicationContext(), "JOINED", Toast.LENGTH_SHORT).show();
-                                                                        } else {
-                                                                            Log.i("Parse Error", "error");
-                                                                        }
-                                                                    }
-
-                                                                });
-                                                            }
-                                                        }
-                                                    }
-                                                }catch (JSONException error){
-                                                    Log.i("JSON ERROR",error.getMessage());
-                                                }
-                                            }else{
-                                                Log.i("Parse Error","error");
-                                            }
-                                        }
-                                    });
+                                    //joins a LAN only if user is not already in it
+                                    joinLan();
                                 }
                             });
 
@@ -262,7 +176,8 @@ public class MyLanDetailsActivity extends AppCompatActivity{
         });
     }
 
-    private void isParticipating(){
+    private void joinLan(){
+        //checks if the user has already joinded this lan
         ParseQuery<ParseObject> query = ParseQuery.getQuery("Lans");
         query.getInBackground(mLan.getIdLan(), new GetCallback<ParseObject>() {
             @Override
@@ -270,11 +185,76 @@ public class MyLanDetailsActivity extends AppCompatActivity{
                 if(e==null){
                     try{
                         JSONArray jsonArray = lan.getJSONArray("Participants"); //get the JSONArray
-                        //loop through all the objects
-                        for(int i =0; i<jsonArray.length();i++){
-                            JSONObject obj = new JSONObject(jsonArray.getString(i)); //create a new JSONObject from a string
-                            if(ParseUser.getCurrentUser().getObjectId().equals(obj.getString("Id"))){
-                                break;
+                        if(jsonArray.length()==0){
+                            ParseQuery<ParseObject> query = ParseQuery.getQuery("Lans");
+                            query.getInBackground(mLan.getIdLan(), new GetCallback<ParseObject>() {
+                                @Override
+                                public void done(ParseObject lan, ParseException e) {
+                                    if(e==null){
+                                        Log.d("Done","Parse query done");
+                                        JSONObject object = new JSONObject();
+                                        String firstName = ParseUser.getCurrentUser().getString("firstName");
+                                        String lastName = ParseUser.getCurrentUser().getString("lastName");
+                                        String fullName = firstName + " " + lastName;
+                                        String id = ParseUser.getCurrentUser().getObjectId();
+                                        try{
+                                            object.put("Name",fullName);
+                                            object.put("Id",id);
+                                            lan.add("Participants",object.toString()); //need to convert to string before sending to the db
+                                        }catch (JSONException error){
+                                            Log.i("JSON ERROR",error.getMessage());
+                                        }
+                                        lan.increment("Number");
+                                        lan.saveInBackground();
+                                        //to refresh the activity
+                                        finish();
+                                        startActivity(getIntent());
+                                        Toast.makeText(getApplicationContext(),"JOINED",Toast.LENGTH_SHORT).show();
+                                    }else{
+                                        Log.i("Parse Error","error");
+                                    }
+                                }
+
+                            });
+
+                        }else {
+                            for (int i = 0; i < jsonArray.length(); i++) {
+                                JSONObject obj = new JSONObject(jsonArray.getString(i)); //create a new JSONObject from a
+                                //if the user has already joinded this lan
+                                if (ParseUser.getCurrentUser().getObjectId().equals(obj.getString("Id"))) {
+                                    Toast.makeText(getApplicationContext(), "You already joined this LAN !", Toast.LENGTH_SHORT).show();
+                                } else {
+                                    ParseQuery<ParseObject> query = ParseQuery.getQuery("Lans");
+                                    query.getInBackground(mLan.getIdLan(), new GetCallback<ParseObject>() {
+                                        @Override
+                                        public void done(ParseObject lan, ParseException e) {
+                                            if (e == null) {
+                                                Log.d("Done", "Parse query done");
+                                                JSONObject object = new JSONObject();
+                                                String firstName = ParseUser.getCurrentUser().getString("firstName");
+                                                String lastName = ParseUser.getCurrentUser().getString("lastName");
+                                                String fullName = firstName + " " + lastName;
+                                                String id = ParseUser.getCurrentUser().getObjectId();
+                                                try {
+                                                    object.put("Name", fullName);
+                                                    object.put("Id", id);
+                                                    lan.add("Participants", object.toString()); //need to convert to string before sending to the db
+                                                } catch (JSONException error) {
+                                                    Log.i("JSON ERROR", error.getMessage());
+                                                }
+                                                lan.increment("Number");
+                                                lan.saveInBackground();
+                                                //to refresh the activity
+                                                finish();
+                                                startActivity(getIntent());
+                                                Toast.makeText(getApplicationContext(), "JOINED", Toast.LENGTH_SHORT).show();
+                                            } else {
+                                                Log.i("Parse Error", "error");
+                                            }
+                                        }
+
+                                    });
+                                }
                             }
                         }
                     }catch (JSONException error){
@@ -283,7 +263,6 @@ public class MyLanDetailsActivity extends AppCompatActivity{
                 }else{
                     Log.i("Parse Error","error");
                 }
-
             }
         });
     }
