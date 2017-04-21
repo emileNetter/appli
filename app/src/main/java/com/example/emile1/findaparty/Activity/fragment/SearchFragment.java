@@ -127,8 +127,6 @@ public class SearchFragment extends Fragment implements CardViewAdapter.OnCardCl
     public HashMap<String, String> hashMap = new HashMap<>();
     CoordinatorLayout coordinatorLayout;
     ActionBar actionBar;
-
-
     public SearchFragment() {
         // Required empty public constructor
     }
