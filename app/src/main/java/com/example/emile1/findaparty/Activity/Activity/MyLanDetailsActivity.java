@@ -218,12 +218,19 @@ public class MyLanDetailsActivity extends AppCompatActivity{
                             });
 
                         }else {
+                            boolean hasJoined = false;
                             for (int i = 0; i < jsonArray.length(); i++) {
+                                Log.i("Loop",String.valueOf(i));
                                 JSONObject obj = new JSONObject(jsonArray.getString(i)); //create a new JSONObject from a
                                 //if the user has already joinded this lan
                                 if (ParseUser.getCurrentUser().getObjectId().equals(obj.getString("Id"))) {
                                     Toast.makeText(getApplicationContext(), "You already joined this LAN !", Toast.LENGTH_SHORT).show();
-                                } else {
+                                    hasJoined=true;
+                                    break;
+                                }
+                            }
+                            if(!hasJoined){
+                                    Log.d("Joining anyway","OUTCH");
                                     ParseQuery<ParseObject> query = ParseQuery.getQuery("Lans");
                                     query.getInBackground(mLan.getIdLan(), new GetCallback<ParseObject>() {
                                         @Override
@@ -254,7 +261,6 @@ public class MyLanDetailsActivity extends AppCompatActivity{
                                         }
 
                                     });
-                                }
                             }
                         }
                     }catch (JSONException error){
