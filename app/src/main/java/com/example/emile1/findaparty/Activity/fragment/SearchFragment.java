@@ -685,7 +685,7 @@ public class SearchFragment extends Fragment implements CardViewAdapter.OnCardCl
                                 lan.getString("Start"),
                                 lan.getString("End"),
                                 lan.getInt("MaxPeople"),
-                                lan.getInt("Remaining_Places")));
+                                lan.getInt("Number")));
                     }
                     mRecyclerView.setAdapter(mCardViewAdapter);
                 } else{

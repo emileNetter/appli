@@ -139,7 +139,7 @@ public class RecentFragment extends Fragment implements CardViewAdapter.OnCardCl
                                 lan.getString("Start"),
                                 lan.getString("End"),
                                 lan.getInt("MaxPeople"),
-                                lan.getInt("Remaining_Places")));
+                                lan.getInt("Number")));
                     }
                     mRecyclerView.setAdapter(mCardViewAdapter);
                 } else if(objects.size()==0){
