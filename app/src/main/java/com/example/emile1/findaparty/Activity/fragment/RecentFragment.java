@@ -2,6 +2,7 @@ package com.example.emile1.findaparty.Activity.fragment;
 
 
 import android.content.Intent;
+import android.content.res.Resources;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v7.widget.LinearLayoutManager;
@@ -10,13 +11,17 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.FrameLayout;
+import android.widget.ImageView;
 import android.widget.ProgressBar;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.example.emile1.findaparty.Activity.Activity.MyLanDetailsActivity;
 import com.example.emile1.findaparty.Activity.Lan;
 import com.example.emile1.findaparty.Activity.adapter.CardViewAdapter;
 import com.example.emile1.findaparty.R;
+import com.google.android.gms.vision.text.Text;
 import com.parse.FindCallback;
 import com.parse.GetCallback;
 import com.parse.ParseException;
@@ -43,6 +48,8 @@ public class RecentFragment extends Fragment implements CardViewAdapter.OnCardCl
     private RecyclerView mRecyclerView;
     private LinearLayoutManager mLinearLayoutManager;
     private CardViewAdapter mCardViewAdapter;
+    private ImageView amumuImage;
+    private TextView noLan;
 
     public RecentFragment() {
         // Required empty public constructor
@@ -64,41 +71,8 @@ public class RecentFragment extends Fragment implements CardViewAdapter.OnCardCl
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
         View v = inflater.inflate(R.layout.fragment_recent, container, false);
-//        int myNumber = 42;
-//        String myString = "the number is " + myNumber;
-//        JSONArray myArray = new JSONArray();
-//        myArray.put(myString);
-//        myArray.put(myNumber);
-//        ParseObject test = new ParseObject("test");
-//        test.put("JSONArray",myArray);
-//        test.saveInBackground();
-//        ParseQuery<ParseObject> query = ParseQuery.getQuery("test");
-        // Retrieve the object by id
-//        query.getInBackground("6FncQTslPM", new GetCallback<ParseObject>() {
-//            public void done(ParseObject test, ParseException e) {
-//                if (e == null) {
-//                    // Now let's update it with some new data. In this case, only cheatMode and score
-//                    // will get sent to the Parse Cloud. playerName hasn't changed.
-//
-//                    try{
-//                        JSONArray myArray = new JSONArray();
-//                        JSONObject jsonObject = new JSONObject();
-//                        jsonObject.put("PlayerName","Emile");
-//                        int myNumber = 42;
-//                        String myString = "the number is " + myNumber;
-//                        myArray.put(myString);
-//                        myArray.put(myNumber);
-//                        myArray.put(jsonObject);
-//                        test.put("JSONArray",myArray);
-//                        test.saveInBackground();
-//                    }catch (JSONException error){
-//
-//                    }
-//
-//                }
-//            }
-//        });
-
+        amumuImage = (ImageView)v.findViewById(R.id.amumu_background);
+        noLan = (TextView)v.findViewById(R.id.no_lan_textview);
         getLans();
         mLinearLayoutManager = new LinearLayoutManager(getContext());
         mLinearLayoutManager.setOrientation(LinearLayoutManager.VERTICAL);
@@ -152,7 +126,11 @@ public class RecentFragment extends Fragment implements CardViewAdapter.OnCardCl
         query.orderByDescending("Address");
         query.findInBackground(new FindCallback<ParseObject>() {
             public void done(List<ParseObject> objects, ParseException e) {
-                if (e == null) {
+                if (e == null && objects.size()!=0) {
+                    if(amumuImage.getVisibility()==View.VISIBLE){
+                        amumuImage.setVisibility(View.INVISIBLE);
+                    }
+                    noLan.setText("");
                    progressBar.setVisibility(View.INVISIBLE);
                     for(ParseObject lan : objects){
                         lans.add(new Lan(lan.getObjectId(),
@@ -164,7 +142,14 @@ public class RecentFragment extends Fragment implements CardViewAdapter.OnCardCl
                                 lan.getInt("Remaining_Places")));
                     }
                     mRecyclerView.setAdapter(mCardViewAdapter);
-                } else {
+                } else if(objects.size()==0){
+                    Log.i("Size =0","Yes");
+                    progressBar.setVisibility(View.INVISIBLE);
+                    amumuImage.setVisibility(View.VISIBLE);
+                    noLan.setText(getString(R.string.message_no_lan));
+
+                }
+                else {
                     progressBar.setVisibility(View.VISIBLE);
                     Log.i("error",e.getMessage());
                 }

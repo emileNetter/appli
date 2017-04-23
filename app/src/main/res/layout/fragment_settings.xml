@@ -19,9 +19,16 @@
                 android:id="@+id/profile_image"
                 android:layout_width="65dp"
                 android:layout_height="73dp"
-                android:layout_gravity="center_horizontal"
-                android:layout_marginTop="40dp"
+                android:layout_gravity="center"
                 android:background="@mipmap/ic_launcher"/>
+            <TextView
+                android:id="@+id/profile_name_settings_textview"
+                android:layout_gravity="center"
+                android:textColor="@android:color/white"
+                android:textSize="16sp"
+                android:layout_marginTop="50dp"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content" />
         </FrameLayout>
 
 

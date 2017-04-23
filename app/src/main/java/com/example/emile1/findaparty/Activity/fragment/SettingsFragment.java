@@ -3,11 +3,13 @@ package com.example.emile1.findaparty.Activity.fragment;
 
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
+import android.support.v7.widget.Toolbar;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.example.emile1.findaparty.R;
@@ -37,6 +39,9 @@ public class SettingsFragment extends Fragment {
     private EditText city;
     private EditText state;
     private Button save_button;
+    private TextView profile_name;
+
+    private Toolbar toolbar;
 
 
     // TODO: Rename and change types of parameters
@@ -76,18 +81,14 @@ public class SettingsFragment extends Fragment {
         View v = inflater.inflate(R.layout.fragment_settings, container, false);
         ParseUser user = ParseUser.getCurrentUser();
         user.fetchInBackground();
+        String firstName = ParseUser.getCurrentUser().get("firstName").toString();
+        String lastName = ParseUser.getCurrentUser().get("lastName").toString();
+        instantiateUI(v);
 
-        firstname = (EditText) v.findViewById(R.id.firstname_profile_edittext);
-        lastname = (EditText) v.findViewById(R.id.lastname_profile_edittext);
-        email = (EditText) v.findViewById(R.id.email_profile_edittext);
-        lane = (EditText) v.findViewById(R.id.address_profile_edittext);
-        zipcode = (EditText) v.findViewById(R.id.zipcode_profile_edittext);
-        city = (EditText) v.findViewById(R.id.city_profile_edittext);
-        state = (EditText)v.findViewById(R.id.state_profile_edittext);
-        save_button = (Button) v.findViewById(R.id.profile_save);
-
-        firstname.setText(ParseUser.getCurrentUser().get("firstName").toString());
-        lastname.setText(ParseUser.getCurrentUser().get("lastName").toString());
+        toolbar.setTitle(getString(R.string.toolbar_title_settings));
+        profile_name.setText(firstName + " "+ lastName);
+        firstname.setText(firstName);
+        lastname.setText(lastName);
         email.setText(ParseUser.getCurrentUser().get("email").toString());
         getData();
 
@@ -101,6 +102,18 @@ public class SettingsFragment extends Fragment {
         return  v;
     }
 
+    private void instantiateUI(View v){
+        toolbar = (Toolbar) getActivity().findViewById(R.id.toolbar);
+        firstname = (EditText) v.findViewById(R.id.firstname_profile_edittext);
+        lastname = (EditText) v.findViewById(R.id.lastname_profile_edittext);
+        email = (EditText) v.findViewById(R.id.email_profile_edittext);
+        lane = (EditText) v.findViewById(R.id.address_profile_edittext);
+        zipcode = (EditText) v.findViewById(R.id.zipcode_profile_edittext);
+        city = (EditText) v.findViewById(R.id.city_profile_edittext);
+        state = (EditText)v.findViewById(R.id.state_profile_edittext);
+        save_button = (Button) v.findViewById(R.id.profile_save);
+        profile_name = (TextView)v.findViewById(R.id.profile_name_settings_textview);
+    }
     public void saveUserInfo(){
         final String mLane = lane.getText().toString();
         final String mZipCode = zipcode.getText().toString();
