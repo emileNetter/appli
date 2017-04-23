@@ -3,7 +3,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent">
     <RelativeLayout
-        android:background="@android:color/white"
+        android:background="@color/background_settings"
         android:focusableInTouchMode="true"
         android:descendantFocusability="beforeDescendants"
         android:layout_width="match_parent"
@@ -24,42 +24,36 @@
                 android:background="@mipmap/ic_launcher"/>
         </FrameLayout>
 
-        <TextView
-            android:id="@+id/title_profile_textview"
-            android:layout_below="@id/frame"
-            android:text="@string/profile_title"
-            android:textSize="20sp"
-            android:layout_marginTop="20dp"
-            android:layout_marginStart="20dp"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content" />
 
         <TextView
             android:id="@+id/firstname_profile_textview"
-            android:layout_alignStart="@id/title_profile_textview"
-            android:layout_marginTop="15dp"
-            android:layout_marginStart="15dp"
             android:text="@string/profile_firstname"
-            android:layout_below="@id/title_profile_textview"
+            android:textColor="@color/textview_color"
+            android:layout_marginTop="25dp"
+            android:layout_marginStart="15dp"
+            android:layout_below="@id/frame"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content" />
 
         <EditText
             android:id="@+id/firstname_profile_edittext"
             android:layout_below="@id/firstname_profile_textview"
-            android:layout_marginStart="20dp"
-            android:layout_marginEnd="20dp"
             android:textSize="16sp"
             android:inputType="text"
             android:enabled="false"
+            android:background="@drawable/edittext_settings"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content" />
+            android:layout_marginTop="15dp"
+            android:paddingStart="15dp"
+            android:paddingEnd="15dp"
+            android:layout_height="50dp" />
 
         <TextView
             android:id="@+id/lastname_profile_textview"
             android:layout_below="@id/firstname_profile_edittext"
-            android:layout_alignStart="@id/title_profile_textview"
             android:text="@string/profile_lastname"
+            android:textColor="@color/textview_color"
+            android:layout_marginTop="20dp"
             android:layout_marginStart="15dp"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content" />
@@ -67,18 +61,21 @@
         <EditText
             android:id="@+id/lastname_profile_edittext"
             android:layout_below="@id/lastname_profile_textview"
-            android:layout_marginStart="20dp"
             android:textSize="16sp"
             android:inputType="text"
             android:enabled="false"
-            android:layout_marginEnd="20dp"
+            android:background="@drawable/edittext_settings"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content" />
+            android:layout_marginTop="15dp"
+            android:paddingStart="15dp"
+            android:paddingEnd="15dp"
+            android:layout_height="50dp" />
         <TextView
             android:id="@+id/email_profile_textview"
             android:layout_below="@id/lastname_profile_edittext"
-            android:layout_alignStart="@id/title_profile_textview"
             android:text="@string/profile_email"
+            android:textColor="@color/textview_color"
+            android:layout_marginTop="20dp"
             android:layout_marginStart="15dp"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content" />
@@ -88,87 +85,108 @@
             android:inputType="textEmailAddress"
             android:textSize="16sp"
             android:enabled="false"
-            android:layout_marginStart="20dp"
-            android:layout_marginEnd="20dp"
+            android:background="@drawable/edittext_settings"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content" />
+            android:layout_marginTop="15dp"
+            android:paddingStart="15dp"
+            android:paddingEnd="15dp"
+            android:layout_height="50dp" />
         <TextView
             android:id="@+id/address_profile_textview"
             android:layout_below="@id/email_profile_edittext"
-            android:layout_alignStart="@id/title_profile_textview"
             android:text="@string/profile_address"
+            android:textColor="@color/textview_color"
+            android:layout_marginTop="20dp"
             android:layout_marginStart="15dp"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content" />
         <EditText
             android:id="@+id/address_profile_edittext"
             android:layout_below="@id/address_profile_textview"
-            android:layout_marginStart="20dp"
-            android:layout_marginEnd="20dp"
+            android:background="@drawable/edittext_settings"
             android:textSize="16sp"
             android:inputType="textPostalAddress"
+            android:hint="@string/profile_address_hint"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content" />
+            android:layout_marginTop="15dp"
+            android:paddingStart="15dp"
+            android:paddingEnd="15dp"
+            android:layout_height="50dp" />
         <TextView
             android:id="@+id/zipcode_profile_textview"
             android:layout_below="@+id/address_profile_edittext"
-            android:layout_alignStart="@id/title_profile_textview"
             android:text="@string/profile_zipcode"
+            android:textColor="@color/textview_color"
+            android:layout_marginTop="20dp"
             android:layout_marginStart="15dp"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content" />
         <EditText
             android:id="@+id/zipcode_profile_edittext"
             android:layout_below="@id/zipcode_profile_textview"
-            android:layout_marginStart="20dp"
-            android:layout_marginEnd="20dp"
+            android:background="@drawable/edittext_settings"
             android:textSize="16sp"
             android:inputType="number"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content" />
+            android:hint="@string/profile_zipcode_hint"
+            android:layout_marginTop="15dp"
+            android:paddingStart="15dp"
+            android:paddingEnd="15dp"
+            android:layout_height="50dp" />
         <TextView
             android:id="@+id/city_profile_textview"
             android:layout_below="@id/zipcode_profile_edittext"
-            android:layout_alignStart="@id/title_profile_textview"
-            android:layout_marginStart="15dp"
             android:text="@string/profile_city"
+            android:textColor="@color/textview_color"
+            android:layout_marginTop="20dp"
+            android:layout_marginStart="15dp"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content" />
         <EditText
             android:id="@+id/city_profile_edittext"
             android:layout_below="@id/city_profile_textview"
             android:inputType="text"
-            android:layout_marginStart="20dp"
-            android:layout_marginEnd="20dp"
+            android:background="@drawable/edittext_settings"
             android:textSize="16sp"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content" />
+            android:hint="@string/profile_city_hint"
+            android:layout_marginTop="15dp"
+            android:paddingStart="15dp"
+            android:paddingEnd="15dp"
+            android:layout_height="50dp" />
         <TextView
             android:id="@+id/state_profile_textview"
             android:layout_below="@id/city_profile_edittext"
-            android:layout_alignStart="@id/title_profile_textview"
-            android:layout_marginStart="15dp"
             android:text="@string/profile_state"
+            android:textColor="@color/textview_color"
+            android:layout_marginTop="20dp"
+            android:layout_marginStart="15dp"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content" />
         <EditText
             android:id="@+id/state_profile_edittext"
             android:layout_below="@id/state_profile_textview"
             android:inputType="text"
-            android:layout_marginStart="20dp"
-            android:layout_marginEnd="20dp"
+            android:background="@drawable/edittext_settings"
             android:textSize="16sp"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content" />
+            android:hint="@string/profile_state_hint"
+            android:layout_marginTop="15dp"
+            android:paddingStart="15dp"
+            android:paddingEnd="15dp"
+            android:layout_height="50dp" />
         <Button
             android:id="@+id/profile_save"
             android:layout_below="@id/state_profile_edittext"
             android:text="@string/profile_save_button"
-            android:layout_marginTop="15dp"
+            android:textColor="@android:color/white"
+            android:layout_marginTop="25dp"
             android:layout_marginStart="25dp"
+            android:layout_marginBottom="15dp"
             android:layout_marginEnd="25dp"
+            android:background="@drawable/btn_join_lan"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content" />
+            android:layout_height="40dp" />
 
     </RelativeLayout>
 

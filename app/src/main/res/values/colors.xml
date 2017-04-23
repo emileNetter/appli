@@ -27,4 +27,9 @@
     <color name="color_navigation_list_background">#ffffff</color>
     <color name="color_navigation_item">#262e66</color>
     <color name="color_navigation_icon">#262e66</color>
+
+    <!--Settings style-->
+    <color name="background_settings">#fafafa</color>
+    <color name="edittext_stroke">#dadcdbdb</color>
+    <color name="textview_color">#515151</color>
 </resources>
