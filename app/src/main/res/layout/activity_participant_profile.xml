@@ -12,24 +12,85 @@
         android:layout_height="wrap_content"
         android:theme="@style/AppTheme.AppBarOverlay">
 
-        <android.support.v7.widget.Toolbar
-            android:id="@+id/toolbar_participant_profile"
+        <android.support.design.widget.CollapsingToolbarLayout
+            android:id="@+id/collapsing_toolbar"
             android:layout_width="match_parent"
-            android:layout_height="?attr/actionBarSize"
-            android:background="@color/buttonLoginColor"
-            app:popupTheme="@style/AppTheme.PopupOverlay">
+            android:layout_height="@dimen/detail_backdrop_height"
+            app:layout_scrollFlags="scroll|snap|exitUntilCollapsed"
+            android:fitsSystemWindows="true"
+            app:contentScrim="@color/buttonLoginColor"
+            app:expandedTitleGravity="center"
+            app:expandedTitleTextAppearance="@style/ExpandedProfileTitle"
+            app:expandedTitleMarginTop="150dp">
 
-        </android.support.v7.widget.Toolbar>
+            <RelativeLayout
+                android:id="@+id/backdrop"
+                android:background="@color/buttonLoginColor"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:fitsSystemWindows="true"
+                app:layout_collapseMode="pin">
+                <ImageView
+                    android:id="@+id/profile_image_participant"
+                    android:src="@mipmap/ic_launcher"
+                    android:layout_centerInParent="true"
+                    android:scaleType="centerCrop"
+                    android:fitsSystemWindows="true"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content" />
+
+            </RelativeLayout>
+
+            <android.support.v7.widget.Toolbar
+                android:id="@+id/toolbar_participant_profile"
+                android:layout_width="match_parent"
+                android:layout_height="?attr/actionBarSize"
+                app:popupTheme="@style/AppTheme.PopupOverlay"
+                app:layout_collapseMode="pin" />
+
+        </android.support.design.widget.CollapsingToolbarLayout>
 
     </android.support.design.widget.AppBarLayout>
-    <ScrollView
+
+    <android.support.v4.widget.NestedScrollView
         android:layout_width="match_parent"
-        android:layout_height="match_parent">
+        android:layout_height="match_parent"
+        app:layout_behavior="@string/appbar_scrolling_view_behavior">
+
         <RelativeLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content">
+            <TextView
+                android:id="@+id/about_textview"
+                android:layout_marginTop="16dp"
+                android:layout_marginStart="16dp"
+                android:text="ABOUT"
+                android:textColor="@android:color/black"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content" />
+            <android.support.v7.widget.CardView
+                android:layout_below="@id/about_textview"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="16dp"
+                android:layout_marginStart="16dp"
+                android:layout_marginEnd="16dp"
+                android:layout_marginTop="16dp">
+                <TextView
+                    android:background="#fff"
+                    android:paddingStart="16dp"
+                    android:paddingEnd="16dp"
+                    android:paddingTop="24dp"
+                    android:paddingBottom="24dp"
+                    android:text="@string/about_ipsum"
+                    android:textColor="@android:color/black"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content" />
+
+            </android.support.v7.widget.CardView>
 
         </RelativeLayout>
-    </ScrollView>
+
+    </android.support.v4.widget.NestedScrollView>
 </android.support.design.widget.CoordinatorLayout>
 
