@@ -664,7 +664,6 @@ public class SearchFragment extends Fragment implements CardViewAdapter.OnCardCl
 
     @Override
     public void OnCardClicked(View view, int position) {
-        Log.d("ONCLICK",position +"");
         Intent intent = new Intent(getActivity(),MyLanDetailsActivity.class);
         intent.putExtra("Lan",lans.get(position));
         startActivity(intent);

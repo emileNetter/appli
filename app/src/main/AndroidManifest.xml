@@ -24,7 +24,7 @@
         android:supportsRtl="true">
         <activity
             android:name=".Activity.Activity.Login"
-            android:theme="@style/Theme.AppCompat.Light.NoActionBar" />
+            android:theme="@style/Theme.AppCompat.Light.NoActionBar"/>
         <activity
             android:name=".Activity.Activity.Register"
             android:theme="@style/AppTheme.NoActionBar" />
@@ -55,8 +55,9 @@
         <meta-data
             android:name="com.google.android.geo.API_KEY"
             android:value="@string/google_api_key" />
+        <activity android:name=".Activity.Activity.ParticipantProfileActivity"
+            android:theme="@style/AppTheme.NoActionBar"/>
 
-        <activity android:name=".Activity.Activity.LanDetailsActivity"></activity>
     </application>
 
 </manifest>

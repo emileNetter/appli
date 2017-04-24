@@ -147,8 +147,9 @@ public class MyLanDetailsActivity extends AppCompatActivity{
 
     private void getParticipant(){
         //On récupère les participants d'une LAN
-        final List<Participant> list = new ArrayList<>();
-        list.clear();
+//        final List<Participant> list = new ArrayList<>();
+        participantList = new ArrayList<>();
+        participantList.clear();
         ParseQuery<ParseObject> query = ParseQuery.getQuery("Lans");
         query.getInBackground(mLan.getIdLan(), new GetCallback<ParseObject>() {
             @Override
@@ -159,11 +160,23 @@ public class MyLanDetailsActivity extends AppCompatActivity{
                         //loop through all the objects
                         for(int i =0; i<jsonArray.length();i++){
                             JSONObject obj = new JSONObject(jsonArray.getString(i)); //create a new JSONObject from a string
-                            list.add(new Participant(obj.getString("Name"),c));
+                            participantList.add(new Participant(obj.getString("Id"),obj.getString("Name"),c));
                         }
-                        ParticipantAdapter participantAdapter = new ParticipantAdapter(getApplicationContext(),list);
+                        ParticipantAdapter participantAdapter = new ParticipantAdapter(getApplicationContext(),participantList);
                         for (int i =0;i<participantAdapter.getCount();i++){
                             View view = participantAdapter.getView(i,null,linearLayout);
+                            view.setTag(i);
+                            view.setOnClickListener(new View.OnClickListener() {
+                                @Override
+                                public void onClick(View v) {
+                                    Log.i("pos",String.valueOf(v.getTag()));
+                                    int position = (Integer)v.getTag();
+                                    Intent intent = new Intent(getApplicationContext(),ParticipantProfileActivity.class);
+                                    intent.putExtra("ParticipantId",participantList.get(position).getId());
+                                    startActivity(intent);
+                                }
+                            });
+                            Log.i("Tag",String.valueOf(view.getTag()));
                             linearLayout.addView(view);
                         }
                     }catch (JSONException error){
