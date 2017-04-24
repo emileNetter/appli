@@ -64,11 +64,12 @@
                 android:id="@+id/about_textview"
                 android:layout_marginTop="16dp"
                 android:layout_marginStart="16dp"
-                android:text="ABOUT"
+                android:text="@string/about_profile"
                 android:textColor="@android:color/black"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content" />
             <android.support.v7.widget.CardView
+                android:id="@+id/about_cardview"
                 android:layout_below="@id/about_textview"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
@@ -88,6 +89,72 @@
                     android:layout_height="wrap_content" />
 
             </android.support.v7.widget.CardView>
+            <View
+                android:id="@+id/profile_divider1"
+                android:layout_below="@+id/about_cardview"
+                android:background="@color/password_toggle"
+                android:layout_width="match_parent"
+                android:layout_height="1dp">
+
+            </View>
+
+            <TextView
+                android:id="@+id/activity_textview"
+                android:layout_below="@id/profile_divider1"
+                android:textColor="@android:color/black"
+                android:text="@string/activity_profile"
+                android:layout_marginTop="16dp"
+                android:layout_marginStart="16dp"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content" />
+            <TextView
+                android:id="@+id/member_since_textview"
+                android:layout_below="@id/activity_textview"
+                android:text="@string/member_since"
+                android:textColor="@android:color/black"
+                android:textSize="14sp"
+                android:layout_marginTop="16dp"
+                android:layout_marginStart="16dp"
+                android:layout_alignStart="@id/activity_textview"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content" />
+            <TextView
+                android:id="@+id/member_since_value"
+                android:layout_toEndOf="@id/member_since_textview"
+                android:layout_below="@id/activity_textview"
+                android:layout_marginTop="16dp"
+                android:layout_marginStart="16dp"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content" />
+            <TextView
+                android:id="@+id/lans_created_textview"
+                android:layout_below="@id/member_since_textview"
+                android:layout_alignStart="@id/activity_textview"
+                android:text="@string/lans_created"
+                android:textColor="@android:color/black"
+                android:textSize="14sp"
+                android:layout_marginTop="16dp"
+                android:layout_marginStart="16dp"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content" />
+            <TextView
+                android:id="@+id/lan_created_value"
+                android:layout_toEndOf="@id/lans_created_textview"
+                android:layout_below="@id/member_since_textview"
+                android:layout_marginTop="16dp"
+                android:layout_marginStart="16dp"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content" />
+            <TextView
+                android:id="@+id/last_connection_textview"
+                android:layout_alignStart="@id/activity_textview"
+                android:layout_below="@id/lans_created_textview"
+                android:textColor="@android:color/black"
+                android:textSize="14sp"
+                android:layout_marginTop="16dp"
+                android:layout_marginStart="16dp"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content" />
 
         </RelativeLayout>
 
