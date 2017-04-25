@@ -656,7 +656,21 @@ public class SearchFragment extends Fragment implements CardViewAdapter.OnCardCl
                     } catch (JSONException error){
                         error.printStackTrace();
                     }
-                    tvName.setText(parseObject.getString("Owner"));
+                    String fullName = parseObject.getString("Owner");
+                    int size = fullName.length();
+                    String lastName ="";
+                    String firstName = "";
+                    if(fullName.contains(" ")){
+                        firstName = fullName.substring(0,fullName.indexOf(" "));
+                        lastName = fullName.substring(fullName.indexOf(" ")+1,size);
+                        Log.i("Lastname",lastName);
+                        String firstLetterName =lastName.substring(0,1);
+                        Log.i("firstLetter",firstLetterName);
+                        tvName.setText(firstName + " " +firstLetterName);
+                    }else {
+                        tvName.setText(parseObject.getString("Owner"));
+                    }
+
                 }
             }
         });
