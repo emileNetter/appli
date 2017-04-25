@@ -21,7 +21,9 @@ import com.example.emile1.findaparty.Activity.Participant;
 import com.example.emile1.findaparty.Activity.adapter.ParticipantAdapter;
 import com.example.emile1.findaparty.R;
 import com.parse.DeleteCallback;
+import com.parse.FunctionCallback;
 import com.parse.GetCallback;
+import com.parse.ParseCloud;
 import com.parse.ParseException;
 import com.parse.ParseObject;
 import com.parse.ParseQuery;
@@ -32,6 +34,7 @@ import org.json.JSONException;
 import org.json.JSONObject;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
 
 import de.hdodenhof.circleimageview.CircleImageView;
@@ -61,6 +64,7 @@ public class MyLanDetailsActivity extends AppCompatActivity{
         Intent intent= getIntent();
         mLan = (Lan)intent.getSerializableExtra("Lan");
         final ParseObject lan = ParseObject.createWithoutData("Lans",mLan.getIdLan());
+//        cloudCode();
         setUIText(mLan);
         getParticipant();
         setSupportActionBar(toolbar);
@@ -321,6 +325,20 @@ public class MyLanDetailsActivity extends AppCompatActivity{
                     }catch (JSONException error){
                         e.printStackTrace();
                     }
+                }
+            }
+        });
+    }
+    private void cloudCode(){
+        HashMap<String, Object> params = new HashMap<String, Object>();
+        params.put("id", mLan.getIdLan());
+        params.put("userId",ParseUser.getCurrentUser().getObjectId());
+        ParseCloud.callFunctionInBackground("isParticipating", params, new FunctionCallback<Boolean>() {
+            public void done(Boolean result, ParseException e) {
+                if (e == null) {
+                    Log.i("Results :",result.toString());
+                } else {
+                    Log.i("Error",e.getMessage());
                 }
             }
         });

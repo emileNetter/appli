@@ -23,12 +23,15 @@ import com.example.emile1.findaparty.Activity.adapter.CardViewAdapter;
 import com.example.emile1.findaparty.R;
 import com.google.android.gms.vision.text.Text;
 import com.parse.FindCallback;
+import com.parse.FunctionCallback;
 import com.parse.GetCallback;
+import com.parse.ParseCloud;
 import com.parse.ParseException;
 import com.parse.ParseObject;
 import com.parse.ParseQuery;
 import com.parse.ParseUser;
 
+import org.joda.time.LocalDate;
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -36,6 +39,7 @@ import org.json.JSONObject;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
+import java.util.HashMap;
 import java.util.List;
 
 /**
@@ -50,6 +54,7 @@ public class RecentFragment extends Fragment implements CardViewAdapter.OnCardCl
     private CardViewAdapter mCardViewAdapter;
     private ImageView amumuImage;
     private TextView noLan;
+
 
     public RecentFragment() {
         // Required empty public constructor
@@ -71,6 +76,8 @@ public class RecentFragment extends Fragment implements CardViewAdapter.OnCardCl
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
         View v = inflater.inflate(R.layout.fragment_recent, container, false);
+
+        compareDates();
         amumuImage = (ImageView)v.findViewById(R.id.amumu_background);
         noLan = (TextView)v.findViewById(R.id.no_lan_textview);
         getLans();
@@ -121,9 +128,11 @@ public class RecentFragment extends Fragment implements CardViewAdapter.OnCardCl
 
     //retrieve all the user's Lans and display it in a listview using a custom adapter
     public void getLans(){
+        LocalDate date = new LocalDate();
         ParseQuery<ParseObject> query = ParseQuery.getQuery("Lans");
         query.whereContains("IdOwner", ParseUser.getCurrentUser().getObjectId());
-        query.orderByDescending("Address");
+        query.orderByAscending("Date");
+        query.whereGreaterThanOrEqualTo("Date",date.toString("dd MMM yyyy"));
         query.findInBackground(new FindCallback<ParseObject>() {
             public void done(List<ParseObject> objects, ParseException e) {
                 if (e == null && objects.size()!=0) {
@@ -180,12 +189,22 @@ public class RecentFragment extends Fragment implements CardViewAdapter.OnCardCl
         });
     }
 
-    public void compareDates() throws java.text.ParseException{
-        String date1 = "20 03 2017";
-        String date2 = "22 03 2017";
-        SimpleDateFormat sdf = new SimpleDateFormat("dd MM yyyy");
-        Date date = sdf.parse(date1);
-        Log.i("compare",String.valueOf(date));
+    public void compareDates(){
+        try{
+            String sdate1 = "20 avr. 2017";
+            String sdate2 = "22 avr. 2017";
+            SimpleDateFormat sdf = new SimpleDateFormat("dd MMM yyyy");
+            Date date1 = sdf.parse(sdate1);
+            Date date2 =sdf.parse(sdate2);
+            if(date1.compareTo(date2)>0){
+                Log.i("compare1","Date 1 after date2");
+            }else if(date1.compareTo(date2)<0){
+                Log.i("compare2","Date 1 before date 2");
+            }
+        }catch (java.text.ParseException e){
+            Log.i("error",e.getMessage());
+        }
+
     }
 
 }

@@ -81,6 +81,7 @@ import com.parse.ParseObject;
 import com.parse.ParseQuery;
 import com.parse.ParseUser;
 
+import org.joda.time.LocalDate;
 import org.json.JSONException;
 import org.json.JSONObject;
 
@@ -116,6 +117,8 @@ public class SearchFragment extends Fragment implements CardViewAdapter.OnCardCl
     private RecyclerView mRecyclerView;
     private CardViewAdapter mCardViewAdapter;
     private LinearLayoutManager mLinearLayoutManager;
+
+    private LocalDate date = new LocalDate();
 
     private RelativeLayout mRelativeLayout;
     private BottomSheetBehavior mBottomSheetBehavior;
@@ -592,6 +595,7 @@ public class SearchFragment extends Fragment implements CardViewAdapter.OnCardCl
     //get all the lans from the db and for each lan, execute a new async task (display it on the map)
     private void getAllLans(){
         ParseQuery<ParseObject> query = ParseQuery.getQuery("Lans");
+        query.whereGreaterThanOrEqualTo("Date",date.toString("dd MMM yyyy"));
         query.findInBackground(new FindCallback<ParseObject>() {
             @Override
             public void done(List<ParseObject> objects, ParseException e) {
@@ -685,8 +689,11 @@ public class SearchFragment extends Fragment implements CardViewAdapter.OnCardCl
 
     //Get owner lans when clicking on a marker
     private void getHostLans(Marker marker){
+
         ParseQuery<ParseObject> query = ParseQuery.getQuery("Lans");
         query.whereContains("IdOwner",hashMap.get(marker.getId()));
+        query.whereGreaterThanOrEqualTo("Date",date.toString("dd MMM yyyy"));
+        query.orderByAscending("Date");
         query.findInBackground(new FindCallback<ParseObject>() {
             @Override
             public void done(List<ParseObject> objects, ParseException e) {

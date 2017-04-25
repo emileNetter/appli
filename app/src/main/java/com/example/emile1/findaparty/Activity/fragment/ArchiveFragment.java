@@ -93,9 +93,10 @@ public class ArchiveFragment extends Fragment implements CardViewAdapter.OnCardC
 
     //retrieve all the user's Lans and display it in a listview using a custom adapter
     public void getLans(){
+        LocalDate date = new LocalDate();
         ParseQuery<ParseObject> query = ParseQuery.getQuery("Lans");
         query.whereContains("IdOwner", ParseUser.getCurrentUser().getObjectId());
-        query.whereGreaterThanOrEqualTo("Date",todayDate);
+        query.whereLessThan("Date",date.toString("dd MMM yyyy"));
         query.orderByDescending("Date");
         query.findInBackground(new FindCallback<ParseObject>() {
             public void done(List<ParseObject> objects, ParseException e) {

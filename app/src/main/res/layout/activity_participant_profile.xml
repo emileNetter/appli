@@ -150,7 +150,16 @@
                 android:layout_alignStart="@id/activity_textview"
                 android:layout_below="@id/lans_created_textview"
                 android:textColor="@android:color/black"
+                android:text="@string/last_connection"
                 android:textSize="14sp"
+                android:layout_marginTop="16dp"
+                android:layout_marginStart="16dp"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content" />
+            <TextView
+                android:id="@+id/last_connection_value"
+                android:layout_toEndOf="@id/last_connection_textview"
+                android:layout_below="@id/lans_created_textview"
                 android:layout_marginTop="16dp"
                 android:layout_marginStart="16dp"
                 android:layout_width="wrap_content"
