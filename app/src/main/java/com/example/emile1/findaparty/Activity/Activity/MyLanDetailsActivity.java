@@ -65,6 +65,7 @@ public class MyLanDetailsActivity extends AppCompatActivity{
         mLan = (Lan)intent.getSerializableExtra("Lan");
         final ParseObject lan = ParseObject.createWithoutData("Lans",mLan.getIdLan());
 //        cloudCode();
+//        testCloud();
         setUIText(mLan);
         getParticipant();
         setSupportActionBar(toolbar);
@@ -332,11 +333,24 @@ public class MyLanDetailsActivity extends AppCompatActivity{
     private void cloudCode(){
         HashMap<String, Object> params = new HashMap<String, Object>();
         params.put("id", mLan.getIdLan());
-        params.put("userId",ParseUser.getCurrentUser().getObjectId());
-        ParseCloud.callFunctionInBackground("isParticipating", params, new FunctionCallback<Boolean>() {
-            public void done(Boolean result, ParseException e) {
+        Log.i("Lan",mLan.getIdLan());
+//        params.put("userId",ParseUser.getCurrentUser().getObjectId());
+        ParseCloud.callFunctionInBackground("isParticipating", params, new FunctionCallback<String>() {
+            public void done(String result, ParseException e) {
                 if (e == null) {
-                    Log.i("Results :",result.toString());
+                    Log.i("Results :",result);
+                } else {
+                    Log.i("Error",e.getMessage());
+                }
+            }
+        });
+    }
+
+    private void testCloud(){
+        ParseCloud.callFunctionInBackground("hello", new HashMap<String, Object>(), new FunctionCallback<String>() {
+            public void done(String res,ParseException e){
+                if (e == null) {
+                    Log.i("Results :",res.toString());
                 } else {
                     Log.i("Error",e.getMessage());
                 }
