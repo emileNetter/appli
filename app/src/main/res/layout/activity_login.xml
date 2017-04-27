@@ -40,6 +40,7 @@
             android:theme="@style/Theme.App.Base"
             android:id="@+id/etEmailLogin"
             android:inputType="textEmailAddress"
+            android:textColor="@android:color/white"
             android:hint="@string/email_hint"
             android:textSize="@dimen/font_size_edittext"
             android:textColorHint="@android:color/white" />
@@ -75,6 +76,7 @@
             android:layout_height="wrap_content"
             android:hint="@string/password_hint_login"
             android:textSize="@dimen/font_size_edittext"
+            android:textColor="@android:color/white"
             android:textColorHint="@android:color/white"
             android:inputType="textPassword"
             android:elevation="1dp" />

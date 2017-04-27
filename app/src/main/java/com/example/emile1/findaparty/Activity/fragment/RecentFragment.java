@@ -81,6 +81,7 @@ public class RecentFragment extends Fragment implements CardViewAdapter.OnCardCl
         amumuImage = (ImageView)v.findViewById(R.id.amumu_background);
         noLan = (TextView)v.findViewById(R.id.no_lan_textview);
         getLans();
+
         mLinearLayoutManager = new LinearLayoutManager(getContext());
         mLinearLayoutManager.setOrientation(LinearLayoutManager.VERTICAL);
 
@@ -136,11 +137,11 @@ public class RecentFragment extends Fragment implements CardViewAdapter.OnCardCl
         query.findInBackground(new FindCallback<ParseObject>() {
             public void done(List<ParseObject> objects, ParseException e) {
                 if (e == null && objects.size()!=0) {
+                    noLan.setVisibility(View.INVISIBLE);
                     if(amumuImage.getVisibility()==View.VISIBLE){
                         amumuImage.setVisibility(View.INVISIBLE);
                     }
-                    noLan.setText("");
-                   progressBar.setVisibility(View.INVISIBLE);
+                    progressBar.setVisibility(View.INVISIBLE);
                     for(ParseObject lan : objects){
                         lans.add(new Lan(lan.getObjectId(),
                                 lan.getString("IdOwner"),
@@ -155,7 +156,7 @@ public class RecentFragment extends Fragment implements CardViewAdapter.OnCardCl
                     Log.i("Size =0","Yes");
                     progressBar.setVisibility(View.INVISIBLE);
                     amumuImage.setVisibility(View.VISIBLE);
-                    noLan.setText(getString(R.string.message_no_lan));
+                    noLan.setVisibility(View.VISIBLE);
 
                 }
                 else {
@@ -164,6 +165,7 @@ public class RecentFragment extends Fragment implements CardViewAdapter.OnCardCl
                 }
             }
         });
+
     }
 
     public void refreshLans(){
