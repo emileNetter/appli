@@ -5,6 +5,7 @@ import android.os.Bundle;
 
 import com.example.emile1.findaparty.R;
 import com.parse.Parse;
+import com.parse.ParseInstallation;
 import com.parse.ParseObject;
 import com.parse.ParseUser;
 
@@ -20,6 +21,7 @@ public class InitializeApplication extends Application {
                 .enableLocalDataStore()
                 .build());
         ParseUser.enableRevocableSessionInBackground();
+        ParseInstallation.getCurrentInstallation().saveInBackground();
     }
 }
 
