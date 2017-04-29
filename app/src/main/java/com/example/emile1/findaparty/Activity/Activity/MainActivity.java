@@ -32,6 +32,7 @@ import com.example.emile1.findaparty.Activity.fragment.HomeFragment;
 import com.example.emile1.findaparty.Activity.fragment.SearchFragment;
 import com.example.emile1.findaparty.Activity.fragment.SettingsFragment;
 import com.example.emile1.findaparty.R;
+import com.parse.ParseInstallation;
 import com.parse.ParseUser;
 
 public class MainActivity extends AppCompatActivity
@@ -59,6 +60,10 @@ public class MainActivity extends AppCompatActivity
         window.addFlags(WindowManager.LayoutParams.FLAG_DRAWS_SYSTEM_BAR_BACKGROUNDS);
         window.clearFlags(WindowManager.LayoutParams.FLAG_TRANSLUCENT_STATUS);
         window.setStatusBarColor(ContextCompat.getColor(this, R.color.material_indigo_500));
+
+        ParseInstallation parseInstallation = ParseInstallation.getCurrentInstallation();
+        parseInstallation.put("userId",ParseUser.getCurrentUser().getObjectId());
+        parseInstallation.saveInBackground();
 
         toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);

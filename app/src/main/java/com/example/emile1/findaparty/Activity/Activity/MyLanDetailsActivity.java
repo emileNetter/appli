@@ -63,9 +63,8 @@ public class MyLanDetailsActivity extends AppCompatActivity{
         instantiateUI();
         Intent intent= getIntent();
         mLan = (Lan)intent.getSerializableExtra("Lan");
+        Log.i("Lan",mLan.getIdOwner());
         final ParseObject lan = ParseObject.createWithoutData("Lans",mLan.getIdLan());
-//        cloudCode();
-//        testCloud();
         setUIText(mLan);
         getParticipant();
         setSupportActionBar(toolbar);
@@ -224,6 +223,7 @@ public class MyLanDetailsActivity extends AppCompatActivity{
                                         }
                                         lan.increment("Number");
                                         lan.saveInBackground();
+                                        pushNotificationEventJoined();
                                         //to refresh the activity
                                         finish();
                                         startActivity(getIntent());
@@ -269,6 +269,7 @@ public class MyLanDetailsActivity extends AppCompatActivity{
                                                 }
                                                 lan.increment("Number");
                                                 lan.saveInBackground();
+                                                pushNotificationEventJoined();
                                                 //to refresh the activity
                                                 finish();
                                                 startActivity(getIntent());
@@ -346,11 +347,17 @@ public class MyLanDetailsActivity extends AppCompatActivity{
         });
     }
 
-    private void testCloud(){
-        ParseCloud.callFunctionInBackground("hello", new HashMap<String, Object>(), new FunctionCallback<String>() {
+    private void pushNotificationEventJoined(){
+        String lastName = ParseUser.getCurrentUser().getString("lastName");
+        String firstName = ParseUser.getCurrentUser().getString("firstName");
+        String firstLetter = lastName.substring(0,1);
+        HashMap<String, Object> params = new HashMap<String, Object>();
+        params.put("name",firstName + " " + firstLetter);
+        params.put("userId",mLan.getIdOwner());
+        ParseCloud.callFunctionInBackground("pushNotif", params, new FunctionCallback<String>() {
             public void done(String res,ParseException e){
                 if (e == null) {
-                    Log.i("Results :",res.toString());
+                    Log.i("Results :",res);
                 } else {
                     Log.i("Error",e.getMessage());
                 }
