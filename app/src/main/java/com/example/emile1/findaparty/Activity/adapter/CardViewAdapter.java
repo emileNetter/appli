@@ -33,6 +33,7 @@ public class CardViewAdapter extends RecyclerView.Adapter<CardViewAdapter.LanVie
     @Override
     public void onBindViewHolder(LanViewHolder lanViewHolder, final int position) {
         Lan lan = lans.get(position);
+        Log.i("Date",lan.getDate());
         lanViewHolder.date.setText(lan.getDate());
         lanViewHolder.startTime.setText(lan.getStartTime());
         lanViewHolder.endTime.setText(lan.getEndTime());

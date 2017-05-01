@@ -38,9 +38,11 @@ import org.json.JSONObject;
 
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Calendar;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
+import java.util.Locale;
 
 /**
  * A simple {@link Fragment} subclass.
@@ -129,11 +131,18 @@ public class RecentFragment extends Fragment implements CardViewAdapter.OnCardCl
 
     //retrieve all the user's Lans and display it in a listview using a custom adapter
     public void getLans(){
-        LocalDate date = new LocalDate();
+        Calendar cal = Calendar.getInstance();
+        cal.set(Calendar.HOUR_OF_DAY,0);
+        cal.set(Calendar.MINUTE,0);
+        cal.set(Calendar.SECOND,0);
+        cal.set(Calendar.MILLISECOND,0);
+
+        Date today = cal.getTime();
+        Log.i("Today",today.toString());
         ParseQuery<ParseObject> query = ParseQuery.getQuery("Lans");
         query.whereContains("IdOwner", ParseUser.getCurrentUser().getObjectId());
         query.orderByAscending("Date");
-        query.whereGreaterThanOrEqualTo("Date",date.toString("dd MMM yyyy"));
+        query.whereGreaterThanOrEqualTo("Date",today);
         query.findInBackground(new FindCallback<ParseObject>() {
             public void done(List<ParseObject> objects, ParseException e) {
                 if (e == null && objects.size()!=0) {
@@ -145,7 +154,7 @@ public class RecentFragment extends Fragment implements CardViewAdapter.OnCardCl
                     for(ParseObject lan : objects){
                         lans.add(new Lan(lan.getObjectId(),
                                 lan.getString("IdOwner"),
-                                lan.getString("Date"),
+                                lan.getDate("Date"),
                                 lan.getString("Start"),
                                 lan.getString("End"),
                                 lan.getInt("MaxPeople"),
@@ -177,7 +186,7 @@ public class RecentFragment extends Fragment implements CardViewAdapter.OnCardCl
                     for(ParseObject lan : objects){
                         lans.add(new Lan(lan.getObjectId(),
                                 lan.getString("IdOwner"),
-                                lan.getString("Date"),
+                                lan.getDate("Date"),
                                 lan.getString("Start"),
                                 lan.getString("End"),
                                 lan.getInt("MaxPeople"),
@@ -193,9 +202,9 @@ public class RecentFragment extends Fragment implements CardViewAdapter.OnCardCl
 
     public void compareDates(){
         try{
-            String sdate1 = "20 avr. 2017";
-            String sdate2 = "22 avr. 2017";
-            SimpleDateFormat sdf = new SimpleDateFormat("dd MMM yyyy");
+            String sdate1 = "23 avr. 2017";
+            String sdate2 = "22 janv. 2018";
+            SimpleDateFormat sdf = new SimpleDateFormat("dd MMM yyyy", Locale.getDefault());
             Date date1 = sdf.parse(sdate1);
             Date date2 =sdf.parse(sdate2);
             if(date1.compareTo(date2)>0){

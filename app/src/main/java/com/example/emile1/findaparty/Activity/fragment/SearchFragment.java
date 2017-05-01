@@ -87,6 +87,8 @@ import org.json.JSONObject;
 
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.Calendar;
+import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Locale;
@@ -130,6 +132,9 @@ public class SearchFragment extends Fragment implements CardViewAdapter.OnCardCl
     public HashMap<String, String> hashMap = new HashMap<>();
     CoordinatorLayout coordinatorLayout;
     ActionBar actionBar;
+    private Calendar cal;
+    private Date today;
+
     public SearchFragment() {
         // Required empty public constructor
     }
@@ -170,6 +175,14 @@ public class SearchFragment extends Fragment implements CardViewAdapter.OnCardCl
 
         tvAddress = (TextView)v.findViewById(R.id.address_bottom_sheet);
         tvName = (TextView)v.findViewById(R.id.name_bottom_sheet);
+
+        cal = Calendar.getInstance();
+        cal.set(Calendar.HOUR_OF_DAY,0); //set Hours to 0 because our events are created at time 00:00:00
+        cal.set(Calendar.MINUTE,0);
+        cal.set(Calendar.SECOND,0);
+        cal.set(Calendar.MILLISECOND,0);
+
+        today = cal.getTime(); //get today's date and time
 
         searchView = (SearchView)v.findViewById(R.id.search);
         setHasOptionsMenu(true);
@@ -595,7 +608,7 @@ public class SearchFragment extends Fragment implements CardViewAdapter.OnCardCl
     //get all the lans from the db and for each lan, execute a new async task (display it on the map)
     private void getAllLans(){
         ParseQuery<ParseObject> query = ParseQuery.getQuery("Lans");
-        query.whereGreaterThanOrEqualTo("Date",date.toString("dd MMM yyyy"));
+        query.whereGreaterThanOrEqualTo("Date",today);
         query.findInBackground(new FindCallback<ParseObject>() {
             @Override
             public void done(List<ParseObject> objects, ParseException e) {
@@ -692,7 +705,7 @@ public class SearchFragment extends Fragment implements CardViewAdapter.OnCardCl
 
         ParseQuery<ParseObject> query = ParseQuery.getQuery("Lans");
         query.whereContains("IdOwner",hashMap.get(marker.getId()));
-        query.whereGreaterThanOrEqualTo("Date",date.toString("dd MMM yyyy"));
+        query.whereGreaterThanOrEqualTo("Date",today);
         query.orderByAscending("Date");
         query.findInBackground(new FindCallback<ParseObject>() {
             @Override
@@ -701,7 +714,7 @@ public class SearchFragment extends Fragment implements CardViewAdapter.OnCardCl
                     for(ParseObject lan : objects){
                         lans.add(new Lan(lan.getObjectId(),
                                 lan.getString("IdOwner"),
-                                lan.getString("Date"),
+                                lan.getDate("Date"),
                                 lan.getString("Start"),
                                 lan.getString("End"),
                                 lan.getInt("MaxPeople"),

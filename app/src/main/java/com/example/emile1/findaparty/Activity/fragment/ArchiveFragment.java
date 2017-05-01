@@ -29,6 +29,8 @@ import org.joda.time.format.DateTimeFormat;
 import org.joda.time.format.DateTimeFormatter;
 
 import java.util.ArrayList;
+import java.util.Calendar;
+import java.util.Date;
 import java.util.List;
 
 /**
@@ -93,10 +95,15 @@ public class ArchiveFragment extends Fragment implements CardViewAdapter.OnCardC
 
     //retrieve all the user's Lans and display it in a listview using a custom adapter
     public void getLans(){
-        LocalDate date = new LocalDate();
+        Calendar cal = Calendar.getInstance();
+        cal.set(Calendar.HOUR_OF_DAY,0);
+        cal.set(Calendar.MINUTE,0);
+        cal.set(Calendar.SECOND,0);
+        cal.set(Calendar.MILLISECOND,0);
+        Date date = cal.getTime();
         ParseQuery<ParseObject> query = ParseQuery.getQuery("Lans");
         query.whereContains("IdOwner", ParseUser.getCurrentUser().getObjectId());
-        query.whereLessThan("Date",date.toString("dd MMM yyyy"));
+        query.whereLessThan("Date",date);
         query.orderByDescending("Date");
         query.findInBackground(new FindCallback<ParseObject>() {
             public void done(List<ParseObject> objects, ParseException e) {
@@ -105,7 +112,7 @@ public class ArchiveFragment extends Fragment implements CardViewAdapter.OnCardC
                     for(ParseObject lan : objects){
                         lans.add(new Lan(lan.getObjectId(),
                                 lan.getString("IdOwner"),
-                                lan.getString("Date"),
+                                lan.getDate("Date"),
                                 lan.getString("Start"),
                                 lan.getString("End"),
                                 lan.getInt("MaxPeople"),

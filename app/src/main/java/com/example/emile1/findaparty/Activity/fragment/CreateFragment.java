@@ -32,6 +32,7 @@ import com.parse.ParseUser;
 import com.parse.SaveCallback;
 
 import org.joda.time.DateTime;
+import org.joda.time.Instant;
 import org.joda.time.LocalDate;
 import org.joda.time.format.DateTimeFormat;
 import org.joda.time.format.DateTimeFormatter;
@@ -316,7 +317,8 @@ public class CreateFragment extends Fragment{
             String firstName = currentUser.getString("firstName");
             String lastName = currentUser.getString("lastName");
             String date = dateEditText.getText().toString();
-            String convertedDate = changeFormat(date);
+            Date convertedDate = changeFormat(date);
+            Log.i("Converted date",convertedDate.toString());
 
             String startTime = startEditText.getText().toString();
             String endTime = endEditText.getText().toString();
@@ -353,16 +355,37 @@ public class CreateFragment extends Fragment{
             });
     }
 
-    private String changeFormat(String dateString){
+    private Date changeFormat(String dateString){
+        String str ="";
+        Date newDate = null;
+        SimpleDateFormat inputFormat = new SimpleDateFormat("dd/MM/yyyy");
+        SimpleDateFormat outPutFormat = new SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss:SSS'Z'",Locale.getDefault());
+        SimpleDateFormat simpleDateFormat = new SimpleDateFormat("dd MMM yyyy");
+
         // Format for input
         DateTimeFormatter dtf = DateTimeFormat.forPattern("dd/MM/yyyy");
+
         // Parsing the date
         DateTime jodatime = dtf.parseDateTime(dateString);
+
         // Format for output
         DateTimeFormatter dtfOut = DateTimeFormat.forPattern("dd MMM yyyy");
         // Printing the date
-        String convertedDate = dtfOut.print(jodatime);
 
-        return  convertedDate;
+        Calendar cal = Calendar.getInstance(); // creates calendar
+
+        String finalDate = dtfOut.print(jodatime);
+        try{
+            Date mDate = inputFormat.parse(dateString);
+            str = outPutFormat.format(mDate);
+            newDate = outPutFormat.parse(str);
+            cal.setTime(newDate);
+            cal.add(Calendar.HOUR_OF_DAY,2);
+            newDate = cal.getTime();
+        }catch (java.text.ParseException e){
+            e.printStackTrace();
+        }
+
+        return  newDate;
     }
 }

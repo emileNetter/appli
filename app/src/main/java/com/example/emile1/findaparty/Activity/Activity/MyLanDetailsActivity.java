@@ -331,22 +331,8 @@ public class MyLanDetailsActivity extends AppCompatActivity{
             }
         });
     }
-    private void cloudCode(){
-        HashMap<String, Object> params = new HashMap<String, Object>();
-        params.put("id", mLan.getIdLan());
-        Log.i("Lan",mLan.getIdLan());
-//        params.put("userId",ParseUser.getCurrentUser().getObjectId());
-        ParseCloud.callFunctionInBackground("isParticipating", params, new FunctionCallback<String>() {
-            public void done(String result, ParseException e) {
-                if (e == null) {
-                    Log.i("Results :",result);
-                } else {
-                    Log.i("Error",e.getMessage());
-                }
-            }
-        });
-    }
 
+    //calls cloud function that sends a notification to the user
     private void pushNotificationEventJoined(){
         String lastName = ParseUser.getCurrentUser().getString("lastName");
         String firstName = ParseUser.getCurrentUser().getString("firstName");
